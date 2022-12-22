@@ -10,11 +10,11 @@ import UIKit
 class AllGroupsController: UITableViewController {
     
     let groups = [
-    Group(name: "The Good Morty"),
-    Group(name: "Beta-Seven"),
-    Group(name: "Anatomy Park Exclusive"),
-    Group(name: "Show Me What You Got"),
-    Group(name: "Heist-Con"),
+        Group(image: UIImage(named: "good_morty"), name: "The Good Morty"),
+        Group(image: UIImage(named: "beta_seven"), name: "Beta-Seven"),
+        Group(image: UIImage(named: "anatomy_park"), name: "Anatomy Park Exclusive"),
+        Group(image: UIImage(named: "show_me_what_you_got"), name: "Show Me What You Got"),
+        Group(image: UIImage(named: "heist_con"), name: "Heist-Con"),
     ]
 
     override func viewDidLoad() {
@@ -44,14 +44,15 @@ class AllGroupsController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "AllGroupCell", for: indexPath) as? GroupCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "AllGroupCell", for: indexPath) as? AllGroupsCell else {
             preconditionFailure("AllGroupCell cannot")
         }
-        cell.labelGroupCell.text = groups[indexPath.row].name
-        cell.imageGroupCell.image = groups[indexPath.row].image
+        cell.labelAllGroupsCell.text = groups[indexPath.row].name
+        cell.imageAllGroupsCell.image = groups[indexPath.row].image
 
         return cell
     }
+    
 
     /*
     // Override to support conditional editing of the table view.

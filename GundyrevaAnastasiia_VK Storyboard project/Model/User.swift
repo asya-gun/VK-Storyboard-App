@@ -7,12 +7,16 @@
 
 import UIKit
 
-class Friend {
+class User {
+    let id: Int
     let image: UIImage?
     let name: String
+    let userPhoto: [String]
     
-    init(image: UIImage? = nil, name: String) {
+    init(id: Int, image: UIImage? = nil, name: String, userPhoto: [String]) {
+        self.id = id
         self.image = image
         self.name = name
+        self.userPhoto = userPhoto
     }
 }

@@ -13,6 +13,5 @@ class FriendCell: UITableViewCell {
     
     @IBOutlet weak var labelFriendCell: UILabel!
     
-    
 
 }

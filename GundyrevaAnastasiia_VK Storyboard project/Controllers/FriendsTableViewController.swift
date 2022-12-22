@@ -9,24 +9,26 @@ import UIKit
 
 class FriendsTableViewController: UITableViewController {
 
-    let friends = [
-        Friend(image: UIImage(named: "krombopulos_michael"), name: "Krombopulos Michael"),
-        Friend(image: UIImage(named: "revolio_clockberg_jr"), name: "Revolio Clockberg Jr."),
-        Friend(image: UIImage(named: "mr_frundles"), name: "Mr. Frundles"),
-        Friend(image: UIImage(named: "mr_meseeks"), name: "Mr. Meeseeks"),
-        Friend(image: UIImage(named: "flippy_nips"), name: "King Flippy Nips"),
-        Friend(image: UIImage(named: "lucius_needful"), name: "Lucius Needful"),
-        Friend(image: UIImage(named: "shleemypants"), name: "Shleemypants"),
-        Friend(image: UIImage(named: "ants_in_my_eyes_johnson"), name: "Ants in my Eyes Johnson"),
-        Friend(image: UIImage(named: "dr_xenon_bloom"), name: "Dr. Xenon Bloom"),
-        Friend(image: UIImage(named: "unity"), name: "Unity"),
-        Friend(image: UIImage(named: "water_t"), name: "Water T"),
-        Friend(image: UIImage(named: "eyehole_man"), name: "Eyehole Man"),
-        Friend(image: UIImage(named: "talking_cat"), name: "Talking Cat"),
-        Friend(image: UIImage(named: "elon_tusk"), name: "Elon Tusk"),
-        Friend(image: UIImage(named: "squanchy"), name: "Squanchy"),
+    let friends: [User] = [
+        User(id: 01, image: UIImage(named: "krombopulos_michael"), name: "Krombopulos Michael", userPhoto: ["krombopulos_michael"]),
+        User(id: 02, image: UIImage(named: "revolio_clockberg_jr"), name: "Revolio Clockberg Jr.", userPhoto: ["revolio_clockberg_jr"]),
+        User(id: 03, image: UIImage(named: "mr_frundles"), name: "Mr. Frundles", userPhoto: ["mr_frundles"]),
+        User(id: 04, image: UIImage(named: "mr_meseeks"), name: "Mr. Meeseeks", userPhoto: ["mr_meseeks"]),
+        User(id: 05, image: UIImage(named: "flippy_nips"), name: "King Flippy Nips", userPhoto: ["flippy_nips"]),
+        User(id: 06, image: UIImage(named: "lucius_needful"), name: "Lucius Needful", userPhoto: ["lucius_needful"]),
+        User(id: 07, image: UIImage(named: "shleemypants"), name: "Shleemypants", userPhoto: ["shleemypants"]),
+        User(id: 08, image: UIImage(named: "ants_in_my_eyes_johnson"), name: "Ants in my Eyes Johnson", userPhoto: ["ants_in_my_eyes_johnson"]),
+        User(id: 09, image: UIImage(named: "dr_xenon_bloom"), name: "Dr. Xenon Bloom", userPhoto: ["dr_xenon_bloom"]),
+        User(id: 10, image: UIImage(named: "unity"), name: "Unity", userPhoto: ["unity"]),
+        User(id: 11, image: UIImage(named: "water_t"), name: "Water T", userPhoto: ["water_t"]),
+        User(id: 12, image: UIImage(named: "eyehole_man"), name: "Eyehole Man", userPhoto: ["eyehole_man"]),
+        User(id: 13, image: UIImage(named: "talking_cat"), name: "Talking Cat", userPhoto: ["talking_cat"]),
+        User(id: 14, image: UIImage(named: "elon_tusk"), name: "Elon Tusk", userPhoto: ["elon_tusk"]),
+        User(id: 15, image: UIImage(named: "squanchy"), name: "Squanchy", userPhoto: ["squanchy"]),
         
     ]
+    
+    var selectedFriend: User?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,28 +56,41 @@ class FriendsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "FriendCell", for: indexPath) as? FriendCell else {
-            preconditionFailure("FriendCell cannot")
+            return UITableViewCell()
         }
         
-        cell.labelFriendCell.text = friends[indexPath.row].name
-        cell.imageFriendCell.image = friends[indexPath.row].image
-
-        print(indexPath.section)
-        print(indexPath.row)
-
+        selectedFriend = friends[indexPath.row]
+        cell.labelFriendCell.text = selectedFriend?.name
+        cell.imageFriendCell.image = selectedFriend?.image
+ 
+        
         return cell
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "FriendsSegue",
-           let destinationVC = segue.destination as? PhotosViewController,
-           let indexPath = tableView.indexPathForSelectedRow
-        {
-            let friendsNames = friends[indexPath.row].name
-            destinationVC.title = friendsNames
-        }
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+        tableView.deselectRow(at: indexPath, animated: true)
+        selectedFriend = friends[indexPath.row]
+        performSegue(withIdentifier: "FriendsSegue", sender: self)
+        
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        if segue.identifier == "FriendsSegue",
+           let destinationVC = segue.destination as? PhotosViewController {
+            destinationVC.title = selectedFriend?.name
+            destinationVC.friend = selectedFriend
+         
+        }
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        
+    }
     
 
 
@@ -114,14 +129,6 @@ class FriendsTableViewController: UITableViewController {
     }
     */
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+ 
 
 }

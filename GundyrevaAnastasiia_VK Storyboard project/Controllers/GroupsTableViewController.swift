@@ -9,12 +9,12 @@ import UIKit
 
 class GroupsTableViewController: UITableViewController {
     
-    let groups = [
-    Group(name: "Citadel Morning News"),
-    Group(name: "Ball-Fondlers Fans"),
-    Group(name: "Vindicators Trivia"),
-    Group(name: "Human Music"),
-    Group(name: "Meseeks Overhear"),
+    var groups = [
+        Group(image: UIImage(named: "citadel_morning_news"),name: "Citadel Morning News"),
+        Group(image: UIImage(named: "ball_fondlers"),name: "Ball-Fondlers Fans"),
+        Group(image: UIImage(named: "vindicators"),name: "Vindicators Trivia"),
+        Group(image: UIImage(named: "human_music"),name: "Human Music"),
+        Group(image: UIImage(named: "meseeks_overhear"),name: "Meseeks Overhear"),
     ]
 
     override func viewDidLoad() {
@@ -52,6 +52,27 @@ class GroupsTableViewController: UITableViewController {
         return cell
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "AllGroupsSegue",
+           let destinationVC = segue.destination as? AllGroupsController
+        {
+            destinationVC.title = "All Groups"
+        }
+    }
+    
+    @IBAction func addSelectedGroup(segue: UIStoryboardSegue) {
+        if let sourceVC = segue.source as? AllGroupsController,
+           let indexPath = sourceVC.tableView.indexPathForSelectedRow {
+            let group = sourceVC.groups[indexPath.row]
+            
+            if !groups.contains(where: {$0.name == group.name}) {
+                groups.append(group)
+                
+                tableView.reloadData()
+            }
+        }
+    }
+    
 
     /*
     // Override to support conditional editing of the table view.
@@ -61,17 +82,19 @@ class GroupsTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            // Delete the row from the data source
+            
+            groups.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
+            
+        }/* else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        }    */
     }
-    */
+    
 
     /*
     // Override to support rearranging the table view.
