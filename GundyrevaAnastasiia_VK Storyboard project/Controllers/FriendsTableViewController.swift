@@ -29,15 +29,34 @@ class FriendsTableViewController: UITableViewController {
     ]
     
     var selectedFriend: User?
+    var sortedFriends = [Character: [User]]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+//        tableView.register(UINib(nibName: "FriendXIBCell", bundle: nil), forCellReuseIdentifier: "FriendXIBCell")
+        
+        tableView.register(UINib(nibName: "FriendsHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "FriendsHeader")
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        self.sortedFriends = sort(friends: friends)
+    }
+    
+    private func sort(friends: [User]) -> [Character: [User]] {
+        var friendsDict = [Character: [User]]()
+        
+        friends.forEach() {friend in
+            
+            guard let firstChar = friend.name.first else {return}
+            
+            if var thisCharFriends = friendsDict[firstChar] {
+                thisCharFriends.append(friend)
+                friendsDict[firstChar] = thisCharFriends
+            } else {
+                friendsDict[firstChar] = [friend]
+            }
+            
+        }
+        return friendsDict
     }
     
 
@@ -45,32 +64,81 @@ class FriendsTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return sortedFriends.keys.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return friends.count
+        
+        let keySorted = sortedFriends.keys.sorted()
+        let friends = sortedFriends[keySorted[section]]?.count ?? 0
+        return friends
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "FriendCell", for: indexPath) as? FriendCell else {
+//            guard let cell = tableView.dequeueReusableCell(withIdentifier: "FriendXIBCell", for: indexPath) as? FriendXIBCell else {
             return UITableViewCell()
         }
         
-        selectedFriend = friends[indexPath.row]
+        let firstChar = sortedFriends.keys.sorted()[indexPath.section]
+        let friends = sortedFriends[firstChar]!
+        
+        let friend: User = friends[indexPath.row]
+        
+        selectedFriend = friend
         cell.labelFriendCell.text = selectedFriend?.name
         cell.imageFriendCell.image = selectedFriend?.image
+        
+//        cell.friendNameLabel.text = selectedFriend?.name
+//        cell.friendImageView.image = selectedFriend?.image
  
         
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+
+        guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "FriendsHeader") as? FriendsHeader else {
+            preconditionFailure()
+        }
+//        let view = GradientView()
+//
+//        view.startColor = .systemMint
+//        view.endColor = .systemGray6
+//        view.startPoint = .zero
+//        view.endPoint = .init(x: 1, y: 0)
+//
+//        view.layer.opacity = 0.3
+//
+//        header.backgroundView?.addSubview(view)
+        header.friendsHeaderLabel.text = String(sortedFriends.keys.sorted()[section])
+
+        return header
+    }
+    
+//    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "FriendsHeader") as? FriendsHeader else {
+//            preconditionFailure()
+//        }
+//        header.friendsHeaderLabel.text = String(sortedFriends.keys.sorted()[section])
+//        return header.friendsHeaderLabel.text
+//
+//    }
+    
+    
+    
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
         tableView.deselectRow(at: indexPath, animated: true)
-        selectedFriend = friends[indexPath.row]
+        let firstChar = sortedFriends.keys.sorted()[indexPath.section]
+        let friends = sortedFriends[firstChar]!
+        
+        let friend: User = friends[indexPath.row]
+        
+        selectedFriend = friend
         performSegue(withIdentifier: "FriendsSegue", sender: self)
         
     }
