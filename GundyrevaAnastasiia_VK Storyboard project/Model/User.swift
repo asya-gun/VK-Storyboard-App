@@ -11,9 +11,9 @@ class User {
     let id: Int
     let image: UIImage?
     let name: String
-    let userPhoto: [String]
+    let userPhoto: [String]?
     
-    init(id: Int, image: UIImage? = nil, name: String, userPhoto: [String]) {
+    init(id: Int, image: UIImage? = nil, name: String, userPhoto: [String]? = nil) {
         self.id = id
         self.image = image
         self.name = name

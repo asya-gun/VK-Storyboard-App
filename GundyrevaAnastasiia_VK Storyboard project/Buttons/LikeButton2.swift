@@ -59,14 +59,40 @@ class LikeButton2: UIControl {
         updateLikeNumber()
 
     }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        animateLikeButton()
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
+        UIView.animate(withDuration: 0.4, delay: 0, options: [.allowUserInteraction, .curveEaseIn], animations: {
+            self.heartImage.transform = CGAffineTransform(scaleX: 1, y: 1)
+            self.heartImage.tintColor = .red
+                    })
+    }
+    
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesCancelled(touches, with: event)
+        UIView.animate(withDuration: 0.4, delay: 0, options: [.allowUserInteraction, .curveEaseIn], animations: {
+            self.heartImage.transform = CGAffineTransform(scaleX: 1, y: 1)
+            self.heartImage.tintColor = .black
+        })
+    }
 
     private func updateLikeNumber() {
         if isSelected {
-            likeLabel.text = "\(likeNumber + 1)"
-            likeLabel.textColor = .red
+            
+            UIView.transition(with: likeLabel, duration: 0.3, options: .transitionFlipFromRight, animations: {
+                self.likeLabel.text = "\(self.likeNumber + 1)"
+                self.likeLabel.textColor = .red
+            })
         } else {
-            likeLabel.text = "\(likeNumber)"
-            likeLabel.textColor = .black
+            UIView.transition(with: likeLabel, duration: 0.3, options: .transitionFlipFromLeft, animations: {
+                self.likeLabel.text = "\(self.likeNumber)"
+                self.likeLabel.textColor = .black
+            })
         }
     }
 
@@ -82,6 +108,14 @@ class LikeButton2: UIControl {
             heartImage.tintColor = .black
         }
         updateLikeNumber()
+    }
+    
+    private func animateLikeButton() {
+        UIView.animate(withDuration: 0.4, delay: 0, options: [.allowUserInteraction, .curveEaseIn, .autoreverse, .repeat], animations: {
+            self.heartImage.transform = CGAffineTransform(scaleX: 1.7, y: 1.7)
+            self.heartImage.tintColor = .blue
+
+        })
     }
     
 //    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

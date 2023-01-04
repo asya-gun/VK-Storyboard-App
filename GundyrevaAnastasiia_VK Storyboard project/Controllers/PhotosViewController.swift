@@ -12,6 +12,7 @@ private let reuseIdentifier = "Cell"
 class PhotosViewController: UICollectionViewController {
     
     var friend: User?
+    var selectedIndex: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +34,7 @@ class PhotosViewController: UICollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return friend?.userPhoto.count ?? 0
+        return friend?.userPhoto?.count ?? 0
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -41,10 +42,21 @@ class PhotosViewController: UICollectionViewController {
             preconditionFailure("Error")
         }
         
-        let photo = friend?.userPhoto[indexPath.row]
+        let photo = friend?.userPhoto?[indexPath.row]
         cell.imagePhotoCell.image = UIImage(named: photo!)
         
         return cell
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showPhotos",
+           let destinationVC = segue.destination as? PhotosUpcloseViewController {
+            destinationVC.friend = friend
+            destinationVC.photos = friend?.userPhoto ?? ["water1"]
+            destinationVC.selectedIndex = selectedIndex
+//            let photo = friend?.userPhoto?[destinationVC.selectedIndex]
+//            destinationVC.photo.image = UIImage(named: photo!)
+        }
     }
 
     // MARK: UICollectionViewDelegate
@@ -56,12 +68,16 @@ class PhotosViewController: UICollectionViewController {
     }
     */
 
-    /*
-    // Uncomment this method to specify if the specified item should be selected
+    
+     //Uncomment this method to specify if the specified item should be selected
     override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         return true
     }
-    */
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        selectedIndex = indexPath.item
+        performSegue(withIdentifier: "showPhotos", sender: self)
+    }
 
     /*
     // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item

@@ -9,10 +9,11 @@ import UIKit
 
 //@IBDesignable
 class AvatarView: UIImageView {
-
-
+    
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         layer.cornerRadius = bounds.width/2
     }
+    
 }

@@ -10,8 +10,8 @@ import UIKit
 class FriendsTableViewController: UITableViewController {
 
     let friends: [User] = [
-        User(id: 01, image: UIImage(named: "krombopulos_michael"), name: "Krombopulos Michael", userPhoto: ["krombopulos_michael"]),
-        User(id: 02, image: UIImage(named: "revolio_clockberg_jr"), name: "Revolio Clockberg Jr.", userPhoto: ["revolio_clockberg_jr"]),
+        User(id: 01, image: UIImage(named: "krombopulos_michael"), name: "Krombopulos Michael", userPhoto: ["krombopulos_michael", "krom1", "krom2", "krom3", "krom4", "krom5"]),
+        User(id: 02, image: UIImage(named: "revolio_clockberg_jr"), name: "Revolio Clockberg Jr.", userPhoto: ["revolio_clockberg_jr", "rev1", "rev2"]),
         User(id: 03, image: UIImage(named: "mr_frundles"), name: "Mr. Frundles", userPhoto: ["mr_frundles"]),
         User(id: 04, image: UIImage(named: "mr_meseeks"), name: "Mr. Meeseeks", userPhoto: ["mr_meseeks"]),
         User(id: 05, image: UIImage(named: "flippy_nips"), name: "King Flippy Nips", userPhoto: ["flippy_nips"]),
@@ -20,7 +20,7 @@ class FriendsTableViewController: UITableViewController {
         User(id: 08, image: UIImage(named: "ants_in_my_eyes_johnson"), name: "Ants in my Eyes Johnson", userPhoto: ["ants_in_my_eyes_johnson"]),
         User(id: 09, image: UIImage(named: "dr_xenon_bloom"), name: "Dr. Xenon Bloom", userPhoto: ["dr_xenon_bloom"]),
         User(id: 10, image: UIImage(named: "unity"), name: "Unity", userPhoto: ["unity"]),
-        User(id: 11, image: UIImage(named: "water_t"), name: "Water T", userPhoto: ["water_t"]),
+        User(id: 11, image: UIImage(named: "water_t"), name: "Water T", userPhoto: ["water_t", "water1", "water2", "water3"]),
         User(id: 12, image: UIImage(named: "eyehole_man"), name: "Eyehole Man", userPhoto: ["eyehole_man"]),
         User(id: 13, image: UIImage(named: "talking_cat"), name: "Talking Cat", userPhoto: ["talking_cat"]),
         User(id: 14, image: UIImage(named: "elon_tusk"), name: "Elon Tusk", userPhoto: ["elon_tusk"]),
@@ -63,12 +63,11 @@ class FriendsTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
+        
         return sortedFriends.keys.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         
         let keySorted = sortedFriends.keys.sorted()
         let friends = sortedFriends[keySorted[section]]?.count ?? 0
@@ -103,16 +102,6 @@ class FriendsTableViewController: UITableViewController {
         guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "FriendsHeader") as? FriendsHeader else {
             preconditionFailure()
         }
-//        let view = GradientView()
-//
-//        view.startColor = .systemMint
-//        view.endColor = .systemGray6
-//        view.startPoint = .zero
-//        view.endPoint = .init(x: 1, y: 0)
-//
-//        view.layer.opacity = 0.3
-//
-//        header.backgroundView?.addSubview(view)
         header.friendsHeaderLabel.text = String(sortedFriends.keys.sorted()[section])
 
         return header

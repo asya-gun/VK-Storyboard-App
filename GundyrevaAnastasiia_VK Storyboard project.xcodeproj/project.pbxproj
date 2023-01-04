@@ -11,6 +11,7 @@
 		D72FEB6A2954B50400250C27 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72FEB692954B50400250C27 /* GradientView.swift */; };
 		D72FEB6C2954EA1100250C27 /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72FEB6B2954EA1100250C27 /* AvatarView.swift */; };
 		D72FEB6E2954FA1F00250C27 /* AvatarCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72FEB6D2954FA1F00250C27 /* AvatarCircleView.swift */; };
+		D734D81229659CA400F916DE /* PhotosUpcloseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D734D81129659CA400F916DE /* PhotosUpcloseViewController.swift */; };
 		D7370D1E293675F600818366 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7370D1D293675F600818366 /* AppDelegate.swift */; };
 		D7370D20293675F600818366 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7370D1F293675F600818366 /* SceneDelegate.swift */; };
 		D7370D22293675F600818366 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7370D21293675F600818366 /* LoginViewController.swift */; };
@@ -25,6 +26,9 @@
 		D7467D7C295DA97A0061330C /* FriendXIBCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7467D7A295DA97A0061330C /* FriendXIBCell.xib */; };
 		D7467D7E295DEE220061330C /* FriendsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7467D7D295DEE220061330C /* FriendsHeader.swift */; };
 		D7467D82295E08940061330C /* FriendsHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7467D81295E08940061330C /* FriendsHeader.xib */; };
+		D7467D86295E19B10061330C /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7467D85295E19B10061330C /* News.swift */; };
+		D7467D88295E35840061330C /* ShareButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7467D87295E35840061330C /* ShareButton.swift */; };
+		D7467D8A295E3B8D0061330C /* CommentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7467D89295E3B8D0061330C /* CommentButton.swift */; };
 		D75220132940C31500013287 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75220122940C31500013287 /* User.swift */; };
 		D75220172941187E00013287 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75220162941187E00013287 /* PhotosViewController.swift */; };
 		D752201929411CB400013287 /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D752201829411CB400013287 /* PhotoCell.swift */; };
@@ -42,6 +46,7 @@
 		D72FEB692954B50400250C27 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		D72FEB6B2954EA1100250C27 /* AvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarView.swift; sourceTree = "<group>"; };
 		D72FEB6D2954FA1F00250C27 /* AvatarCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarCircleView.swift; sourceTree = "<group>"; };
+		D734D81129659CA400F916DE /* PhotosUpcloseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosUpcloseViewController.swift; sourceTree = "<group>"; };
 		D7370D1A293675F600818366 /* GundyrevaAnastasiia_VK Storyboard project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GundyrevaAnastasiia_VK Storyboard project.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7370D1D293675F600818366 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D7370D1F293675F600818366 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -58,6 +63,9 @@
 		D7467D7A295DA97A0061330C /* FriendXIBCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriendXIBCell.xib; sourceTree = "<group>"; };
 		D7467D7D295DEE220061330C /* FriendsHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsHeader.swift; sourceTree = "<group>"; };
 		D7467D81295E08940061330C /* FriendsHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriendsHeader.xib; sourceTree = "<group>"; };
+		D7467D85295E19B10061330C /* News.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
+		D7467D87295E35840061330C /* ShareButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareButton.swift; sourceTree = "<group>"; };
+		D7467D89295E3B8D0061330C /* CommentButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentButton.swift; sourceTree = "<group>"; };
 		D75220122940C31500013287 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		D75220162941187E00013287 /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
 		D752201829411CB400013287 /* PhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
@@ -84,6 +92,8 @@
 		D728DAAF295594470013A183 /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
+				D7467D89295E3B8D0061330C /* CommentButton.swift */,
+				D7467D87295E35840061330C /* ShareButton.swift */,
 				D728DAAD2955942A0013A183 /* LikeButton.swift */,
 				D73FE2AF295B609400598CF2 /* LikeButton2.swift */,
 			);
@@ -157,6 +167,7 @@
 				D7370D21293675F600818366 /* LoginViewController.swift */,
 				D7DD2B1D293FC89700BC664E /* FriendsTableViewController.swift */,
 				D75220162941187E00013287 /* PhotosViewController.swift */,
+				D734D81129659CA400F916DE /* PhotosUpcloseViewController.swift */,
 				D752201A2941208C00013287 /* GroupsTableViewController.swift */,
 				D75220202941344000013287 /* AllGroupsController.swift */,
 				D73FE2B1295B992700598CF2 /* NewsViewController.swift */,
@@ -169,6 +180,7 @@
 			children = (
 				D75220122940C31500013287 /* User.swift */,
 				D752201C294120DE00013287 /* Group.swift */,
+				D7467D85295E19B10061330C /* News.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -249,10 +261,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D734D81229659CA400F916DE /* PhotosUpcloseViewController.swift in Sources */,
 				D75220172941187E00013287 /* PhotosViewController.swift in Sources */,
 				D7DD2B20293FCBA000BC664E /* FriendCell.swift in Sources */,
 				D72FEB6A2954B50400250C27 /* GradientView.swift in Sources */,
 				D73FE2B2295B992700598CF2 /* NewsViewController.swift in Sources */,
+				D7467D88295E35840061330C /* ShareButton.swift in Sources */,
 				D7370D22293675F600818366 /* LoginViewController.swift in Sources */,
 				D752201D294120DE00013287 /* Group.swift in Sources */,
 				D72FEB6C2954EA1100250C27 /* AvatarView.swift in Sources */,
@@ -267,7 +281,9 @@
 				D7467D7B295DA97A0061330C /* FriendXIBCell.swift in Sources */,
 				D752201929411CB400013287 /* PhotoCell.swift in Sources */,
 				D752201B2941208C00013287 /* GroupsTableViewController.swift in Sources */,
+				D7467D86295E19B10061330C /* News.swift in Sources */,
 				D7DD2B1A293F495500BC664E /* UIViewController + extension.swift in Sources */,
+				D7467D8A295E3B8D0061330C /* CommentButton.swift in Sources */,
 				D73FE2B4295B9B0900598CF2 /* NewsViewCell.swift in Sources */,
 				D7370D20293675F600818366 /* SceneDelegate.swift in Sources */,
 				D7467D7E295DEE220061330C /* FriendsHeader.swift in Sources */,

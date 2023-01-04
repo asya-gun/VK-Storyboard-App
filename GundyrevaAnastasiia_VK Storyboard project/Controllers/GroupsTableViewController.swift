@@ -16,6 +16,8 @@ class GroupsTableViewController: UITableViewController {
         Group(image: UIImage(named: "human_music"),name: "Human Music"),
         Group(image: UIImage(named: "meseeks_overhear"),name: "Meseeks Overhear"),
     ]
+    
+    var selectedGroup: Group?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,13 +62,19 @@ class GroupsTableViewController: UITableViewController {
         }
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        selectedGroup = groups[indexPath.row]
+    }
+    
     @IBAction func addSelectedGroup(segue: UIStoryboardSegue) {
         if let sourceVC = segue.source as? AllGroupsController,
-           let indexPath = sourceVC.tableView.indexPathForSelectedRow {
-            let group = sourceVC.groups[indexPath.row]
+           segue.identifier == "addGroup",
+           let indexPath = sourceVC.tableView.indexPathForSelectedRow,
+           let selectedGroup = sourceVC.selectedGroup {
             
-            if !groups.contains(where: {$0.name == group.name}) {
-                groups.append(group)
+            if !groups.contains(where: {$0.name == selectedGroup.name}) {
+                groups.append(selectedGroup)
                 
                 tableView.reloadData()
             }
@@ -94,6 +102,7 @@ class GroupsTableViewController: UITableViewController {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    */
     }
+    
     
 
     /*

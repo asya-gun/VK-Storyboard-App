@@ -9,6 +9,8 @@ import UIKit
 
 class AllGroupsController: UITableViewController {
     
+    private var groupSearchBar = UISearchBar()
+    
     let groups = [
         Group(image: UIImage(named: "good_morty"), name: "The Good Morty"),
         Group(image: UIImage(named: "beta_seven"), name: "Beta-Seven"),
@@ -16,15 +18,16 @@ class AllGroupsController: UITableViewController {
         Group(image: UIImage(named: "show_me_what_you_got"), name: "Show Me What You Got"),
         Group(image: UIImage(named: "heist_con"), name: "Heist-Con"),
     ]
+    
+    var filteredGroups = [Group]()
+    var selectedGroup: Group?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        groupSearchBar.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50)
+        self.groupSearchBar.delegate = self
+        tableView.tableHeaderView = groupSearchBar
+        filterGroups()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -34,69 +37,51 @@ class AllGroupsController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return groups.count
+        return filteredGroups.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "AllGroupCell", for: indexPath) as? AllGroupsCell else {
             preconditionFailure("AllGroupCell cannot")
         }
-        cell.labelAllGroupsCell.text = groups[indexPath.row].name
-        cell.imageAllGroupsCell.image = groups[indexPath.row].image
+        let group = filteredGroups[indexPath.row]
+        cell.labelAllGroupsCell.text = group.name
+        cell.imageAllGroupsCell.image = group.image
 
         return cell
     }
     
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    private func filterGroups() {
+        let searchText = (groupSearchBar.text ?? "").lowercased()
+        if searchText == "" || searchText == " " || searchText.isEmpty {
+            filteredGroups = groups
+        } else {
+        
+            for group in groups {
+                filteredGroups = groups.filter { (group) -> Bool in
+                    group.name.lowercased().contains(searchText)
+                }
+            }
+        }
+        tableView.reloadData()
+        
     }
-    */
 
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        selectedGroup = filteredGroups[indexPath.row]
+        performSegue(withIdentifier: "addGroup", sender: self)
     }
-    */
+}
 
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
+extension AllGroupsController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        self.filteredGroups.removeAll()
+        filterGroups()
+       
     }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
