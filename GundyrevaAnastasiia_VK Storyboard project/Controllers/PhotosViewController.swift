@@ -50,7 +50,7 @@ class PhotosViewController: UICollectionViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showPhotos",
-           let destinationVC = segue.destination as? PhotosUpcloseViewController {
+            let destinationVC = segue.destination as? PhotosUpcloseViewController {
             destinationVC.friend = friend
             destinationVC.photos = friend?.userPhoto ?? ["water1"]
             destinationVC.selectedIndex = selectedIndex
@@ -94,4 +94,13 @@ class PhotosViewController: UICollectionViewController {
     }
     */
 
+}
+extension PhotosViewController: UIViewControllerTransitioningDelegate {
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return TransitionAnimator()
+    }
+    
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return TransitionAnimator()
+    }
 }

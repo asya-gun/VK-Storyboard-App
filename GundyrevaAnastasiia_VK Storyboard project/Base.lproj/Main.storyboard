@@ -12,7 +12,7 @@
         <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="LoginViewController" customModule="GundyrevaAnastasiia_VK_Storyboard_project" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginViewController" id="BYZ-38-t0r" customClass="LoginViewController" customModule="GundyrevaAnastasiia_VK_Storyboard_project" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC" customClass="GradientView" customModule="GundyrevaAnastasiia_VK_Storyboard_project" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -177,10 +177,10 @@
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="color" keyPath="startColor">
-                                <color key="value" systemColor="systemGray5Color"/>
+                                <color key="value" systemColor="systemYellowColor"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="color" keyPath="endColor">
-                                <color key="value" systemColor="systemIndigoColor"/>
+                                <color key="value" systemColor="systemTealColor"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="number" keyPath="startLocation">
                                 <real key="value" value="0.0"/>
@@ -209,17 +209,71 @@
                         <outlet property="titleText" destination="ftw-Ws-i4g" id="LYC-3J-JCF"/>
                         <outlet property="usernameLabel" destination="jkb-dg-Qel" id="wit-hW-DRB"/>
                         <outlet property="usernameTextField" destination="4Ac-f2-JKN" id="yFE-IG-GsP"/>
-                        <segue destination="ODe-M7-BpD" kind="show" identifier="Login" id="OmI-3G-OKR"/>
+                        <segue destination="IVJ-fz-E6C" kind="show" identifier="Loading" id="JNp-tv-R0G"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1040.4580152671756" y="4.9295774647887329"/>
+            <point key="canvasLocation" x="-25" y="5"/>
+        </scene>
+        <!--Loading View Controller-->
+        <scene sceneID="ZRc-g4-s8R">
+            <objects>
+                <viewController modalPresentationStyle="fullScreen" id="IVJ-fz-E6C" customClass="LoadingViewController" customModule="GundyrevaAnastasiia_VK_Storyboard_project" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="E4a-GE-ZCv" customClass="GradientView" customModule="GundyrevaAnastasiia_VK_Storyboard_project" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7K3-jC-eFY">
+                                <rect key="frame" x="111.66666666666669" y="353.66666666666669" width="170" height="170.00000000000006"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="7K3-jC-eFY" secondAttribute="height" multiplier="1:1" id="Oko-g0-hva"/>
+                                    <constraint firstAttribute="height" constant="170" id="p0s-X1-TUA"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="SGg-Tu-mGE"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="7K3-jC-eFY" firstAttribute="centerX" secondItem="SGg-Tu-mGE" secondAttribute="centerX" id="I2g-bl-Ti6"/>
+                            <constraint firstItem="7K3-jC-eFY" firstAttribute="centerY" secondItem="SGg-Tu-mGE" secondAttribute="centerY" id="nCQ-ig-GU7"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="startColor">
+                                <color key="value" systemColor="systemMintColor"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="endColor">
+                                <color key="value" systemColor="systemPurpleColor"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="startLocation">
+                                <real key="value" value="0.0"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="endLocation">
+                                <real key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="point" keyPath="startPoint">
+                                <point key="value" x="0.0" y="1"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="point" keyPath="endPoint">
+                                <point key="value" x="1" y="0.0"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                    <navigationItem key="navigationItem" id="afY-Vw-xou"/>
+                    <connections>
+                        <outlet property="figureView" destination="7K3-jC-eFY" id="kpq-bH-6te"/>
+                        <segue destination="ODe-M7-BpD" kind="show" identifier="Login" id="dlu-bY-NlB"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7Rm-KE-GHI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="926" y="5"/>
         </scene>
         <!--Groups-->
         <scene sceneID="aJU-Xl-e8c">
             <objects>
-                <tableViewController modalPresentationStyle="fullScreen" id="Wbl-Zl-kE4" customClass="GroupsTableViewController" customModule="GundyrevaAnastasiia_VK_Storyboard_project" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="GroupsTableViewController" modalPresentationStyle="fullScreen" id="Wbl-Zl-kE4" customClass="GroupsTableViewController" customModule="GundyrevaAnastasiia_VK_Storyboard_project" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="Tx4-CF-bPx">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -274,11 +328,15 @@
                     <navigationItem key="navigationItem" id="XtO-u2-ve1">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="kNe-6n-AEL">
                             <connections>
+                                <action selector="tapAddButton:" destination="Wbl-Zl-kE4" id="WuI-ia-wzu"/>
                                 <segue destination="mZr-KS-jOh" kind="show" identifier="AllGroupsSegue" id="iRZ-rN-tpP"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="AddButton" destination="kNe-6n-AEL" id="KPv-5B-e4a"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jf9-Vd-f3m" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -287,7 +345,7 @@
         <!--Item-->
         <scene sceneID="CNW-C7-5e0">
             <objects>
-                <navigationController storyboardIdentifier="GroupsNavigation" modalPresentationStyle="fullScreen" id="uzF-Yj-lDd" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="GroupsNavigation" modalPresentationStyle="fullScreen" id="uzF-Yj-lDd" customClass="CustomNavigationController" customModule="GundyrevaAnastasiia_VK_Storyboard_project" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="N1z-oN-Vzr"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="98l-jn-cbL">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="56"/>
@@ -466,7 +524,7 @@
         <!--All Groups Controller-->
         <scene sceneID="o21-KW-OEB">
             <objects>
-                <tableViewController modalPresentationStyle="fullScreen" id="mZr-KS-jOh" customClass="AllGroupsController" customModule="GundyrevaAnastasiia_VK_Storyboard_project" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="AllGroupsController" modalPresentationStyle="fullScreen" id="mZr-KS-jOh" customClass="AllGroupsController" customModule="GundyrevaAnastasiia_VK_Storyboard_project" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="fDB-an-qcU">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -530,7 +588,7 @@
         <!--Item-->
         <scene sceneID="r6c-lx-O6I">
             <objects>
-                <navigationController storyboardIdentifier="FriendsNavigation" modalPresentationStyle="fullScreen" id="xkd-VU-uqK" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="FriendsNavigation" modalPresentationStyle="fullScreen" id="xkd-VU-uqK" customClass="CustomNavigationController" customModule="GundyrevaAnastasiia_VK_Storyboard_project" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="a0c-ig-ga4"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="sXE-Ak-4BA">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="56"/>
@@ -552,24 +610,24 @@
         <!--Friends-->
         <scene sceneID="m5K-pK-E2r">
             <objects>
-                <tableViewController title="Friends" modalPresentationStyle="fullScreen" id="NqV-Sa-snF" customClass="FriendsTableViewController" customModule="GundyrevaAnastasiia_VK_Storyboard_project" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="FriendsTableViewController" title="Friends" modalPresentationStyle="fullScreen" id="NqV-Sa-snF" customClass="FriendsTableViewController" customModule="GundyrevaAnastasiia_VK_Storyboard_project" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="WHM-3Y-7nT">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="783"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemGray6Color"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FriendCell" rowHeight="120" id="P2T-pG-aWn" customClass="FriendCell" customModule="GundyrevaAnastasiia_VK_Storyboard_project" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="50" width="393" height="120"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FriendCell" id="P2T-pG-aWn" customClass="FriendCell" customModule="GundyrevaAnastasiia_VK_Storyboard_project" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="50" width="393" height="120.33333587646484"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="P2T-pG-aWn" id="Go8-C8-vEH">
-                                    <rect key="frame" x="0.0" y="0.0" width="393" height="120"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="120.33333587646484"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OZG-gC-sb4" customClass="AvatarCircleView" customModule="GundyrevaAnastasiia_VK_Storyboard_project" customModuleProvider="target">
-                                            <rect key="frame" x="10" y="10" width="100" height="100"/>
+                                            <rect key="frame" x="10" y="10" width="100.33333333333333" height="100.33333333333333"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="ZzT-uO-vj0" customClass="AvatarView" customModule="GundyrevaAnastasiia_VK_Storyboard_project" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="2" width="100" height="96.666666666666671"/>
+                                                    <rect key="frame" x="0.0" y="2" width="100.33333333333333" height="97"/>
                                                     <color key="tintColor" systemColor="systemMintColor"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="ZzT-uO-vj0" secondAttribute="height" multiplier="1:1" id="pgO-QV-abi"/>
@@ -609,7 +667,7 @@
                                             </userDefinedRuntimeAttributes>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CUz-Wk-Qf3">
-                                            <rect key="frame" x="142" y="40" width="219" height="40"/>
+                                            <rect key="frame" x="142.33333333333337" y="40.333333333333336" width="218.66666666666663" height="40.000000000000007"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="YhX-FT-TvX"/>
                                             </constraints>
@@ -643,7 +701,7 @@
                     <tabBarItem key="tabBarItem" title="Friends" image="person.crop.circle.fill.badge.checkmark" catalog="system" id="XrI-ZR-mBG"/>
                     <navigationItem key="navigationItem" id="zcy-st-WWc"/>
                     <connections>
-                        <segue destination="T8B-By-Fee" kind="show" identifier="FriendsSegue" id="ifB-5m-kSm"/>
+                        <segue destination="T8B-By-Fee" kind="show" identifier="FriendsSegue" id="YYT-D8-ooP"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gHg-2M-90r" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -653,7 +711,7 @@
         <!--Photos View Controller-->
         <scene sceneID="BEm-2p-4cx">
             <objects>
-                <collectionViewController modalPresentationStyle="fullScreen" id="T8B-By-Fee" customClass="PhotosViewController" customModule="GundyrevaAnastasiia_VK_Storyboard_project" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController storyboardIdentifier="PhotosViewController" modalPresentationStyle="fullScreen" id="T8B-By-Fee" customClass="PhotosViewController" customModule="GundyrevaAnastasiia_VK_Storyboard_project" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="att-24-nQc">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="783"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -767,7 +825,7 @@
         <!--Friends Communities Tab Bar Controller-->
         <scene sceneID="oda-Al-w86">
             <objects>
-                <tabBarController modalPresentationStyle="fullScreen" id="ODe-M7-BpD" customClass="FriendsCommunitiesTabBarController" customModule="GundyrevaAnastasiia_VK_Storyboard_project" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="FriendsCommunitiesTabBarController" modalPresentationStyle="fullScreen" id="ODe-M7-BpD" customClass="FriendsCommunitiesTabBarController" customModule="GundyrevaAnastasiia_VK_Storyboard_project" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="uUb-hJ-D6J"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Gs8-2c-Lwe">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="49"/>
@@ -824,6 +882,15 @@
         </systemColor>
         <systemColor name="systemOrangeColor">
             <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemPurpleColor">
+            <color red="0.68627450980392157" green="0.32156862745098042" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemTealColor">
+            <color red="0.18823529411764706" green="0.69019607843137254" blue="0.7803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemYellowColor">
+            <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

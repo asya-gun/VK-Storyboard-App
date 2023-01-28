@@ -9,24 +9,60 @@ import UIKit
 
 class GroupsTableViewController: UITableViewController {
     
+    private var searchBar = UISearchBar()
+    
+    @IBOutlet weak var AddButton: UIBarButtonItem!
     var groups = [
-        Group(image: UIImage(named: "citadel_morning_news"),name: "Citadel Morning News"),
-        Group(image: UIImage(named: "ball_fondlers"),name: "Ball-Fondlers Fans"),
-        Group(image: UIImage(named: "vindicators"),name: "Vindicators Trivia"),
-        Group(image: UIImage(named: "human_music"),name: "Human Music"),
-        Group(image: UIImage(named: "meseeks_overhear"),name: "Meseeks Overhear"),
+        Group(image: UIImage(named: "human_music"),name: "Human Music")
     ]
     
     var selectedGroup: Group?
+    var sortedGroups = [Character: [Group]]()
+    var filteredGroups = [Group]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        searchBar.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50)
+        self.searchBar.delegate = self
+        tableView.tableHeaderView = searchBar
+        filterGroups()
+        
+        tableView.register(UINib(nibName: "GroupsHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "GroupsHeader")
+        self.sortedGroups = sort(groups: groups)
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+    
+    private func sort(groups: [Group]) -> [Character: [Group]] {
+        var groupDict = [Character: [Group]]()
+        
+        groups.forEach() {group in
+            guard let firstChar = group.name.first else {return}
+            
+            if var thisCharGroups = groupDict[firstChar] {
+                thisCharGroups.append(group)
+                groupDict[firstChar] = thisCharGroups
+            } else {
+                groupDict[firstChar] = [group]
+            }
+        }
+        return groupDict
+    }
+    
+    private func filterGroups() {
+        let searchText = (searchBar.text ?? "").lowercased()
+        if searchText == "" || searchText == " " || searchText.isEmpty {
+            filteredGroups = groups
+        } else {
+        
+            for group in groups {
+                filteredGroups = groups.filter { (group) -> Bool in
+                    group.name.lowercased().contains(searchText)
+                }
+            }
+        }
+        
+        
     }
     
 
@@ -34,12 +70,13 @@ class GroupsTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return sortedGroups.keys.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return groups.count
+        let keysSorted = sortedGroups.keys.sorted()
+        let groups = sortedGroups[keysSorted[section]]?.count ?? 0
+        return groups
     }
 
    
@@ -48,11 +85,34 @@ class GroupsTableViewController: UITableViewController {
             preconditionFailure("GroupCell cannot")
         }
         
-        cell.labelGroupCell.text = groups[indexPath.row].name
-        cell.imageGroupCell.image = groups[indexPath.row].image
+        let firstChar = sortedGroups.keys.sorted()[indexPath.section]
+        let groups = sortedGroups[firstChar]!
+        
+        let group: Group = groups[indexPath.row]
+        
+        selectedGroup = group
+        
+        cell.labelGroupCell.text = selectedGroup?.name
+        cell.imageGroupCell.image = selectedGroup?.image
 
         return cell
     }
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "GroupsHeader") as? GroupsHeader else {
+            preconditionFailure()
+        }
+        header.groupNameLabel.text = String(sortedGroups.keys.sorted()[section])
+
+        return header
+    }
+    
+    @IBAction func tapAddButton(_ sender: Any?) {
+        let allGroupsVC = storyboard?.instantiateViewController(withIdentifier: "AllGroupsController") as! AllGroupsController
+        navigationController?.pushViewController(allGroupsVC, animated: true)
+        allGroupsVC.title = "All Groups"
+    }
+    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "AllGroupsSegue",
@@ -64,17 +124,29 @@ class GroupsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        selectedGroup = groups[indexPath.row]
+        let firstChar = sortedGroups.keys.sorted()[indexPath.section]
+        let groups = sortedGroups[firstChar]!
+        
+        let group: Group = groups[indexPath.row]
+        
+        selectedGroup = group
     }
+    
+//    @IBAction func tapAddButton(_ sender: UIBarButtonItem) {
+//        let allGroupsControllerVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AllGroupsController") as! AllGroupsController
+//        
+//        allGroupsControllerVC.transitioningDelegate = allGroupsControllerVC as! any UIViewControllerTransitioningDelegate 
+//        self.present(allGroupsControllerVC, animated: true)
+//    }
     
     @IBAction func addSelectedGroup(segue: UIStoryboardSegue) {
         if let sourceVC = segue.source as? AllGroupsController,
            segue.identifier == "addGroup",
-           let indexPath = sourceVC.tableView.indexPathForSelectedRow,
            let selectedGroup = sourceVC.selectedGroup {
-            
+            print("heyy")
             if !groups.contains(where: {$0.name == selectedGroup.name}) {
                 groups.append(selectedGroup)
+                sortedGroups = sort(groups: groups)
                 
                 tableView.reloadData()
             }
@@ -82,52 +154,46 @@ class GroupsTableViewController: UITableViewController {
     }
     
 
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    
-    // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             
-            groups.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
+
+            let initialSectionsCount = sortedGroups.keys.count
+            let firstChar = sortedGroups.keys.sorted()[indexPath.section]
+            let groupsSorted = sortedGroups[firstChar]!
+            let group: Group = groups[indexPath.row]
             
-        }/* else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    */
+            groups.removeAll { $0.name == group.name }
+            let searchText = (searchBar.text ?? "").lowercased()
+            if searchText == "" || searchText == " " || searchText.isEmpty {
+                filteredGroups = groups
+            } else {
+            
+                for group in groups {
+                    filteredGroups = groups.filter { (group) -> Bool in
+                        group.name.lowercased().contains(searchText)
+                    }
+                }
+            }
+            
+            sortedGroups = sort(groups: filteredGroups)
+            
+            if initialSectionsCount - sortedGroups.keys.count == 0 {
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            } else {
+                tableView.deleteSections(IndexSet([indexPath.section]), with: .fade)
+            }
+        }
     }
     
-    
 
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
+}
+extension GroupsTableViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        self.filteredGroups.removeAll()
+        filterGroups()
+        
+        sortedGroups = sort(groups: filteredGroups)
+        tableView.reloadData()
     }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

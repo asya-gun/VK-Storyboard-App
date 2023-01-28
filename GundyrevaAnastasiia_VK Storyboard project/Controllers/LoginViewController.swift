@@ -75,8 +75,9 @@ class LoginViewController: UIViewController {
             
         }
         loadDots()
+        
         let timer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false, block: { timer in
-            self.performSegue(withIdentifier: "Login", sender: nil)
+            self.performSegue(withIdentifier: "Loading", sender: nil)
         })
         
     }
@@ -91,6 +92,7 @@ class LoginViewController: UIViewController {
         dotThree.layer.cornerRadius = dotOne.layer.bounds.width/2
         dotThree.layer.backgroundColor = UIColor.clear.cgColor
     }
+
     
     private func loadDots() {
         UIView.animateKeyframes(withDuration: 0.5,

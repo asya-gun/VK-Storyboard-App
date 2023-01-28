@@ -35,6 +35,7 @@ class FriendsTableViewController: UITableViewController {
         super.viewDidLoad()
         
 //        tableView.register(UINib(nibName: "FriendXIBCell", bundle: nil), forCellReuseIdentifier: "FriendXIBCell")
+//        navigationController?.delegate = self
         
         tableView.register(UINib(nibName: "FriendsHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "FriendsHeader")
 
@@ -89,9 +90,6 @@ class FriendsTableViewController: UITableViewController {
         selectedFriend = friend
         cell.labelFriendCell.text = selectedFriend?.name
         cell.imageFriendCell.image = selectedFriend?.image
-        
-//        cell.friendNameLabel.text = selectedFriend?.name
-//        cell.friendImageView.image = selectedFriend?.image
  
         
         return cell
@@ -107,14 +105,6 @@ class FriendsTableViewController: UITableViewController {
         return header
     }
     
-//    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "FriendsHeader") as? FriendsHeader else {
-//            preconditionFailure()
-//        }
-//        header.friendsHeaderLabel.text = String(sortedFriends.keys.sorted()[section])
-//        return header.friendsHeaderLabel.text
-//
-//    }
     
     
     
@@ -128,64 +118,39 @@ class FriendsTableViewController: UITableViewController {
         let friend: User = friends[indexPath.row]
         
         selectedFriend = friend
-        performSegue(withIdentifier: "FriendsSegue", sender: self)
+//        performSegue(withIdentifier: "FriendsSegue", sender: self)
+//        let photosViewControllerVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PhotosViewController") as! PhotosViewController
+        let photosViewControllerVC = storyboard?.instantiateViewController(withIdentifier: "PhotosViewController") as! PhotosViewController
+//        
+//        photosViewControllerVC.modalTransitionStyle = .partialCurl
+//        photosViewControllerVC.modalPresentationStyle = .fullScreen
+//        photosViewControllerVC.transitioningDelegate = photosViewControllerVC
+//        
+//        self.present(photosViewControllerVC, animated: true)
+        navigationController?.pushViewController(photosViewControllerVC, animated: true)
+        photosViewControllerVC.title = selectedFriend?.name
+        photosViewControllerVC.friend = selectedFriend
         
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        super.prepare(for: segue, sender: sender)
-        if segue.identifier == "FriendsSegue",
-           let destinationVC = segue.destination as? PhotosViewController {
-            destinationVC.title = selectedFriend?.name
-            destinationVC.friend = selectedFriend
-         
-        }
-        
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        super.prepare(for: segue, sender: sender)
+//        if segue.identifier == "FriendsSegue",
+//           let destinationVC = segue.destination as? PhotosViewController {
+//
+//
+//            destinationVC.title = selectedFriend?.name
+//            destinationVC.friend = selectedFriend
+//
+//        }
+//
+//    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         
     }
-    
-
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
- 
 
 }
+

@@ -11,6 +11,11 @@
 		D72FEB6A2954B50400250C27 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72FEB692954B50400250C27 /* GradientView.swift */; };
 		D72FEB6C2954EA1100250C27 /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72FEB6B2954EA1100250C27 /* AvatarView.swift */; };
 		D72FEB6E2954FA1F00250C27 /* AvatarCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72FEB6D2954FA1F00250C27 /* AvatarCircleView.swift */; };
+		D73167B3297066450082CE5F /* PurpleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73167B2297066450082CE5F /* PurpleViewController.swift */; };
+		D73167B529709A570082CE5F /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73167B429709A570082CE5F /* LoadingViewController.swift */; };
+		D73167BD2970ADF30082CE5F /* GroupsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73167BB2970ADF30082CE5F /* GroupsHeader.swift */; };
+		D73167BE2970ADF30082CE5F /* GroupsHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = D73167BC2970ADF30082CE5F /* GroupsHeader.xib */; };
+		D733DFD0296B652A00333434 /* TransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D733DFCF296B652A00333434 /* TransitionAnimator.swift */; };
 		D734D81229659CA400F916DE /* PhotosUpcloseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D734D81129659CA400F916DE /* PhotosUpcloseViewController.swift */; };
 		D7370D1E293675F600818366 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7370D1D293675F600818366 /* AppDelegate.swift */; };
 		D7370D20293675F600818366 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7370D1F293675F600818366 /* SceneDelegate.swift */; };
@@ -18,7 +23,12 @@
 		D7370D25293675F600818366 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D7370D23293675F600818366 /* Main.storyboard */; };
 		D7370D27293675F700818366 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D7370D26293675F700818366 /* Assets.xcassets */; };
 		D7370D2A293675F700818366 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D7370D28293675F700818366 /* LaunchScreen.storyboard */; };
+		D738796A296F1A4100A3C6DE /* SwipeDownAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7387969296F1A4100A3C6DE /* SwipeDownAnimator.swift */; };
+		D738796C296F1C4C00A3C6DE /* CustomSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D738796B296F1C4C00A3C6DE /* CustomSegue.swift */; };
+		D738796E296F562E00A3C6DE /* SquareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D738796D296F562E00A3C6DE /* SquareViewController.swift */; };
 		D7389541294388D20011E4EF /* AllGroupsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7389540294388D20011E4EF /* AllGroupsCell.swift */; };
+		D73BC402296C254700BD0F05 /* CustomPushAnimators.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73BC401296C254700BD0F05 /* CustomPushAnimators.swift */; };
+		D73BC404296C3F3F00BD0F05 /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73BC403296C3F3F00BD0F05 /* CustomNavigationController.swift */; };
 		D73FE2B0295B609400598CF2 /* LikeButton2.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73FE2AF295B609400598CF2 /* LikeButton2.swift */; };
 		D73FE2B2295B992700598CF2 /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73FE2B1295B992700598CF2 /* NewsViewController.swift */; };
 		D73FE2B4295B9B0900598CF2 /* NewsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73FE2B3295B9B0900598CF2 /* NewsViewCell.swift */; };
@@ -46,6 +56,11 @@
 		D72FEB692954B50400250C27 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		D72FEB6B2954EA1100250C27 /* AvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarView.swift; sourceTree = "<group>"; };
 		D72FEB6D2954FA1F00250C27 /* AvatarCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarCircleView.swift; sourceTree = "<group>"; };
+		D73167B2297066450082CE5F /* PurpleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurpleViewController.swift; sourceTree = "<group>"; };
+		D73167B429709A570082CE5F /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
+		D73167BB2970ADF30082CE5F /* GroupsHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsHeader.swift; sourceTree = "<group>"; };
+		D73167BC2970ADF30082CE5F /* GroupsHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GroupsHeader.xib; sourceTree = "<group>"; };
+		D733DFCF296B652A00333434 /* TransitionAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionAnimator.swift; sourceTree = "<group>"; };
 		D734D81129659CA400F916DE /* PhotosUpcloseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosUpcloseViewController.swift; sourceTree = "<group>"; };
 		D7370D1A293675F600818366 /* GundyrevaAnastasiia_VK Storyboard project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GundyrevaAnastasiia_VK Storyboard project.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7370D1D293675F600818366 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -55,7 +70,12 @@
 		D7370D26293675F700818366 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D7370D29293675F700818366 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D7370D2B293675F700818366 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D7387969296F1A4100A3C6DE /* SwipeDownAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeDownAnimator.swift; sourceTree = "<group>"; };
+		D738796B296F1C4C00A3C6DE /* CustomSegue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegue.swift; sourceTree = "<group>"; };
+		D738796D296F562E00A3C6DE /* SquareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareViewController.swift; sourceTree = "<group>"; };
 		D7389540294388D20011E4EF /* AllGroupsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllGroupsCell.swift; sourceTree = "<group>"; };
+		D73BC401296C254700BD0F05 /* CustomPushAnimators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPushAnimators.swift; sourceTree = "<group>"; };
+		D73BC403296C3F3F00BD0F05 /* CustomNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationController.swift; sourceTree = "<group>"; };
 		D73FE2AF295B609400598CF2 /* LikeButton2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeButton2.swift; sourceTree = "<group>"; };
 		D73FE2B1295B992700598CF2 /* NewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
 		D73FE2B3295B9B0900598CF2 /* NewsViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewCell.swift; sourceTree = "<group>"; };
@@ -130,6 +150,8 @@
 				D7370D26293675F700818366 /* Assets.xcassets */,
 				D7370D28293675F700818366 /* LaunchScreen.storyboard */,
 				D7370D2B293675F700818366 /* Info.plist */,
+				D738796D296F562E00A3C6DE /* SquareViewController.swift */,
+				D73167B2297066450082CE5F /* PurpleViewController.swift */,
 			);
 			path = "GundyrevaAnastasiia_VK Storyboard project";
 			sourceTree = "<group>";
@@ -138,6 +160,8 @@
 			isa = PBXGroup;
 			children = (
 				D7467D7D295DEE220061330C /* FriendsHeader.swift */,
+				D73167BB2970ADF30082CE5F /* GroupsHeader.swift */,
+				D73167BC2970ADF30082CE5F /* GroupsHeader.xib */,
 				D7467D81295E08940061330C /* FriendsHeader.xib */,
 				D7389540294388D20011E4EF /* AllGroupsCell.swift */,
 				D7DD2B1F293FCBA000BC664E /* FriendCell.swift */,
@@ -156,7 +180,12 @@
 		D738954329439A770011E4EF /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				D73BC401296C254700BD0F05 /* CustomPushAnimators.swift */,
 				D7DD2B19293F495500BC664E /* UIViewController + extension.swift */,
+				D733DFCF296B652A00333434 /* TransitionAnimator.swift */,
+				D73BC403296C3F3F00BD0F05 /* CustomNavigationController.swift */,
+				D7387969296F1A4100A3C6DE /* SwipeDownAnimator.swift */,
+				D738796B296F1C4C00A3C6DE /* CustomSegue.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -164,6 +193,7 @@
 		D7522014294116A500013287 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				D73167B429709A570082CE5F /* LoadingViewController.swift */,
 				D7370D21293675F600818366 /* LoginViewController.swift */,
 				D7DD2B1D293FC89700BC664E /* FriendsTableViewController.swift */,
 				D75220162941187E00013287 /* PhotosViewController.swift */,
@@ -249,6 +279,7 @@
 				D7467D82295E08940061330C /* FriendsHeader.xib in Resources */,
 				D7370D2A293675F700818366 /* LaunchScreen.storyboard in Resources */,
 				D7467D7C295DA97A0061330C /* FriendXIBCell.xib in Resources */,
+				D73167BE2970ADF30082CE5F /* GroupsHeader.xib in Resources */,
 				D7370D27293675F700818366 /* Assets.xcassets in Resources */,
 				D7370D25293675F600818366 /* Main.storyboard in Resources */,
 			);
@@ -261,17 +292,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D738796C296F1C4C00A3C6DE /* CustomSegue.swift in Sources */,
 				D734D81229659CA400F916DE /* PhotosUpcloseViewController.swift in Sources */,
+				D733DFD0296B652A00333434 /* TransitionAnimator.swift in Sources */,
 				D75220172941187E00013287 /* PhotosViewController.swift in Sources */,
 				D7DD2B20293FCBA000BC664E /* FriendCell.swift in Sources */,
+				D73BC402296C254700BD0F05 /* CustomPushAnimators.swift in Sources */,
 				D72FEB6A2954B50400250C27 /* GradientView.swift in Sources */,
+				D73167B529709A570082CE5F /* LoadingViewController.swift in Sources */,
+				D73BC404296C3F3F00BD0F05 /* CustomNavigationController.swift in Sources */,
 				D73FE2B2295B992700598CF2 /* NewsViewController.swift in Sources */,
 				D7467D88295E35840061330C /* ShareButton.swift in Sources */,
 				D7370D22293675F600818366 /* LoginViewController.swift in Sources */,
 				D752201D294120DE00013287 /* Group.swift in Sources */,
+				D73167B3297066450082CE5F /* PurpleViewController.swift in Sources */,
 				D72FEB6C2954EA1100250C27 /* AvatarView.swift in Sources */,
 				D72FEB6E2954FA1F00250C27 /* AvatarCircleView.swift in Sources */,
 				D73FE2B0295B609400598CF2 /* LikeButton2.swift in Sources */,
+				D738796E296F562E00A3C6DE /* SquareViewController.swift in Sources */,
 				D7DD2B1E293FC89700BC664E /* FriendsTableViewController.swift in Sources */,
 				D7370D1E293675F600818366 /* AppDelegate.swift in Sources */,
 				D75220212941344000013287 /* AllGroupsController.swift in Sources */,
@@ -283,8 +321,10 @@
 				D752201B2941208C00013287 /* GroupsTableViewController.swift in Sources */,
 				D7467D86295E19B10061330C /* News.swift in Sources */,
 				D7DD2B1A293F495500BC664E /* UIViewController + extension.swift in Sources */,
+				D73167BD2970ADF30082CE5F /* GroupsHeader.swift in Sources */,
 				D7467D8A295E3B8D0061330C /* CommentButton.swift in Sources */,
 				D73FE2B4295B9B0900598CF2 /* NewsViewCell.swift in Sources */,
+				D738796A296F1A4100A3C6DE /* SwipeDownAnimator.swift in Sources */,
 				D7370D20293675F600818366 /* SceneDelegate.swift in Sources */,
 				D7467D7E295DEE220061330C /* FriendsHeader.swift in Sources */,
 				D75220132940C31500013287 /* User.swift in Sources */,

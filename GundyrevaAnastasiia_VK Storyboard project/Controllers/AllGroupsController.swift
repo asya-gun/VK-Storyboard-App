@@ -12,6 +12,10 @@ class AllGroupsController: UITableViewController {
     private var groupSearchBar = UISearchBar()
     
     let groups = [
+        Group(image: UIImage(named: "citadel_morning_news"),name: "Citadel Morning News"),
+        Group(image: UIImage(named: "ball_fondlers"),name: "Ball-Fondlers Fans"),
+        Group(image: UIImage(named: "vindicators"),name: "Vindicators Trivia"),
+        Group(image: UIImage(named: "meseeks_overhear"),name: "Meseeks Overhear"),
         Group(image: UIImage(named: "good_morty"), name: "The Good Morty"),
         Group(image: UIImage(named: "beta_seven"), name: "Beta-Seven"),
         Group(image: UIImage(named: "anatomy_park"), name: "Anatomy Park Exclusive"),
