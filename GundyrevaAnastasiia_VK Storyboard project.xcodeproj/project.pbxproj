@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D71109872986C80D00316270 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71109862986C80D00316270 /* Session.swift */; };
 		D728DAAE2955942A0013A183 /* LikeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D728DAAD2955942A0013A183 /* LikeButton.swift */; };
 		D72FEB6A2954B50400250C27 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72FEB692954B50400250C27 /* GradientView.swift */; };
 		D72FEB6C2954EA1100250C27 /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72FEB6B2954EA1100250C27 /* AvatarView.swift */; };
@@ -52,6 +53,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D71109862986C80D00316270 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		D728DAAD2955942A0013A183 /* LikeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeButton.swift; sourceTree = "<group>"; };
 		D72FEB692954B50400250C27 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		D72FEB6B2954EA1100250C27 /* AvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarView.swift; sourceTree = "<group>"; };
@@ -109,6 +111,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D71109882986C81F00316270 /* Singleton */ = {
+			isa = PBXGroup;
+			children = (
+				D71109862986C80D00316270 /* Session.swift */,
+			);
+			path = Singleton;
+			sourceTree = "<group>";
+		};
 		D728DAAF295594470013A183 /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
@@ -152,6 +162,7 @@
 				D7370D2B293675F700818366 /* Info.plist */,
 				D738796D296F562E00A3C6DE /* SquareViewController.swift */,
 				D73167B2297066450082CE5F /* PurpleViewController.swift */,
+				D71109882986C81F00316270 /* Singleton */,
 			);
 			path = "GundyrevaAnastasiia_VK Storyboard project";
 			sourceTree = "<group>";
@@ -320,6 +331,7 @@
 				D752201929411CB400013287 /* PhotoCell.swift in Sources */,
 				D752201B2941208C00013287 /* GroupsTableViewController.swift in Sources */,
 				D7467D86295E19B10061330C /* News.swift in Sources */,
+				D71109872986C80D00316270 /* Session.swift in Sources */,
 				D7DD2B1A293F495500BC664E /* UIViewController + extension.swift in Sources */,
 				D73167BD2970ADF30082CE5F /* GroupsHeader.swift in Sources */,
 				D7467D8A295E3B8D0061330C /* CommentButton.swift in Sources */,
