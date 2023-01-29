@@ -156,11 +156,12 @@ class GroupsTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            
+       // UNRESOLVED BUG: if my groups are searched and then deleted, throws invalid number of rows exception
 
             let initialSectionsCount = sortedGroups.keys.count
+            
             let firstChar = sortedGroups.keys.sorted()[indexPath.section]
-            let groupsSorted = sortedGroups[firstChar]!
+   //         let groupsSorted = sortedGroups[firstChar]!
             let group: Group = groups[indexPath.row]
             
             groups.removeAll { $0.name == group.name }
@@ -172,6 +173,7 @@ class GroupsTableViewController: UITableViewController {
                 for group in groups {
                     filteredGroups = groups.filter { (group) -> Bool in
                         group.name.lowercased().contains(searchText)
+                        
                     }
                 }
             }
