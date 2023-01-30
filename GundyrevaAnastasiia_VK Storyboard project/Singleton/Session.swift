@@ -8,3 +8,12 @@
 import Foundation
 
 
+class Session {
+    
+    private init (){}
+    
+    static let session = Session()
+    
+    var token: String = ""
+    var userId: Int = 0
+}
