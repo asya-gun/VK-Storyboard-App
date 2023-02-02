@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="oG0-Z3-zTg">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
@@ -215,6 +215,55 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-25" y="5"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="kTw-Xb-OvT">
+            <objects>
+                <viewController storyboardIdentifier="WKVC" id="oG0-Z3-zTg" customClass="WKViewController" customModule="GundyrevaAnastasiia_VK_Storyboard_project" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="sro-q7-Mrp">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Csd-45-ZZ7">
+                                <rect key="frame" x="0.0" y="59" width="393" height="759"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="pzc-S8-dLk"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Csd-45-ZZ7" firstAttribute="top" secondItem="pzc-S8-dLk" secondAttribute="top" id="DAJ-8x-6sq"/>
+                            <constraint firstItem="pzc-S8-dLk" firstAttribute="trailing" secondItem="Csd-45-ZZ7" secondAttribute="trailing" id="L6o-V6-jeO"/>
+                            <constraint firstItem="Csd-45-ZZ7" firstAttribute="leading" secondItem="pzc-S8-dLk" secondAttribute="leading" id="bLj-hN-dS7"/>
+                            <constraint firstItem="pzc-S8-dLk" firstAttribute="bottom" secondItem="Csd-45-ZZ7" secondAttribute="bottom" id="oZo-aH-zU8"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="webView" destination="Csd-45-ZZ7" id="Lqx-Df-Ggy"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UXY-h5-uv7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-36" y="671"/>
+        </scene>
+        <!--Second View Controller-->
+        <scene sceneID="1bS-Dh-Y5v">
+            <objects>
+                <viewController storyboardIdentifier="SecondVC" id="qTb-6Q-Vej" customClass="SecondViewController" customModule="GundyrevaAnastasiia_VK_Storyboard_project" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="aOs-F2-MwE">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="CoR-vy-jA8"/>
+                        <color key="backgroundColor" systemColor="systemOrangeColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XGI-Ay-fsq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="926" y="670"/>
         </scene>
         <!--Loading View Controller-->
         <scene sceneID="ZRc-g4-s8R">

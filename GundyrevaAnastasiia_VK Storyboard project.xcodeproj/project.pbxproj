@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		D71109872986C80D00316270 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71109862986C80D00316270 /* Session.swift */; };
 		D728DAAE2955942A0013A183 /* LikeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D728DAAD2955942A0013A183 /* LikeButton.swift */; };
+		D72DEB7E298ADE3C001C0C70 /* WKViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72DEB7D298ADE3C001C0C70 /* WKViewController.swift */; };
+		D72DEB80298BDAF6001C0C70 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72DEB7F298BDAF6001C0C70 /* SecondViewController.swift */; };
+		D72DEB84298C08E1001C0C70 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72DEB83298C08E1001C0C70 /* Service.swift */; };
 		D72FEB6A2954B50400250C27 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72FEB692954B50400250C27 /* GradientView.swift */; };
 		D72FEB6C2954EA1100250C27 /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72FEB6B2954EA1100250C27 /* AvatarView.swift */; };
 		D72FEB6E2954FA1F00250C27 /* AvatarCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72FEB6D2954FA1F00250C27 /* AvatarCircleView.swift */; };
@@ -47,14 +50,21 @@
 		D752201D294120DE00013287 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = D752201C294120DE00013287 /* Group.swift */; };
 		D752201F294126A600013287 /* GroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D752201E294126A600013287 /* GroupCell.swift */; };
 		D75220212941344000013287 /* AllGroupsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75220202941344000013287 /* AllGroupsController.swift */; };
+		D7A50DF729882038002771AC /* SessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A50DF629882038002771AC /* SessionViewController.swift */; };
 		D7DD2B1A293F495500BC664E /* UIViewController + extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7DD2B19293F495500BC664E /* UIViewController + extension.swift */; };
 		D7DD2B1E293FC89700BC664E /* FriendsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7DD2B1D293FC89700BC664E /* FriendsTableViewController.swift */; };
 		D7DD2B20293FCBA000BC664E /* FriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7DD2B1F293FCBA000BC664E /* FriendCell.swift */; };
+		F2EA3B5B7F6D66DFE3F37ABF /* Pods_GundyrevaAnastasiia_VK_Storyboard_project.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27F292795687D2DC24CC0004 /* Pods_GundyrevaAnastasiia_VK_Storyboard_project.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		27F292795687D2DC24CC0004 /* Pods_GundyrevaAnastasiia_VK_Storyboard_project.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GundyrevaAnastasiia_VK_Storyboard_project.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D5EFB91752FF7ED52A91EA70 /* Pods-GundyrevaAnastasiia_VK Storyboard project.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GundyrevaAnastasiia_VK Storyboard project.release.xcconfig"; path = "Target Support Files/Pods-GundyrevaAnastasiia_VK Storyboard project/Pods-GundyrevaAnastasiia_VK Storyboard project.release.xcconfig"; sourceTree = "<group>"; };
 		D71109862986C80D00316270 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		D728DAAD2955942A0013A183 /* LikeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeButton.swift; sourceTree = "<group>"; };
+		D72DEB7D298ADE3C001C0C70 /* WKViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKViewController.swift; sourceTree = "<group>"; };
+		D72DEB7F298BDAF6001C0C70 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
+		D72DEB83298C08E1001C0C70 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		D72FEB692954B50400250C27 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		D72FEB6B2954EA1100250C27 /* AvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarView.swift; sourceTree = "<group>"; };
 		D72FEB6D2954FA1F00250C27 /* AvatarCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarCircleView.swift; sourceTree = "<group>"; };
@@ -95,9 +105,11 @@
 		D752201C294120DE00013287 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		D752201E294126A600013287 /* GroupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupCell.swift; sourceTree = "<group>"; };
 		D75220202941344000013287 /* AllGroupsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllGroupsController.swift; sourceTree = "<group>"; };
+		D7A50DF629882038002771AC /* SessionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionViewController.swift; sourceTree = "<group>"; };
 		D7DD2B19293F495500BC664E /* UIViewController + extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController + extension.swift"; sourceTree = "<group>"; };
 		D7DD2B1D293FC89700BC664E /* FriendsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsTableViewController.swift; sourceTree = "<group>"; };
 		D7DD2B1F293FCBA000BC664E /* FriendCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCell.swift; sourceTree = "<group>"; };
+		D9E52C3B001FE926CFD8C547 /* Pods-GundyrevaAnastasiia_VK Storyboard project.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GundyrevaAnastasiia_VK Storyboard project.debug.xcconfig"; path = "Target Support Files/Pods-GundyrevaAnastasiia_VK Storyboard project/Pods-GundyrevaAnastasiia_VK Storyboard project.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,12 +117,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F2EA3B5B7F6D66DFE3F37ABF /* Pods_GundyrevaAnastasiia_VK_Storyboard_project.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		199C27DC01B901B509639664 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				27F292795687D2DC24CC0004 /* Pods_GundyrevaAnastasiia_VK_Storyboard_project.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		95B9B256DAC51B378EFD885F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D9E52C3B001FE926CFD8C547 /* Pods-GundyrevaAnastasiia_VK Storyboard project.debug.xcconfig */,
+				D5EFB91752FF7ED52A91EA70 /* Pods-GundyrevaAnastasiia_VK Storyboard project.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		D71109882986C81F00316270 /* Singleton */ = {
 			isa = PBXGroup;
 			children = (
@@ -130,11 +160,25 @@
 			path = Buttons;
 			sourceTree = "<group>";
 		};
+		D72DEB82298C0889001C0C70 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				D7A50DF629882038002771AC /* SessionViewController.swift */,
+				D72DEB7F298BDAF6001C0C70 /* SecondViewController.swift */,
+				D71109882986C81F00316270 /* Singleton */,
+				D72DEB7D298ADE3C001C0C70 /* WKViewController.swift */,
+				D72DEB83298C08E1001C0C70 /* Service.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
 		D7370D11293675F600818366 = {
 			isa = PBXGroup;
 			children = (
 				D7370D1C293675F600818366 /* GundyrevaAnastasiia_VK Storyboard project */,
 				D7370D1B293675F600818366 /* Products */,
+				95B9B256DAC51B378EFD885F /* Pods */,
+				199C27DC01B901B509639664 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -149,6 +193,7 @@
 		D7370D1C293675F600818366 /* GundyrevaAnastasiia_VK Storyboard project */ = {
 			isa = PBXGroup;
 			children = (
+				D72DEB82298C0889001C0C70 /* Service */,
 				D728DAAF295594470013A183 /* Buttons */,
 				D7370D1D293675F600818366 /* AppDelegate.swift */,
 				D7370D1F293675F600818366 /* SceneDelegate.swift */,
@@ -162,7 +207,6 @@
 				D7370D2B293675F700818366 /* Info.plist */,
 				D738796D296F562E00A3C6DE /* SquareViewController.swift */,
 				D73167B2297066450082CE5F /* PurpleViewController.swift */,
-				D71109882986C81F00316270 /* Singleton */,
 			);
 			path = "GundyrevaAnastasiia_VK Storyboard project";
 			sourceTree = "<group>";
@@ -233,9 +277,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D7370D2E293675F700818366 /* Build configuration list for PBXNativeTarget "GundyrevaAnastasiia_VK Storyboard project" */;
 			buildPhases = (
+				7F3EED9D86BD91E0136671D3 /* [CP] Check Pods Manifest.lock */,
 				D7370D16293675F600818366 /* Sources */,
 				D7370D17293675F600818366 /* Frameworks */,
 				D7370D18293675F600818366 /* Resources */,
+				B39159B303C7B06F33F872E2 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -298,6 +344,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		7F3EED9D86BD91E0136671D3 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-GundyrevaAnastasiia_VK Storyboard project-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B39159B303C7B06F33F872E2 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GundyrevaAnastasiia_VK Storyboard project/Pods-GundyrevaAnastasiia_VK Storyboard project-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GundyrevaAnastasiia_VK Storyboard project/Pods-GundyrevaAnastasiia_VK Storyboard project-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GundyrevaAnastasiia_VK Storyboard project/Pods-GundyrevaAnastasiia_VK Storyboard project-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		D7370D16293675F600818366 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -311,13 +399,16 @@
 				D73BC402296C254700BD0F05 /* CustomPushAnimators.swift in Sources */,
 				D72FEB6A2954B50400250C27 /* GradientView.swift in Sources */,
 				D73167B529709A570082CE5F /* LoadingViewController.swift in Sources */,
+				D72DEB80298BDAF6001C0C70 /* SecondViewController.swift in Sources */,
 				D73BC404296C3F3F00BD0F05 /* CustomNavigationController.swift in Sources */,
 				D73FE2B2295B992700598CF2 /* NewsViewController.swift in Sources */,
 				D7467D88295E35840061330C /* ShareButton.swift in Sources */,
 				D7370D22293675F600818366 /* LoginViewController.swift in Sources */,
 				D752201D294120DE00013287 /* Group.swift in Sources */,
+				D7A50DF729882038002771AC /* SessionViewController.swift in Sources */,
 				D73167B3297066450082CE5F /* PurpleViewController.swift in Sources */,
 				D72FEB6C2954EA1100250C27 /* AvatarView.swift in Sources */,
+				D72DEB7E298ADE3C001C0C70 /* WKViewController.swift in Sources */,
 				D72FEB6E2954FA1F00250C27 /* AvatarCircleView.swift in Sources */,
 				D73FE2B0295B609400598CF2 /* LikeButton2.swift in Sources */,
 				D738796E296F562E00A3C6DE /* SquareViewController.swift in Sources */,
@@ -327,6 +418,7 @@
 				D728DAAE2955942A0013A183 /* LikeButton.swift in Sources */,
 				D7389541294388D20011E4EF /* AllGroupsCell.swift in Sources */,
 				D752201F294126A600013287 /* GroupCell.swift in Sources */,
+				D72DEB84298C08E1001C0C70 /* Service.swift in Sources */,
 				D7467D7B295DA97A0061330C /* FriendXIBCell.swift in Sources */,
 				D752201929411CB400013287 /* PhotoCell.swift in Sources */,
 				D752201B2941208C00013287 /* GroupsTableViewController.swift in Sources */,
@@ -481,6 +573,7 @@
 		};
 		D7370D2F293675F700818366 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D9E52C3B001FE926CFD8C547 /* Pods-GundyrevaAnastasiia_VK Storyboard project.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -509,6 +602,7 @@
 		};
 		D7370D30293675F700818366 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D5EFB91752FF7ED52A91EA70 /* Pods-GundyrevaAnastasiia_VK Storyboard project.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
