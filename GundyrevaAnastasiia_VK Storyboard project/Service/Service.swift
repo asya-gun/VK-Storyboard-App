@@ -61,4 +61,19 @@ class Service {
             print(response)
         })
     }
+    
+    func getFilteredGroups(token: String) {
+        let url = baseUrl + "/groups.search"
+        let parameters: Parameters = [
+            "access_token" : token,
+            "v" : "5.131",
+            "count" : 40,
+            "type" : "group"
+            "q" : "morty"
+        ]
+        
+        AF.request(url, method: .get, parameters: parameters).responseJSON(completionHandler: {response in
+            print(response)
+        })
+    }
 }
