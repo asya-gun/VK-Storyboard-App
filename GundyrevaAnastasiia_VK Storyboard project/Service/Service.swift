@@ -68,7 +68,7 @@ class Service {
             "access_token" : token,
             "v" : "5.131",
             "count" : 40,
-            "type" : "group"
+            "type" : "group",
             "q" : "morty"
         ]
         
