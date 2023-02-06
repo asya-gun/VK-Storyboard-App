@@ -19,18 +19,23 @@ class Service {
             "access_token" : token,
             "v" : "5.131",
             "count" : 40,
-            "fields" : "bdate, last_seen"
+            "fields" : "last_seen"
         ]
         
-        AF.request(url, method: .get, parameters: parameters).responseJSON(completionHandler: {response in
-            print(response)
-        })
-        
-        
-//            .responseData(completionHandler: {response in
-//            guard let data = response.data else { return }
+//        AF.request(url, method: .get, parameters: parameters).responseJSON(completionHandler: {response in
 //            print(response)
 //        })
+        AF.request(url, method: .post, parameters: parameters).response { result in
+            if let data = result.data {
+                let friends = try? JSONDecoder().decode(Response.self, from: data)
+                    //.response.items {
+                    print()
+                        
+             //   }
+            }
+        }
+        
+
     }
     
     func getPhotos(token: String) {

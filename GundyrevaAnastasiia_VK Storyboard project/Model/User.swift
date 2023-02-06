@@ -20,3 +20,27 @@ class User {
         self.userPhoto = userPhoto
     }
 }
+
+struct Response: Decodable {
+    var response: Friends
+}
+
+struct Friends: Decodable {
+    var items: [Friend]
+}
+
+struct Friend: Decodable {
+    var id: Int
+    var firstName: String
+    var lastName: String
+    var lastSeen: String
+    
+    enum CodingKeyes: String, CodingKey {
+        case id
+        case firstName = "first_name"
+        case lastName = "last_name"
+        case lastSeen = "last_seen"
+    }
+}
+
+

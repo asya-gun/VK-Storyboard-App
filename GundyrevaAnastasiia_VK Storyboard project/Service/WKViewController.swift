@@ -22,6 +22,7 @@ class WKViewController: UIViewController {
 //    let key = ""
 //    let baseUrl = ""
 //    let path = ""
+    let appId = "51541045"
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,17 +35,17 @@ class WKViewController: UIViewController {
         urlComponent.path = "/authorize"
         
         urlComponent.queryItems = [
-        URLQueryItem(name: "client_id", value: "51541045"),
+        URLQueryItem(name: "client_id", value: appId),
         URLQueryItem(name: "redirect_uri", value: "https://oauth.vk.com/blank.html"),
         URLQueryItem(name: "display", value: "mobile"),
         URLQueryItem(name: "response_type", value: "token")
         ]
         let url = urlComponent.url
-//        if UIApplication.shared.canOpenURL(URL(string: "url")!) {
+        if UIApplication.shared.canOpenURL(url!) {
             
             let request = URLRequest(url: url!)
             webView.load(request)
-//        }
+        }
 
 //        let parameters = [
 //            "":""
