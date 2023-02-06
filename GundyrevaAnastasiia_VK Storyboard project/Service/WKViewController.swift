@@ -17,6 +17,7 @@ class WKViewController: UIViewController {
     let session = Session.shared
     var secondVC: SecondViewController?
     var friendsTestTVC: FriendsTestViewController?
+    var loadingVC: LoadingViewController?
     
     @IBOutlet weak var webView: WKWebView!
     
@@ -83,9 +84,11 @@ extension WKViewController: WKNavigationDelegate {
         if let token = params["access_token"] {
             self.session.token = token
             
-            friendsTestTVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "FriendsTestTVC") as? FriendsTestViewController
+//            friendsTestTVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "FriendsTestTVC") as? FriendsTestViewController
 //            secondVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SecondVC") as? SecondViewController
-            self.view.insertSubview((friendsTestTVC?.view)!, at: 9)
+            loadingVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LoadingScreen") as? LoadingViewController
+            
+            self.view.insertSubview((loadingVC?.view)!, at: 9)
         }
         decisionHandler(.cancel)
     }

@@ -348,7 +348,7 @@
         <!--Loading View Controller-->
         <scene sceneID="ZRc-g4-s8R">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="IVJ-fz-E6C" customClass="LoadingViewController" customModule="GundyrevaAnastasiia_VK_Storyboard_project" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoadingScreen" modalPresentationStyle="fullScreen" id="IVJ-fz-E6C" customClass="LoadingViewController" customModule="GundyrevaAnastasiia_VK_Storyboard_project" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="E4a-GE-ZCv" customClass="GradientView" customModule="GundyrevaAnastasiia_VK_Storyboard_project" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
