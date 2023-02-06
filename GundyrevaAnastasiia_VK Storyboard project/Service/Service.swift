@@ -13,25 +13,22 @@ class Service {
     //v=5.131
     let baseUrl = "https://api.vk.com/method"
     
-    func getFriends(token: String) {
+    func getFriends(token: String, completion: @escaping ([Friend]) -> ()) {
         let url = baseUrl + "/friends.get"
         let parameters: Parameters = [
             "access_token" : token,
             "v" : "5.131",
             "count" : 40,
-            "fields" : "last_seen"
+            "fields" : "last_seen, photo_100"
         ]
         
-//        AF.request(url, method: .get, parameters: parameters).responseJSON(completionHandler: {response in
-//            print(response)
-//        })
         AF.request(url, method: .post, parameters: parameters).response { result in
             if let data = result.data {
-                let friends = try? JSONDecoder().decode(Response.self, from: data)
-                    //.response.items {
-                    print()
-                        
-             //   }
+                if let friends = try? JSONDecoder().decode(Response.self, from: data).response.items {
+//                    print(friends.first?.firstName)
+                    completion(friends)
+                    
+                }
             }
         }
         

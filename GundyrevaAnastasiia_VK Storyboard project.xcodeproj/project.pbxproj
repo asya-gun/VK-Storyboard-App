@@ -36,6 +36,9 @@
 		D73FE2B0295B609400598CF2 /* LikeButton2.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73FE2AF295B609400598CF2 /* LikeButton2.swift */; };
 		D73FE2B2295B992700598CF2 /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73FE2B1295B992700598CF2 /* NewsViewController.swift */; };
 		D73FE2B4295B9B0900598CF2 /* NewsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73FE2B3295B9B0900598CF2 /* NewsViewCell.swift */; };
+		D73FFD4A2991350900E311DE /* FriendsTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73FFD492991350900E311DE /* FriendsTestViewController.swift */; };
+		D73FFD4C2991368B00E311DE /* FriendsTestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73FFD4B2991368B00E311DE /* FriendsTestTableViewCell.swift */; };
+		D73FFD4F29915C0F00E311DE /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = D73FFD4E29915C0F00E311DE /* SDWebImage */; };
 		D7467D7B295DA97A0061330C /* FriendXIBCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7467D79295DA97A0061330C /* FriendXIBCell.swift */; };
 		D7467D7C295DA97A0061330C /* FriendXIBCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7467D7A295DA97A0061330C /* FriendXIBCell.xib */; };
 		D7467D7E295DEE220061330C /* FriendsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7467D7D295DEE220061330C /* FriendsHeader.swift */; };
@@ -91,6 +94,8 @@
 		D73FE2AF295B609400598CF2 /* LikeButton2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeButton2.swift; sourceTree = "<group>"; };
 		D73FE2B1295B992700598CF2 /* NewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
 		D73FE2B3295B9B0900598CF2 /* NewsViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewCell.swift; sourceTree = "<group>"; };
+		D73FFD492991350900E311DE /* FriendsTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsTestViewController.swift; sourceTree = "<group>"; };
+		D73FFD4B2991368B00E311DE /* FriendsTestTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsTestTableViewCell.swift; sourceTree = "<group>"; };
 		D7467D79295DA97A0061330C /* FriendXIBCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendXIBCell.swift; sourceTree = "<group>"; };
 		D7467D7A295DA97A0061330C /* FriendXIBCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriendXIBCell.xib; sourceTree = "<group>"; };
 		D7467D7D295DEE220061330C /* FriendsHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsHeader.swift; sourceTree = "<group>"; };
@@ -117,6 +122,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D73FFD4F29915C0F00E311DE /* SDWebImage in Frameworks */,
 				F2EA3B5B7F6D66DFE3F37ABF /* Pods_GundyrevaAnastasiia_VK_Storyboard_project.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -163,11 +169,13 @@
 		D72DEB82298C0889001C0C70 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				D71109882986C81F00316270 /* Singleton */,
 				D7A50DF629882038002771AC /* SessionViewController.swift */,
 				D72DEB7F298BDAF6001C0C70 /* SecondViewController.swift */,
-				D71109882986C81F00316270 /* Singleton */,
 				D72DEB7D298ADE3C001C0C70 /* WKViewController.swift */,
 				D72DEB83298C08E1001C0C70 /* Service.swift */,
+				D73FFD492991350900E311DE /* FriendsTestViewController.swift */,
+				D73FFD4B2991368B00E311DE /* FriendsTestTableViewCell.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -288,6 +296,9 @@
 			dependencies = (
 			);
 			name = "GundyrevaAnastasiia_VK Storyboard project";
+			packageProductDependencies = (
+				D73FFD4E29915C0F00E311DE /* SDWebImage */,
+			);
 			productName = "GundyrevaAnastasiia_VK Storyboard project";
 			productReference = D7370D1A293675F600818366 /* GundyrevaAnastasiia_VK Storyboard project.app */;
 			productType = "com.apple.product-type.application";
@@ -319,6 +330,9 @@
 				Base,
 			);
 			mainGroup = D7370D11293675F600818366;
+			packageReferences = (
+				D73FFD4D29915C0E00E311DE /* XCRemoteSwiftPackageReference "SDWebImage" */,
+			);
 			productRefGroup = D7370D1B293675F600818366 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -423,11 +437,13 @@
 				D752201929411CB400013287 /* PhotoCell.swift in Sources */,
 				D752201B2941208C00013287 /* GroupsTableViewController.swift in Sources */,
 				D7467D86295E19B10061330C /* News.swift in Sources */,
+				D73FFD4A2991350900E311DE /* FriendsTestViewController.swift in Sources */,
 				D71109872986C80D00316270 /* Session.swift in Sources */,
 				D7DD2B1A293F495500BC664E /* UIViewController + extension.swift in Sources */,
 				D73167BD2970ADF30082CE5F /* GroupsHeader.swift in Sources */,
 				D7467D8A295E3B8D0061330C /* CommentButton.swift in Sources */,
 				D73FE2B4295B9B0900598CF2 /* NewsViewCell.swift in Sources */,
+				D73FFD4C2991368B00E311DE /* FriendsTestTableViewCell.swift in Sources */,
 				D738796A296F1A4100A3C6DE /* SwipeDownAnimator.swift in Sources */,
 				D7370D20293675F600818366 /* SceneDelegate.swift in Sources */,
 				D7467D7E295DEE220061330C /* FriendsHeader.swift in Sources */,
@@ -651,6 +667,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D73FFD4D29915C0E00E311DE /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D73FFD4E29915C0F00E311DE /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D73FFD4D29915C0E00E311DE /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D7370D12293675F600818366 /* Project object */;
 }
