@@ -15,7 +15,7 @@ class SecondViewController: UIViewController {
         super.viewDidLoad()
         
 //        service.getFriends(token: session.token)
-        service.getPhotos(token: session.token)
+//        service.getPhotos(token: session.token)
 //        service.getGroups(token: session.token)
 //        service.getFilteredGroups(token: session.token)
         let token = session.token

@@ -88,4 +88,22 @@ class Service {
             print(response)
         })
     }
+    
+    func getWeatherData() {
+        let url = "https://api.openweathermap.org/data/2.5/forecast"
+        let parameters: Parameters = [
+            "lat" : "33.44",
+            "lon" : "-94.04",
+            "appid" : "3bac95acee0100fbb9484fd5aa0e90d3"
+        ]
+        AF.request(url, parameters: parameters).responseJSON(completionHandler: {response in
+            if let data = response.data {
+                let json = try! JSONDecoder().decode(WeatherResponse.self, from: data)
+                
+                print(json.list.first?.date)
+                print(json.list.first?.feelsLike)
+            }
+        })
+    }
 }
+

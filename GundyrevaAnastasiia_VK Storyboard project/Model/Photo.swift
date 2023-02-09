@@ -24,6 +24,7 @@ struct Photo: Decodable {
         case ownerId = "owner_id"
         case sizes
     }
+    
 }
 
 struct PhotoSize: Decodable {
