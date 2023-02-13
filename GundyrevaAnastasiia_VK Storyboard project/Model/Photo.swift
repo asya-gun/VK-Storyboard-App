@@ -18,25 +18,23 @@ struct PhotoItems: Decodable {
 struct Photo: Decodable {
     var id: Int
     var ownerId: Int
-    var sizes: [PhotoSize]
+//    var date: String
+    var sizes: [Sizes]
+    
     enum CodingKeys: String, CodingKey {
         case id
         case ownerId = "owner_id"
+//        case date
         case sizes
     }
     
 }
 
-struct PhotoSize: Decodable {
+struct Sizes: Decodable {
     var height: Int
     var width: Int
     var type: String
     var url: String
-    
-    enum PhotoKeys: String, CodingKey {
-        case height
-        case width
-        case type
-        case url
-    }
+
 }
+

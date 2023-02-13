@@ -40,14 +40,39 @@ class Service {
         let parameters: Parameters = [
             "access_token" : token,
             "v" : "5.131",
+            "album_id" : "profile"
+        ]
+        
+        AF.request(url, method: .get, parameters: parameters).response(completionHandler: {result in
+            if let data = result.data {
+                if let photos = try? JSONDecoder().decode(PhotoResponse.self, from: data).response.items {
+                    completion(photos)
+                }
+            }
+        })
+        
+//        AF.request(url, method: .get, parameters: parameters).response { result in
+//            if let data = result.data {
+//                if let photos = try? JSONDecoder().decode(PhotoResponse.self, from: data).response.items {
+//                    completion(photos)
+//                }
+//            }
+//        }
+    }
+    func getPhotosOf(token: String, ownerId: Int, completion: @escaping ([Photo]) -> ()) {
+        let url = baseUrl + "/photos.get"
+        let parameters: Parameters = [
+            "access_token" : token,
+            "v" : "5.131",
             "count" : 40,
-            "album_id" : "profile",
-            "extended" : 1
+            "owner_id" : ownerId,
+            "album_id" : "profile"
         ]
         
         AF.request(url, method: .get, parameters: parameters).response { result in
             if let data = result.data {
                 if let photos = try? JSONDecoder().decode(PhotoResponse.self, from: data).response.items {
+                    print(photos.first?.id)
                     completion(photos)
                 }
             }
