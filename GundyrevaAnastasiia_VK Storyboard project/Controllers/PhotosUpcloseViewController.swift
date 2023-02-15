@@ -28,7 +28,7 @@ class PhotosUpcloseViewController: UIViewController {
         let selectedPhoto = photos?[selectedIndex].sizes.last?.url
         photo.sd_setImage(with: URL(string: selectedPhoto ?? ""))
         print(selectedIndex)
-        
+
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(swipePictureRight(_ :)))
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(swipePictureLeft(_ :)))
         swipeRight.direction = .right

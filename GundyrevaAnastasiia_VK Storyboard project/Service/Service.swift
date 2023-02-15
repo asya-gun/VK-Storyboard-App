@@ -7,6 +7,7 @@
 
 import Foundation
 import Alamofire
+import RealmSwift
 
 class Service {
     //https://api.vk.com/method/<METHOD>?<PARAMS> HTTP/1.1
@@ -129,6 +130,21 @@ class Service {
                 print(json.list.first?.feelsLike)
             }
         })
+    }
+    
+    func saveToRealm(friends: [Friend]) {
+        let realm = try! Realm()
+        
+        try! realm.write({
+            realm.add(friends)
+        })
+    }
+    
+    func readRealm() {
+        let realm = try! Realm()
+        
+        let friends = realm.objects(Friend.self)
+        print(friends)
     }
 }
 

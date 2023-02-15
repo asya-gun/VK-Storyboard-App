@@ -6,39 +6,40 @@
 //
 
 import UIKit
+import RealmSwift
 
-class Group1 {
-    let image: UIImage?
-    let name: String
-    
-    init(image: UIImage? = nil, name: String) {
-        self.image = image
-        self.name = name
-    }
-}
+//class Group1 {
+//    let image: UIImage?
+//    let name: String
+//
+//    init(image: UIImage? = nil, name: String) {
+//        self.image = image
+//        self.name = name
+//    }
+//}
 
-struct GroupResponse: Decodable {
+class GroupResponse: Decodable {
     var response: GroupItems
     
 }
 
-struct GroupItems: Decodable {
+class GroupItems: Decodable {
     
     var items: [Group]
     
 }
 
-struct Group: Decodable {
-    var id: Int
-    var name: String
-    var photo: String?
-    var description: String?
+class Group: Object, Decodable {
+    @Persisted var id: Int
+    @Persisted var name: String
+    @Persisted var photo: String?
+    @Persisted var groupDescription: String?
     
     enum CodingKeys: String, CodingKey {
         case name
         case id
         case photo = "photo_100"
-        case description
+        case groupDescription = "description"
     }
     
 //    enum MainKeys: String, CodingKey {
