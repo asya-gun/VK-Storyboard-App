@@ -145,20 +145,17 @@ class PhotosViewController: UICollectionViewController {
             // проверить что все массивы каждого юзера в наличии по ownerId
             // проверить что все фото в наличии по id
             // сравниваем photosVK и photoItems.items
-//            photosVK.forEach { photo in
-//                for
-//            var newFriendsPhotos = [Photo]()
-                
-//            }
+
             let newFriendsPhotos = photosVK.filter {
-                !photos.contains($0)
+                !photos.contains($0) //возвращается пустым!!
+                
             }
 //            try! realm.write {
 //                realm.add(newFriendsPhotos)
-            print(" \(newFriendsPhotos.count) new photos in NewFriendsPhotos")
+            print(" \(newFriendsPhotos.count) new photos in NewFriendsPhotos") //0
             }
         }
-    func getPhotosFromRealm() {
+    func getPhotosFromRealm() { //функция не была использована
         let allPhotos = realm.objects(PhotoItems.self)
         
         if let photoItems = allPhotos.first?.items {
