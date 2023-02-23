@@ -23,8 +23,14 @@ class GroupsTableViewController: UITableViewController {
     let service = Service()
     let realm = try! Realm()
     
-    var groups = [Group]()
+    var groups: Results<Group>?
+    var token: NotificationToken?
+    var groupsArray = [Group]()
+    
     var groupsVK = [Group]()
+    var groupsNew = [Group]()
+    var groupsToDelete = [Group]()
+    
     var selectedGroup: Group?
     var sortedGroups = [Character: [Group]]()
     var filteredGroups = [Group]()
@@ -36,22 +42,25 @@ class GroupsTableViewController: UITableViewController {
         self.searchBar.delegate = self
         tableView.tableHeaderView = searchBar
         
-//        service.getGroups(token: session.token, completion: {groups in
-//            let arrayGroups = Array(groups)
-//            self.groups = arrayGroups
-//
+        service.getGroups(token: session.token, completion: {groups in
+            let arrayGroups = Array(groups)
+            self.groupsVK = arrayGroups
+            
+            self.updateGroupsInRealm()
+
 //            self.sortedGroups = self.sort(groups: self.groups)
 //            self.filterGroups()
-//
+
 //            self.saveGroups()
-//
-//            self.tableView.reloadData()
-//        })
+
+            self.tableView.reloadData()
+        })
         
         tableView.register(UINib(nibName: "GroupsHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "GroupsHeader")
         
         getGroupsFromRealm()
-        sortedGroups = sort(groups: groups)
+        groupsArray = groups?.toArray() ?? [Group]()
+        sortedGroups = sort(groups: groupsArray)
         filterGroups()
         self.tableView.reloadData()
         
@@ -77,11 +86,11 @@ class GroupsTableViewController: UITableViewController {
     private func filterGroups() {
         let searchText = (searchBar.text ?? "").lowercased()
         if searchText == "" || searchText == " " || searchText.isEmpty {
-            filteredGroups = groups
+            filteredGroups = groupsArray
         } else {
         
-            for group in groups {
-                filteredGroups = groups.filter { (group) -> Bool in
+            for group in groupsArray {
+                filteredGroups = groupsArray.filter { (group) -> Bool in
                     group.name.lowercased().contains(searchText)
                 }
             }
@@ -171,9 +180,9 @@ class GroupsTableViewController: UITableViewController {
            segue.identifier == "addGroup",
            let selectedGroup = sourceVC.selectedGroup {
             print("heyy")
-            if !groups.contains(where: {$0.name == selectedGroup.name}) {
-                groups.append(selectedGroup)
-                sortedGroups = sort(groups: groups)
+            if !groupsArray.contains(where: {$0.name == selectedGroup.name}) {
+                groupsArray.append(selectedGroup)
+                sortedGroups = sort(groups: groupsArray)
                 
                 tableView.reloadData()
             }
@@ -189,16 +198,16 @@ class GroupsTableViewController: UITableViewController {
             
             let firstChar = sortedGroups.keys.sorted()[indexPath.section]
    //         let groupsSorted = sortedGroups[firstChar]!
-            let group: Group = groups[indexPath.row]
+            let group: Group = groupsArray[indexPath.row]
             
-            groups.removeAll { $0.name == group.name }
+            groupsArray.removeAll { $0.name == group.name }
             let searchText = (searchBar.text ?? "").lowercased()
             if searchText == "" || searchText == " " || searchText.isEmpty {
-                filteredGroups = groups
+                filteredGroups = groupsArray
             } else {
             
-                for group in groups {
-                    filteredGroups = groups.filter { (group) -> Bool in
+                for group in groupsArray {
+                    filteredGroups = groupsArray.filter { (group) -> Bool in
                         group.name.lowercased().contains(searchText)
                         
                     }
@@ -219,12 +228,12 @@ class GroupsTableViewController: UITableViewController {
         let allGroups = realm.objects(GroupItems.self)
         var groupItems = GroupItems()
         
-        for i in groups.indices {
+        for i in groupsVK.indices {
             let oneGroup = Group()
-            oneGroup.id = groups[i].id
-            oneGroup.name = groups[i].name
-            oneGroup.photo = groups[i].photo
-            oneGroup.groupDescription = groups[i].groupDescription
+            oneGroup.id = groupsVK[i].id
+            oneGroup.name = groupsVK[i].name
+            oneGroup.photo = groupsVK[i].photo
+            oneGroup.groupDescription = groupsVK[i].groupDescription
             groupItems.items.append(oneGroup)
             print(oneGroup.name)
         }
@@ -238,11 +247,76 @@ class GroupsTableViewController: UITableViewController {
     }
     
     func getGroupsFromRealm() {
+        groups = realm.objects(Group.self)
+        token = groups!.observe{ (changes: RealmCollectionChange) in
+            switch changes {
+                
+            case .initial(_):
+                print("initialized successfully")
+                self.tableView.reloadData()
+            case .update(_, deletions: let deletions, insertions: let insertions, modifications: let modifications):
+                
+                self.tableView.beginUpdates()
+                
+                self.tableView.deleteRows(at: deletions.map({ IndexPath(row: $0, section: 0)}), with: .automatic)
+                self.tableView.insertRows(at: insertions.map({ IndexPath(row: $0, section: 0) }), with: .automatic)
+                self.tableView.reloadRows(at: modifications.map({ IndexPath(row: $0, section: 0) }), with: .automatic)
+                
+                self.tableView.endUpdates()
+                
+            case .error(let error):
+                print(error.localizedDescription)
+            }
+        }
+        
+//        if let groupItems = allGroups.first?.items {
+//            self.groups = Array(groupItems)
+//            self.tableView.reloadData()
+//        }
+    }
+    
+    func updateGroupsInRealm() {
         let allGroups = realm.objects(GroupItems.self)
         
         if let groupItems = allGroups.first?.items {
-            self.groups = Array(groupItems)
-            self.tableView.reloadData()
+            
+            groupsNew = Array(groupsVK)
+            print("groupsNew initial count  = \(groupsNew.count)")
+            
+            for newGroup in groupsVK {
+                for oldGroup in groupItems {
+                    if newGroup.id == oldGroup.id {
+                        if let index = groupsNew.firstIndex(where: { $0.id == newGroup.id }) {
+                            groupsNew.remove(at: index)
+                            print("newGroup deleted from the array of new groups = \(newGroup.id)")
+                        }
+                    }
+                }
+            }
+            print("groupsNew final  = \(groupsNew.count)")
+            
+            groupsToDelete = Array(groupItems)
+            print("groupsToDelete initial count  = \(groupsToDelete.count)")
+            
+            for oldGroup in groupsToDelete {
+                for newGroup in groupsVK {
+                    if newGroup.id == oldGroup.id {
+                        if let index = groupsToDelete.firstIndex(where: { $0.id == newGroup.id }) {
+                            groupsToDelete.remove(at: index)
+                            print("group is true to reality = \(newGroup.id)")
+                        }
+                    }
+                }
+            }
+            print("groupsToDelete final  = \(groupsToDelete.count)")
+            
+            if !groupsNew.isEmpty || !groupsToDelete.isEmpty {
+                print("Here we shall write in realm")
+                
+//                try! realm.write {
+//                    allGroups.first?.items.append(objectsIn: groupsNew)
+//                }
+            }
         }
     }
     

@@ -64,7 +64,7 @@ class Service {
         let parameters: Parameters = [
             "access_token" : token,
             "v" : "5.131",
-            "count" : 40,
+//            "count" : 40,
             "owner_id" : ownerId,
             "album_id" : "profile"
         ]
@@ -72,7 +72,6 @@ class Service {
         AF.request(url, method: .get, parameters: parameters).response { result in
             if let data = result.data {
                 if let photos = try? JSONDecoder().decode(PhotoResponse.self, from: data).response.items {
-                    print(photos.first?.id)
                     completion(photos)
                 }
             }
