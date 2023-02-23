@@ -24,7 +24,11 @@ class GroupsTableViewController: UITableViewController {
     let realm = try! Realm()
     
     var groups = [Group]()
+    
     var groupsVK = [Group]()
+    var groupsNew = [Group]()
+    var groupsToDelete = [Group]()
+    
     var selectedGroup: Group?
     var sortedGroups = [Character: [Group]]()
     var filteredGroups = [Group]()
@@ -36,17 +40,19 @@ class GroupsTableViewController: UITableViewController {
         self.searchBar.delegate = self
         tableView.tableHeaderView = searchBar
         
-//        service.getGroups(token: session.token, completion: {groups in
-//            let arrayGroups = Array(groups)
-//            self.groups = arrayGroups
-//
+        service.getGroups(token: session.token, completion: {groups in
+            let arrayGroups = Array(groups)
+            self.groupsVK = arrayGroups
+            
+            self.updateGroupsInRealm()
+
 //            self.sortedGroups = self.sort(groups: self.groups)
 //            self.filterGroups()
-//
+
 //            self.saveGroups()
-//
-//            self.tableView.reloadData()
-//        })
+
+            self.tableView.reloadData()
+        })
         
         tableView.register(UINib(nibName: "GroupsHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "GroupsHeader")
         
@@ -243,6 +249,51 @@ class GroupsTableViewController: UITableViewController {
         if let groupItems = allGroups.first?.items {
             self.groups = Array(groupItems)
             self.tableView.reloadData()
+        }
+    }
+    
+    func updateGroupsInRealm() {
+        let allGroups = realm.objects(GroupItems.self)
+        
+        if let groupItems = allGroups.first?.items {
+            
+            groupsNew = Array(groupsVK)
+            print("groupsNew initial count  = \(groupsNew.count)")
+            
+            for newGroup in groupsVK {
+                for oldGroup in groupItems {
+                    if newGroup.id == oldGroup.id {
+                        if let index = groupsNew.firstIndex(where: { $0.id == newGroup.id }) {
+                            groupsNew.remove(at: index)
+                            print("newGroup deleted from the array of new groups = \(newGroup.id)")
+                        }
+                    }
+                }
+            }
+            print("groupsNew final  = \(groupsNew.count)")
+            
+            groupsToDelete = Array(groupItems)
+            print("groupsToDelete initial count  = \(groupsToDelete.count)")
+            
+            for oldGroup in groupsToDelete {
+                for newGroup in groupsVK {
+                    if newGroup.id == oldGroup.id {
+                        if let index = groupsToDelete.firstIndex(where: { $0.id == newGroup.id }) {
+                            groupsToDelete.remove(at: index)
+                            print("group is true to reality = \(newGroup.id)")
+                        }
+                    }
+                }
+            }
+            print("groupsToDelete final  = \(groupsToDelete.count)")
+            
+            if !groupsNew.isEmpty || !groupsToDelete.isEmpty {
+                print("Here we shall write in realm")
+                
+//                try! realm.write {
+//                    allGroups.first?.items.append(objectsIn: groupsNew)
+//                }
+            }
         }
     }
     

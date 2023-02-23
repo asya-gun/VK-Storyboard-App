@@ -34,7 +34,10 @@ class FriendsTableViewController: UITableViewController {
     let service = Service()
     var users = [Friend]()
     let realm = try! Realm()
+    
     var usersVK = [Friend]()
+    var friendsNew = [Friend]()
+    var friendsToDelete = [Friend]()
     
     var selectedFriend: Friend?
     var sortedFriends = [Character: [Friend]]()
@@ -48,10 +51,12 @@ class FriendsTableViewController: UITableViewController {
 //        tableView.register(UINib(nibName: "FriendXIBCell", bundle: nil), forCellReuseIdentifier: "FriendXIBCell")
 //        navigationController?.delegate = self
         
-//        service.getFriends(token: session.token, completion: {friends in
-//            let arrayFriends = Array(friends)
-//            self.users = arrayFriends
-//
+        service.getFriends(token: session.token, completion: {friends in
+            let arrayFriends = Array(friends)
+            self.usersVK = arrayFriends
+            
+            self.updateFriendsInRealm()
+
 //            self.tableView.reloadData()
 //
 //            self.sortedFriends = self.sort(friends: self.users)
@@ -59,7 +64,7 @@ class FriendsTableViewController: UITableViewController {
 //            self.tableView.reloadData()
 //
 //            self.saveFriends()
-//        })
+        })
         
         tableView.register(UINib(nibName: "FriendsHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "FriendsHeader")
         
@@ -193,7 +198,7 @@ class FriendsTableViewController: UITableViewController {
             friends.items.append(oneFriend)
             print("\(oneFriend.firstName) \(oneFriend.lastName)")
         }
-        print(friends.items)
+//        print(friends.items)
         if allFriends.isEmpty {
             
             try! realm.write {
@@ -208,6 +213,51 @@ class FriendsTableViewController: UITableViewController {
         if let friends = allFriends.first?.items {
              self.users = Array(friends)
              self.tableView.reloadData()
+        }
+    }
+    
+    func updateFriendsInRealm() {
+        let allFriends = realm.objects(Friends.self)
+        
+        if let friendsItems = allFriends.first?.items {
+            
+            friendsNew = Array(usersVK)
+            print("friendsNew initial count  = \(friendsNew.count)")
+            
+            for newFriend in usersVK {
+                for oldFriend in friendsItems {
+                    if newFriend.id == oldFriend.id {
+                        if let index = friendsNew.firstIndex(where: { $0.id == newFriend.id }) {
+                            friendsNew.remove(at: index)
+//                            print("newFriend deleted from the array of new friends = \(newFriend.id)")
+                        }
+                    }
+                }
+            }
+            print("friendsNew final  = \(friendsNew.count)")
+            
+            friendsToDelete = Array(friendsItems)
+            print("friendsToDelete initial count  = \(friendsToDelete.count)")
+            
+            for oldFriend in friendsToDelete {
+                for newFriend in usersVK {
+                    if newFriend.id == oldFriend.id {
+                        if let index = friendsToDelete.firstIndex(where: { $0.id == newFriend.id }) {
+                            friendsToDelete.remove(at: index)
+//                            print("friend is true to reality = \(newFriend.id)")
+                        }
+                    }
+                }
+            }
+            print("friendsToDelete final  = \(friendsToDelete.count)")
+            
+            if !friendsNew.isEmpty || !friendsToDelete.isEmpty {
+                print("Here we shall write in realm")
+                
+//                try! realm.write {
+//                    allFriends.first?.items.append(objectsIn: friendsNew)
+//                }
+            }
         }
     }
 

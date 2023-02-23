@@ -20,27 +20,38 @@ class PhotosViewController: UICollectionViewController {
     var friend: Friend?
     var selectedIndex: Int = 0
     var photos = [Photo]()
+    
+    
     var photosVK = [Photo]()
+    var photosNew = [Photo]()
+    var photosToDelete = [Photo]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         
-        print("enter view")
-        print(friend?.id)
+//        print("enter view")
+//        print(friend?.id)
         
         service.getPhotosOf(token: session.token, ownerId: friend?.id ?? 0, completion: { photos in
             let arrayPhotos = Array(photos)
-            self.photos = arrayPhotos
+//            self.photos = arrayPhotos
             self.photosVK = arrayPhotos
 
+//            print("\(photos.count) photos")
+//            self.savePhotosToRealm()
+            self.updatePhotosInRealm()
             self.collectionView.reloadData()
-            print("\(photos.count) photos")
             
-            self.savePhotosToRealm()
         })
-        print("\(photos.count) photos")
+        
+        getPhotosFromRealm()
+        self.collectionView.reloadData()
+        
+//        self.collectionView.reloadData()
+   
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -68,8 +79,7 @@ class PhotosViewController: UICollectionViewController {
 //        photos[indexPath.row].sizes.last?.url
         cell.imagePhotoCell.sd_setImage(with: URL(string: photo ?? ""))
         
-        print("photo loaded")
-        print(photo)
+//        print("photo loaded")
         
         
         return cell
@@ -125,13 +135,13 @@ class PhotosViewController: UICollectionViewController {
         let allPhotos = realm.objects(PhotoItems.self)
         var photoItems = PhotoItems()
         
-        for i in photos.indices {
+        for i in photosVK.indices {
             let onePhoto = Photo()
-            onePhoto.id = photos[i].id
-            onePhoto.ownerId = photos[i].ownerId
-            onePhoto.sizes = photos[i].sizes
+            onePhoto.id = photosVK[i].id
+            onePhoto.ownerId = photosVK[i].ownerId
+            onePhoto.sizes = photosVK[i].sizes
             photoItems.items.append(onePhoto)
-            print(onePhoto.id)
+//            print(onePhoto.id)
 //            print(onePhoto.sizes.last?.url)
         }
         
@@ -139,28 +149,123 @@ class PhotosViewController: UICollectionViewController {
         if allPhotos.isEmpty {
             print("allPhotos is empty. \(photoItems.items.count) photoItems.items added")
             try! realm.write {
+                
                 realm.add(photoItems)
             }
         } else {
             // проверить что все массивы каждого юзера в наличии по ownerId
             // проверить что все фото в наличии по id
             // сравниваем photosVK и photoItems.items
-
-            let newFriendsPhotos = photosVK.filter {
-                !photos.contains($0) //возвращается пустым!!
-                
+            
+            guard let oldPhotos = allPhotos.first?.items else {
+                print("all Photos is empty")
+                return
             }
-//            try! realm.write {
-//                realm.add(newFriendsPhotos)
-            print(" \(newFriendsPhotos.count) new photos in NewFriendsPhotos") //0
+            
+            for newPhoto in photosVK {
+                for oldPhoto in oldPhotos {
+                    if newPhoto.id == oldPhoto.id {
+                        if let index = photoItems.items.firstIndex(where: { $0.id == newPhoto.id }) {
+                            photoItems.items.remove(at: index)
+                            print("oldPhoto = \(newPhoto.id)")
+                            print("photoItems = \(photoItems.items.count)")
+                        }
+                    }
+                }
+            }
+            print("photoItems = \(photoItems.items.count)")
+            
+//            if let oldPhotoIs = oldPhotos.first(where: {$0.id == photoId}) {
+//                print("checkup didn't work for \(oldPhotoIs.id)")
+//            } else {
+//                print("Nope, this photo is truly new. Why didn't it upload?")
+//            }
+            
+            
+//            let newFriendsPhotos = photosVK.filter { (photo) -> Bool in
+//               return !oldPhotos.contains(photo) //возвращается пустым!!
+            //
+            //            }
+            
+//            print(" \(oldPhotos.count) old photos in oldPhotos")
+//            print(" \(newFriendsPhotos.count) new photos in NewFriendsPhotos")
+//            print(newFriendsPhotos.first?.id)
+//            print(oldPhotos.first?.id)
+            
+            
+//            let resultPhotos = Array(Set(photosVK).subtracting(Set(oldPhotos)))
+//            print("\(resultPhotos.first) фото из сетов")
+//            print("\(resultPhotos.count) фото из сетов")
+            
+            try! realm.write {
+                allPhotos.first?.items.append(objectsIn: photoItems.items)
+            }
             }
         }
     func getPhotosFromRealm() { //функция не была использована
         let allPhotos = realm.objects(PhotoItems.self)
         
         if let photoItems = allPhotos.first?.items {
-            self.photos = Array(photoItems)
+            var photosOfFriend = photoItems.filter({ $0.ownerId == self.friend?.id })
+            self.photos = Array(photosOfFriend)
             self.collectionView.reloadData()
+        }
+    }
+    
+    func updatePhotosInRealm() {
+        
+        // проверить фото по id
+        // если есть id которых нету в рилме то добавить, если есть в рилме те, которых нет в вк, то удалить
+        
+        let allPhotos = realm.objects(PhotoItems.self)
+        
+        if let photoItems = allPhotos.first?.items {
+            
+            //массив фото, которые есть в вк, но нет в рилме
+            photosNew = Array(photosVK)
+            print("photosNew initial count  = \(photosNew.count)")
+            
+            for newPhoto in photosVK {
+                for oldPhoto in photoItems {
+                    if newPhoto.id == oldPhoto.id {
+                        if let index = photosNew.firstIndex(where: { $0.id == newPhoto.id }) {
+                            photosNew.remove(at: index)
+//                            print("oldPhoto deleted from the array of new photos = \(newPhoto.id)")
+                        }
+                    }
+                }
+            }
+            print("photosNew final  = \(photosNew.count)")
+            
+            //массив фото,которые есть в рилме, но нет в вк
+            
+            var photosToDeleteFunc = photoItems.filter({ $0.ownerId == self.friend?.id })
+            photosToDelete = Array(photosToDeleteFunc)
+            print("photosToDelete initial count  = \(photosToDelete.count)")
+            
+            // в цикле для photoItems необходим ownerId
+            for oldPhoto in photosToDelete {
+                for newPhoto in photosVK {
+                    if newPhoto.id == oldPhoto.id {
+                        if let index = photosToDelete.firstIndex(where: { $0.id == newPhoto.id }) {
+                            photosToDelete.remove(at: index)
+//                            print("oldPhoto true to reality = \(newPhoto.id)")
+                        }
+                    }
+                }
+            }
+            
+            print("photosToDelete final  = \(photosToDelete.count)")
+             
+            if !photosNew.isEmpty || !photosToDelete.isEmpty {
+                print("Here we shall write in realm")
+                try! realm.write {
+                    allPhotos.first?.items.append(objectsIn: photosNew)
+                }
+                
+            }
+                
+                
         }
     }
 }
