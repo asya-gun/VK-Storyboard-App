@@ -32,8 +32,12 @@ class FriendsTableViewController: UITableViewController {
     
     let session = Session.shared
     let service = Service()
-    var users = [Friend]()
+    var users: Results<Friend>?
+    var users1: Results<Friend>?
+    
     let realm = try! Realm()
+    var token: NotificationToken?
+    
     
     var usersVK = [Friend]()
     var friendsNew = [Friend]()
@@ -69,7 +73,8 @@ class FriendsTableViewController: UITableViewController {
         tableView.register(UINib(nibName: "FriendsHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "FriendsHeader")
         
         getFriendsFromRealm()
-        sortedFriends = sort(friends: users)
+        let arrayFriends = users?.toArray()
+        sortedFriends = sort(friends: arrayFriends ?? [Friend]())
         self.tableView.reloadData()
 
         print(realm.configuration.fileURL)
@@ -78,7 +83,9 @@ class FriendsTableViewController: UITableViewController {
     private func sort(friends: [Friend]) -> [Character: [Friend]] {
         var friendsDict = [Character: [Friend]]()
         
-        users.forEach() {friend in
+        let arrayFriends = users?.toArray()
+        
+        arrayFriends!.forEach() {friend in
             
             guard let firstChar = friend.lastName.first else {return}
             
@@ -189,12 +196,12 @@ class FriendsTableViewController: UITableViewController {
         var friends = Friends()
         
         
-        for i in users.indices {
+        for i in usersVK.indices {
             let oneFriend = Friend()
-            oneFriend.id = users[i].id
-            oneFriend.firstName = users[i].firstName
-            oneFriend.lastName = users[i].lastName
-            oneFriend.photo = users[i].photo
+            oneFriend.id = usersVK[i].id
+            oneFriend.firstName = usersVK[i].firstName
+            oneFriend.lastName = usersVK[i].lastName
+            oneFriend.photo = usersVK[i].photo
             friends.items.append(oneFriend)
             print("\(oneFriend.firstName) \(oneFriend.lastName)")
         }
@@ -208,12 +215,32 @@ class FriendsTableViewController: UITableViewController {
     }
     
     func getFriendsFromRealm() {
-        let allFriends = realm.objects(Friends.self)
-        
-        if let friends = allFriends.first?.items {
-             self.users = Array(friends)
-             self.tableView.reloadData()
+        users = realm.objects(Friend.self)
+        token = users!.observe { (changes: RealmCollectionChange) in
+            switch changes {
+                
+            case .initial(_):
+                print("initialized successfully")
+                self.tableView.reloadData()
+            case .update(_, deletions: let deletions, insertions: let insertions, modifications: let modifications):
+                
+                self.tableView.beginUpdates()
+                
+                self.tableView.deleteRows(at: deletions.map({ IndexPath(row: $0, section: 0)}), with: .automatic)
+                self.tableView.insertRows(at: insertions.map({ IndexPath(row: $0, section: 0) }), with: .automatic)
+                self.tableView.reloadRows(at: modifications.map({ IndexPath(row: $0, section: 0) }), with: .automatic)
+                
+                self.tableView.endUpdates()
+                
+            case .error(let error):
+                print(error.localizedDescription)
+            }
         }
+        
+//        if let friends = allFriends.first?.items {
+//             self.users = Array(friends)
+//             self.tableView.reloadData()
+//        }
     }
     
     func updateFriendsInRealm() {
@@ -263,3 +290,11 @@ class FriendsTableViewController: UITableViewController {
 
 }
 
+
+extension Results {
+    func toArray() -> [Element] {
+      return compactMap {
+        $0
+      }
+    }
+ }
