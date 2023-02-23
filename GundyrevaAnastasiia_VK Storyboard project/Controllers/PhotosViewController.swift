@@ -49,7 +49,10 @@ class PhotosViewController: UICollectionViewController {
         })
         
         getPhotosFromRealm()
+        photosArray = photos?.toArray() ?? [Photo]()
         self.collectionView.reloadData()
+        
+        
         
 //        self.collectionView.reloadData()
    
@@ -69,7 +72,7 @@ class PhotosViewController: UICollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return photos.count
+        return photosArray.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -77,7 +80,7 @@ class PhotosViewController: UICollectionViewController {
             preconditionFailure("Error")
         }
         
-        let photo = photos[indexPath.row].sizes.last?.url
+        let photo = photosArray[indexPath.row].sizes.last?.url
 //        photos[indexPath.row].sizes.last?.url
         cell.imagePhotoCell.sd_setImage(with: URL(string: photo ?? ""))
         
@@ -91,7 +94,7 @@ class PhotosViewController: UICollectionViewController {
         if segue.identifier == "showPhotos",
             let destinationVC = segue.destination as? PhotosUpcloseViewController {
             destinationVC.friend = friend
-            destinationVC.photos = photos
+            destinationVC.photos = photosArray
             destinationVC.selectedIndex = selectedIndex
 //            let photo = photos[destinationVC.selectedIndex].url
 //            destinationVC.photo?.sd_setImage(with: URL(string: photo ?? ""))
@@ -204,38 +207,33 @@ class PhotosViewController: UICollectionViewController {
             }
             }
         }
-    func getPhotosFromRealm() { //функция не была использована
-        photos = realm.objects(Photo.self)
-        photosArray = photos?.toArray() ?? [Photo]()
-        var photosOfFriend = photosArray.filter({ $0.ownerId == self.friend?.id })
+    func getPhotosFromRealm() {
+        photos = realm.objects(Photo.self).where { $0.ownerId == self.friend?.id ?? 0 }
+//        photosArray = photos?.toArray() ?? [Photo]()
+        
         token = photos!.observe { [weak self] (changes: RealmCollectionChange) in
-            guard let tableView = self?.tableView else { return } //??
+
             switch changes {
             case .initial:
-                // Results are now populated and can be accessed without blocking the UI
-                tableView.reloadData()
+
+                self?.collectionView.reloadData()
             case .update(_, let deletions, let insertions, let modifications):
-                // Query results have changed, so apply them to the UITableView
-                tableView.performBatchUpdates({
-                    // Always apply updates in the following order: deletions, insertions, then modifications.
-                    // Handling insertions before deletions may result in unexpected behavior.
-                    tableView.deleteRows(at: deletions.map({ IndexPath(row: $0, section: 0)}),
-                                         with: .automatic)
-                    tableView.insertRows(at: insertions.map({ IndexPath(row: $0, section: 0) }),
-                                         with: .automatic)
-                    tableView.reloadRows(at: modifications.map({ IndexPath(row: $0, section: 0) }),
-                                         with: .automatic)
+
+                self?.collectionView.performBatchUpdates({
+                   
+                    self?.collectionView.deleteItems(at: deletions.map({ IndexPath(row: $0, section: 0)}))
+                    self?.collectionView.insertItems(at: insertions.map({ IndexPath(row: $0, section: 0) }))
+                    self?.collectionView.reloadItems(at: modifications.map({ IndexPath(row: $0, section: 0) }))
                 }, completion: { finished in
                     // ...
                 })
             case .error(let error):
-                // An error occurred while opening the Realm file on the background worker thread
-                fatalError("\(error)")
+                print(error.localizedDescription)
             }
         }
         
 //        if let photoItems = allPhotos.first?.items {
-//
+//            let photosOfFriend = photoItems.filter({ $0.ownerId == self.friend?.id })
 //            self.photos = Array(photosOfFriend)
 //            self.collectionView.reloadData()
 //        }
@@ -288,9 +286,9 @@ class PhotosViewController: UICollectionViewController {
              
             if !photosNew.isEmpty || !photosToDelete.isEmpty {
                 print("Here we shall write in realm")
-                try! realm.write {
-                    allPhotos.first?.items.append(objectsIn: photosNew)
-                }
+//                try! realm.write {
+//                    allPhotos.first?.items.append(objectsIn: photosNew)
+//                }
                 
             }
                 
