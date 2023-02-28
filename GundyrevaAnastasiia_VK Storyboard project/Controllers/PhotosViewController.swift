@@ -3,7 +3,8 @@
 //  GundyrevaAnastasiia_VK Storyboard project
 //
 //  Created by Asya Checkanar on 07.12.2022.
-//
+// добавить: подсчет лайков, комменты
+// исправить: отображение лайков
 
 import UIKit
 import RealmSwift
@@ -14,10 +15,12 @@ class PhotosViewController: UICollectionViewController {
     
     let session = Session.shared
     let service = Service()
+    let realm = try! Realm()
     
     var friend: Friend?
     var selectedIndex: Int = 0
     var photos = [Photo]()
+    var photosVK = [Photo]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,11 +31,14 @@ class PhotosViewController: UICollectionViewController {
         print(friend?.id)
         
         service.getPhotosOf(token: session.token, ownerId: friend?.id ?? 0, completion: { photos in
-            print("enter function")
-            self.photos = photos
-            print("photos loading")
+            let arrayPhotos = Array(photos)
+            self.photos = arrayPhotos
+            self.photosVK = arrayPhotos
+
             self.collectionView.reloadData()
             print("\(photos.count) photos")
+            
+            self.savePhotosToRealm()
         })
         print("\(photos.count) photos")
     }
@@ -115,7 +121,53 @@ class PhotosViewController: UICollectionViewController {
     }
     */
 
+    func savePhotosToRealm() {
+        let allPhotos = realm.objects(PhotoItems.self)
+        var photoItems = PhotoItems()
+        
+        for i in photos.indices {
+            let onePhoto = Photo()
+            onePhoto.id = photos[i].id
+            onePhoto.ownerId = photos[i].ownerId
+            onePhoto.sizes = photos[i].sizes
+            photoItems.items.append(onePhoto)
+            print(onePhoto.id)
+//            print(onePhoto.sizes.last?.url)
+        }
+        
+        print(photoItems.items.first?.sizes.last?.url)
+        if allPhotos.isEmpty {
+            print("allPhotos is empty. \(photoItems.items.count) photoItems.items added")
+            try! realm.write {
+                realm.add(photoItems)
+            }
+        } else {
+            // проверить что все массивы каждого юзера в наличии по ownerId
+            // проверить что все фото в наличии по id
+            // сравниваем photosVK и photoItems.items
+
+            let newFriendsPhotos = photosVK.filter {
+                !photos.contains($0) //возвращается пустым!!
+                
+            }
+//            try! realm.write {
+//                realm.add(newFriendsPhotos)
+            print(" \(newFriendsPhotos.count) new photos in NewFriendsPhotos") //0
+            }
+        }
+    func getPhotosFromRealm() { //функция не была использована
+        let allPhotos = realm.objects(PhotoItems.self)
+        
+        if let photoItems = allPhotos.first?.items {
+            self.photos = Array(photoItems)
+            self.collectionView.reloadData()
+        }
+    }
 }
+
+
+
+
 extension PhotosViewController: UIViewControllerTransitioningDelegate {
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return TransitionAnimator()

@@ -14,12 +14,11 @@ class Service {
     //v=5.131
     let baseUrl = "https://api.vk.com/method"
     
-    func getFriends(token: String, completion: @escaping ([Friend]) -> ()) {
+    func getFriends(token: String, completion: @escaping (List<Friend>) -> ()) {
         let url = baseUrl + "/friends.get"
         let parameters: Parameters = [
             "access_token" : token,
             "v" : "5.131",
-            "count" : 40,
             "fields" : "last_seen, photo_100"
         ]
         
@@ -36,7 +35,7 @@ class Service {
 
     }
     
-    func getPhotos(token: String, completion: @escaping ([Photo]) -> ()) {
+    func getPhotos(token: String, completion: @escaping (List<Photo>) -> ()) {
         let url = baseUrl + "/photos.get"
         let parameters: Parameters = [
             "access_token" : token,
@@ -60,7 +59,7 @@ class Service {
 //            }
 //        }
     }
-    func getPhotosOf(token: String, ownerId: Int, completion: @escaping ([Photo]) -> ()) {
+    func getPhotosOf(token: String, ownerId: Int, completion: @escaping (List<Photo>) -> ()) {
         let url = baseUrl + "/photos.get"
         let parameters: Parameters = [
             "access_token" : token,
@@ -80,7 +79,7 @@ class Service {
         }
     }
     
-    func getGroups(token: String, completion: @escaping ([Group]) -> ()) {
+    func getGroups(token: String, completion: @escaping (List<Group>) -> ()) {
         let url = baseUrl + "/groups.get"
         let parameters: Parameters = [
             "access_token" : token,
