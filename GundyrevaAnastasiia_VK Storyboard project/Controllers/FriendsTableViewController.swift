@@ -3,11 +3,10 @@
 //  GundyrevaAnastasiia_VK Storyboard project
 //
 //  Created by Asya Checkanar on 06.12.2022.
-// добавить: поиск по друзьям
+//
 
 import UIKit
 import SDWebImage
-import RealmSwift
 
 class FriendsTableViewController: UITableViewController {
 
@@ -26,15 +25,13 @@ class FriendsTableViewController: UITableViewController {
         User(id: 12, image: UIImage(named: "eyehole_man"), name: "Eyehole Man", userPhoto: ["eyehole_man"]),
         User(id: 13, image: UIImage(named: "talking_cat"), name: "Talking Cat", userPhoto: ["talking_cat"]),
         User(id: 14, image: UIImage(named: "elon_tusk"), name: "Elon Tusk", userPhoto: ["elon_tusk"]),
-        User(id: 15, image: UIImage(named: "squanchy"), name: "Squanchy", userPhoto: ["squanchy"])
+        User(id: 15, image: UIImage(named: "squanchy"), name: "Squanchy", userPhoto: ["squanchy"]),
         
     ]
     
     let session = Session.shared
     let service = Service()
     var users = [Friend]()
-    let realm = try! Realm()
-    var usersVK = [Friend]()
     
     var selectedFriend: Friend?
     var sortedFriends = [Character: [Friend]]()
@@ -48,26 +45,19 @@ class FriendsTableViewController: UITableViewController {
 //        tableView.register(UINib(nibName: "FriendXIBCell", bundle: nil), forCellReuseIdentifier: "FriendXIBCell")
 //        navigationController?.delegate = self
         
-//        service.getFriends(token: session.token, completion: {friends in
-//            let arrayFriends = Array(friends)
-//            self.users = arrayFriends
-//
-//            self.tableView.reloadData()
-//
-//            self.sortedFriends = self.sort(friends: self.users)
-//
-//            self.tableView.reloadData()
-//
-//            self.saveFriends()
-//        })
+        service.getFriends(token: session.token, completion: {friends in
+            self.users = friends
+            
+            self.tableView.reloadData()
+            
+            self.sortedFriends = self.sort(friends: friends)
+            
+            self.tableView.reloadData()
+        })
         
         tableView.register(UINib(nibName: "FriendsHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "FriendsHeader")
-        
-        getFriendsFromRealm()
-        sortedFriends = sort(friends: users)
-        self.tableView.reloadData()
 
-        print(realm.configuration.fileURL)
+        
     }
     
     private func sort(friends: [Friend]) -> [Character: [Friend]] {
@@ -136,6 +126,10 @@ class FriendsTableViewController: UITableViewController {
         return header
     }
     
+    
+    
+    
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
         tableView.deselectRow(at: indexPath, animated: true)
@@ -177,38 +171,6 @@ class FriendsTableViewController: UITableViewController {
         super.viewWillAppear(animated)
         
         
-    }
-    
-    func saveFriends() {
-        let allFriends = realm.objects(Friends.self)
-        var friends = Friends()
-        
-        
-        for i in users.indices {
-            let oneFriend = Friend()
-            oneFriend.id = users[i].id
-            oneFriend.firstName = users[i].firstName
-            oneFriend.lastName = users[i].lastName
-            oneFriend.photo = users[i].photo
-            friends.items.append(oneFriend)
-            print("\(oneFriend.firstName) \(oneFriend.lastName)")
-        }
-        print(friends.items)
-        if allFriends.isEmpty {
-            
-            try! realm.write {
-                realm.add(friends)
-            }
-        }
-    }
-    
-    func getFriendsFromRealm() {
-        let allFriends = realm.objects(Friends.self)
-        
-        if let friends = allFriends.first?.items {
-             self.users = Array(friends)
-             self.tableView.reloadData()
-        }
     }
 
 }

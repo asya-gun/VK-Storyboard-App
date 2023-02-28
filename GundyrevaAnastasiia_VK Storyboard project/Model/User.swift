@@ -51,8 +51,8 @@ class Response: Decodable {
     var response: Friends
 }
 
-class Friends: Object, Decodable {
-    @Persisted var items: List<Friend>
+class Friends: Decodable {
+    var items: [Friend]
 }
 
 class Friend: Object, Decodable {

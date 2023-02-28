@@ -12,8 +12,8 @@ class PhotoResponse: Decodable {
     var response: PhotoItems
 }
 
-class PhotoItems: Object, Decodable {
-    @Persisted var items: List<Photo>
+class PhotoItems: Decodable {
+    var items: [Photo]
 }
 
 class Photo: Object, Decodable {

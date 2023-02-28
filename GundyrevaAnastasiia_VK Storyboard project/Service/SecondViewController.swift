@@ -23,17 +23,16 @@ class SecondViewController: UIViewController {
         let token = session.token
         print(token)
         service.getPhotos(token: token, completion: {photos in
-            let arrayPhotos = Array(photos)
-            self.photos = arrayPhotos
+            self.photos = photos
             print("\(photos.count) photos")
             print(photos.first)
         })
         print(photos.count)
-//        service.getFriends(token: token, completion: { friends in 
-//            self.friends = friends
-//            print("\(friends.count) friends")
-//            print(friends.first)
-//        })
+        service.getFriends(token: token, completion: { friends in 
+            self.friends = friends
+            print("\(friends.count) friends")
+            print(friends.first)
+        })
         print(friends.count)
 
     }
