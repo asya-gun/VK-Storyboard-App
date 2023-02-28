@@ -4,11 +4,9 @@
 //
 //  Created by Asya Checkanar on 07.12.2022.
 //
-// исправить: удаление групп
 
 import UIKit
 import SDWebImage
-import RealmSwift
 
 class GroupsTableViewController: UITableViewController {
     
@@ -21,10 +19,8 @@ class GroupsTableViewController: UITableViewController {
     
     let session = Session.shared
     let service = Service()
-    let realm = try! Realm()
     
     var groups = [Group]()
-    var groupsVK = [Group]()
     var selectedGroup: Group?
     var sortedGroups = [Character: [Group]]()
     var filteredGroups = [Group]()
@@ -36,25 +32,16 @@ class GroupsTableViewController: UITableViewController {
         self.searchBar.delegate = self
         tableView.tableHeaderView = searchBar
         
-//        service.getGroups(token: session.token, completion: {groups in
-//            let arrayGroups = Array(groups)
-//            self.groups = arrayGroups
-//
-//            self.sortedGroups = self.sort(groups: self.groups)
-//            self.filterGroups()
-//
-//            self.saveGroups()
-//
-//            self.tableView.reloadData()
-//        })
+        service.getGroups(token: session.token, completion: {groups in
+            self.groups = groups
+            
+            self.sortedGroups = self.sort(groups: groups)
+            self.filterGroups()
+            
+            self.tableView.reloadData()
+        })
         
         tableView.register(UINib(nibName: "GroupsHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "GroupsHeader")
-        
-        getGroupsFromRealm()
-        sortedGroups = sort(groups: groups)
-        filterGroups()
-        self.tableView.reloadData()
-        
     
     }
     
@@ -215,41 +202,8 @@ class GroupsTableViewController: UITableViewController {
         }
     }
     
-    func saveGroups() {
-        let allGroups = realm.objects(GroupItems.self)
-        var groupItems = GroupItems()
-        
-        for i in groups.indices {
-            let oneGroup = Group()
-            oneGroup.id = groups[i].id
-            oneGroup.name = groups[i].name
-            oneGroup.photo = groups[i].photo
-            oneGroup.groupDescription = groups[i].groupDescription
-            groupItems.items.append(oneGroup)
-            print(oneGroup.name)
-        }
-        print(groupItems.items)
-        
-        if allGroups.isEmpty {
-            try! realm.write {
-                realm.add(groupItems)
-            }
-        }
-    }
-    
-    func getGroupsFromRealm() {
-        let allGroups = realm.objects(GroupItems.self)
-        
-        if let groupItems = allGroups.first?.items {
-            self.groups = Array(groupItems)
-            self.tableView.reloadData()
-        }
-    }
-    
-    
+
 }
-
-
 extension GroupsTableViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         self.filteredGroups.removeAll()

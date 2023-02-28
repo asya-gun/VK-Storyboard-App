@@ -23,9 +23,9 @@ class GroupResponse: Decodable {
     
 }
 
-class GroupItems: Object, Decodable {
+class GroupItems: Decodable {
     
-    @Persisted var items: List<Group>
+    var items: [Group]
     
 }
 

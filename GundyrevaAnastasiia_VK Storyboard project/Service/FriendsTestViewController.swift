@@ -19,11 +19,11 @@ class FriendsTestViewController: UITableViewController {
         super.viewDidLoad()
         
         print(session.token)
-//        service.getFriends(token: session.token) {friends in
-//            self.friends = friends
-//            
-//            self.tableView.reloadData()
-//        }
+        service.getFriends(token: session.token) {friends in
+            self.friends = friends
+            
+            self.tableView.reloadData()
+        }
         print("heyy")
 
     }
