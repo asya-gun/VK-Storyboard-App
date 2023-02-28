@@ -6,19 +6,35 @@
 //
 
 import UIKit
+import RealmSwift
 
 private let reuseIdentifier = "Cell"
 
 class PhotosViewController: UICollectionViewController {
     
-    var friend: User?
+    let session = Session.shared
+    let service = Service()
+    
+    var friend: Friend?
     var selectedIndex: Int = 0
+    var photos = [Photo]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-
+        
+        print("enter view")
+        print(friend?.id)
+        
+        service.getPhotosOf(token: session.token, ownerId: friend?.id ?? 0, completion: { photos in
+            print("enter function")
+            self.photos = photos
+            print("photos loading")
+            self.collectionView.reloadData()
+            print("\(photos.count) photos")
+        })
+        print("\(photos.count) photos")
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -34,7 +50,7 @@ class PhotosViewController: UICollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return friend?.userPhoto?.count ?? 0
+        return photos.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -42,8 +58,13 @@ class PhotosViewController: UICollectionViewController {
             preconditionFailure("Error")
         }
         
-        let photo = friend?.userPhoto?[indexPath.row]
-        cell.imagePhotoCell.image = UIImage(named: photo!)
+        let photo = photos[indexPath.row].sizes.last?.url
+//        photos[indexPath.row].sizes.last?.url
+        cell.imagePhotoCell.sd_setImage(with: URL(string: photo ?? ""))
+        
+        print("photo loaded")
+        print(photo)
+        
         
         return cell
     }
@@ -52,10 +73,10 @@ class PhotosViewController: UICollectionViewController {
         if segue.identifier == "showPhotos",
             let destinationVC = segue.destination as? PhotosUpcloseViewController {
             destinationVC.friend = friend
-            destinationVC.photos = friend?.userPhoto ?? ["water1"]
+            destinationVC.photos = photos
             destinationVC.selectedIndex = selectedIndex
-//            let photo = friend?.userPhoto?[destinationVC.selectedIndex]
-//            destinationVC.photo.image = UIImage(named: photo!)
+//            let photo = photos[destinationVC.selectedIndex].url
+//            destinationVC.photo?.sd_setImage(with: URL(string: photo ?? ""))
         }
     }
 

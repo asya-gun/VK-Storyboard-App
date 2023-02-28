@@ -6,13 +6,17 @@
 //
 
 import UIKit
+import SDWebImage
 
 class PhotosUpcloseViewController: UIViewController {
 
     @IBOutlet weak var photo: UIImageView!
     
-    var friend: User?
-    var photos: [String] = []
+    let session = Session.shared
+    let service = Service()
+    
+    var friend: Friend?
+    var photos: [Photo]?
     var selectedIndex: Int = 0
     var nextPhoto = UIImageView()
 //    var propertyAnimate = UIViewPropertyAnimator()
@@ -21,9 +25,10 @@ class PhotosUpcloseViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let selectedPhoto = photos[selectedIndex]
-        photo.image = UIImage(named: selectedPhoto)
-        
+        let selectedPhoto = photos?[selectedIndex].sizes.last?.url
+        photo.sd_setImage(with: URL(string: selectedPhoto ?? ""))
+        print(selectedIndex)
+
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(swipePictureRight(_ :)))
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(swipePictureLeft(_ :)))
         swipeRight.direction = .right
@@ -36,77 +41,77 @@ class PhotosUpcloseViewController: UIViewController {
     }
     
     @objc func swipePictureRight(_ swipe: UISwipeGestureRecognizer) {
-        var selectedPhoto = photos[selectedIndex]
+        let selectedPhoto = photos?[selectedIndex].sizes.last?.url
         if selectedIndex - 1 >= 0 {
 //            selectedIndex -= 1
 //            selectedPhoto = photos[selectedIndex]
             nextPhoto.transform = CGAffineTransform(scaleX: 0.8, y: 0.8).concatenating(CGAffineTransform(translationX: nextPhoto.bounds.width, y: 0))
-            nextPhoto.image = UIImage(named: photos[selectedIndex - 1])
+            nextPhoto.sd_setImage(with: URL(string: photos?[selectedIndex - 1].sizes.last?.url ?? ""))
             
             UIView.animate(withDuration: 1, delay: 0, options: .curveEaseIn, animations: {
                 self.photo.transform = CGAffineTransform(translationX: self.photo.bounds.width, y: 0).concatenating(CGAffineTransform(scaleX: 0.7, y: 0.7))
                 self.nextPhoto.transform = .identity
             }, completion: {_ in
                 self.selectedIndex -= 1
-                self.photo.image = UIImage(named: self.photos[self.selectedIndex])
+                self.photo.sd_setImage(with: URL(string: self.photos?[self.selectedIndex].sizes.last?.url ?? ""))
                 self.photo.transform = .identity
             })
-            photo.image = UIImage(named: selectedPhoto)
+            photo.sd_setImage(with: URL(string: selectedPhoto ?? ""))
         } else {
 //            selectedIndex = photos.count - 1
 //            selectedPhoto = photos[selectedIndex]
             nextPhoto.transform = CGAffineTransform(scaleX: 0.8, y: 0.8).concatenating(CGAffineTransform(translationX: nextPhoto.bounds.width, y: 0))
-            nextPhoto.image = UIImage(named: photos[photos.count - 1])
+            nextPhoto.sd_setImage(with: URL(string: photos?[(photos?.count ?? 0) - 1].sizes.last?.url ?? ""))
             
             UIView.animate(withDuration: 1, delay: 0, options: .curveEaseIn, animations: {
                 self.photo.transform = CGAffineTransform(translationX: self.photo.bounds.width, y: 0).concatenating(CGAffineTransform(scaleX: 0.7, y: 0.7))
                 self.nextPhoto.transform = .identity
             }, completion: {_ in
-                self.selectedIndex = self.photos.count - 1
-                self.photo.image = UIImage(named: self.photos[self.selectedIndex])
+                self.selectedIndex = (self.photos?.count ?? 1) - 1
+                self.photo.sd_setImage(with: URL(string: self.photos?[self.selectedIndex].sizes.last?.url ?? ""))
                 self.photo.transform = .identity
             })
-            photo.image = UIImage(named: selectedPhoto)
+            photo.sd_setImage(with: URL(string: selectedPhoto ?? ""))
         }
 
         print("right")
     }
     @objc func swipePictureLeft(_ swipe: UISwipeGestureRecognizer) {
-        var selectedPhoto = photos[selectedIndex]
+        let selectedPhoto = photos?[selectedIndex].sizes.last?.url
 
-        if selectedIndex + 1 < photos.count {
+        if selectedIndex + 1 < photos?.count ?? 0 {
 //            selectedIndex += 1
 //            selectedPhoto = photos[selectedIndex]
             
             nextPhoto.transform = CGAffineTransform(scaleX: 0.8, y: 0.8).concatenating(CGAffineTransform(translationX: nextPhoto.bounds.width, y: 0))
-            nextPhoto.image = UIImage(named: photos[selectedIndex + 1])
+            nextPhoto.sd_setImage(with: URL(string: photos?[selectedIndex + 1].sizes.last?.url ?? ""))
             
             UIView.animate(withDuration: 1, delay: 0, options: .curveEaseIn, animations: {
                 self.photo.transform = CGAffineTransform(translationX: -self.photo.bounds.width, y: 0).concatenating(CGAffineTransform(scaleX: 0.7, y: 0.7))
                 self.nextPhoto.transform = .identity
             }, completion: {_ in
                 self.selectedIndex += 1
-                self.photo.image = UIImage(named: self.photos[self.selectedIndex])
+                self.photo.sd_setImage(with: URL(string: self.photos?[self.selectedIndex].sizes.last?.url ?? ""))
                 self.photo.transform = .identity
             })
             
-            photo.image = UIImage(named: selectedPhoto)
+            photo.sd_setImage(with: URL(string: selectedPhoto ?? ""))
         } else {
 //            selectedIndex = 0
 //            selectedPhoto = photos[selectedIndex]
             nextPhoto.transform = CGAffineTransform(scaleX: 0.8, y: 0.8).concatenating(CGAffineTransform(translationX: nextPhoto.bounds.width, y: 0))
-            nextPhoto.image = UIImage(named: photos[0])
+            nextPhoto.sd_setImage(with: URL(string: photos?.first?.sizes.last?.url ?? ""))
             
             UIView.animate(withDuration: 1, delay: 0, options: .curveEaseIn, animations: {
                 self.photo.transform = CGAffineTransform(translationX: -self.photo.bounds.width, y: 0).concatenating(CGAffineTransform(scaleX: 0.7, y: 0.7))
                 self.nextPhoto.transform = .identity
             }, completion: {_ in
                 self.selectedIndex = 0
-                self.photo.image = UIImage(named: self.photos[self.selectedIndex])
+                self.photo.sd_setImage(with: URL(string: self.photos?[self.selectedIndex].sizes.last?.url ?? ""))
                 self.photo.transform = .identity
             })
             
-            photo.image = UIImage(named: selectedPhoto)
+            photo.sd_setImage(with: URL(string: selectedPhoto ?? ""))
         }
         print("left")
     }

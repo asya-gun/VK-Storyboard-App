@@ -56,6 +56,8 @@
 		D75220212941344000013287 /* AllGroupsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75220202941344000013287 /* AllGroupsController.swift */; };
 		D75E68F92993CB9400217784 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75E68F82993CB9400217784 /* Weather.swift */; };
 		D75E68FB2993CDB100217784 /* WeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75E68FA2993CDB100217784 /* WeatherViewController.swift */; };
+		D76B5C532996D4A0003E23A5 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = D76B5C522996D4A0003E23A5 /* Realm */; };
+		D76B5C552996D4A0003E23A5 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D76B5C542996D4A0003E23A5 /* RealmSwift */; };
 		D7A50DF729882038002771AC /* SessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A50DF629882038002771AC /* SessionViewController.swift */; };
 		D7DD2B1A293F495500BC664E /* UIViewController + extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7DD2B19293F495500BC664E /* UIViewController + extension.swift */; };
 		D7DD2B1E293FC89700BC664E /* FriendsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7DD2B1D293FC89700BC664E /* FriendsTableViewController.swift */; };
@@ -128,6 +130,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D76B5C552996D4A0003E23A5 /* RealmSwift in Frameworks */,
+				D76B5C532996D4A0003E23A5 /* Realm in Frameworks */,
 				D73FFD4F29915C0F00E311DE /* SDWebImage in Frameworks */,
 				F2EA3B5B7F6D66DFE3F37ABF /* Pods_GundyrevaAnastasiia_VK_Storyboard_project.framework in Frameworks */,
 			);
@@ -307,6 +311,8 @@
 			name = "GundyrevaAnastasiia_VK Storyboard project";
 			packageProductDependencies = (
 				D73FFD4E29915C0F00E311DE /* SDWebImage */,
+				D76B5C522996D4A0003E23A5 /* Realm */,
+				D76B5C542996D4A0003E23A5 /* RealmSwift */,
 			);
 			productName = "GundyrevaAnastasiia_VK Storyboard project";
 			productReference = D7370D1A293675F600818366 /* GundyrevaAnastasiia_VK Storyboard project.app */;
@@ -341,6 +347,7 @@
 			mainGroup = D7370D11293675F600818366;
 			packageReferences = (
 				D73FFD4D29915C0E00E311DE /* XCRemoteSwiftPackageReference "SDWebImage" */,
+				D76B5C512996D4A0003E23A5 /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			productRefGroup = D7370D1B293675F600818366 /* Products */;
 			projectDirPath = "";
@@ -689,6 +696,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		D76B5C512996D4A0003E23A5 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -696,6 +711,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D73FFD4D29915C0E00E311DE /* XCRemoteSwiftPackageReference "SDWebImage" */;
 			productName = SDWebImage;
+		};
+		D76B5C522996D4A0003E23A5 /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D76B5C512996D4A0003E23A5 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = Realm;
+		};
+		D76B5C542996D4A0003E23A5 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D76B5C512996D4A0003E23A5 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

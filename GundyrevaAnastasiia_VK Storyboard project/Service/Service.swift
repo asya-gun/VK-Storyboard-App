@@ -7,6 +7,7 @@
 
 import Foundation
 import Alamofire
+import RealmSwift
 
 class Service {
     //https://api.vk.com/method/<METHOD>?<PARAMS> HTTP/1.1
@@ -40,14 +41,39 @@ class Service {
         let parameters: Parameters = [
             "access_token" : token,
             "v" : "5.131",
+            "album_id" : "profile"
+        ]
+        
+        AF.request(url, method: .get, parameters: parameters).response(completionHandler: {result in
+            if let data = result.data {
+                if let photos = try? JSONDecoder().decode(PhotoResponse.self, from: data).response.items {
+                    completion(photos)
+                }
+            }
+        })
+        
+//        AF.request(url, method: .get, parameters: parameters).response { result in
+//            if let data = result.data {
+//                if let photos = try? JSONDecoder().decode(PhotoResponse.self, from: data).response.items {
+//                    completion(photos)
+//                }
+//            }
+//        }
+    }
+    func getPhotosOf(token: String, ownerId: Int, completion: @escaping ([Photo]) -> ()) {
+        let url = baseUrl + "/photos.get"
+        let parameters: Parameters = [
+            "access_token" : token,
+            "v" : "5.131",
             "count" : 40,
-            "album_id" : "profile",
-            "extended" : 1
+            "owner_id" : ownerId,
+            "album_id" : "profile"
         ]
         
         AF.request(url, method: .get, parameters: parameters).response { result in
             if let data = result.data {
                 if let photos = try? JSONDecoder().decode(PhotoResponse.self, from: data).response.items {
+                    print(photos.first?.id)
                     completion(photos)
                 }
             }
@@ -104,6 +130,21 @@ class Service {
                 print(json.list.first?.feelsLike)
             }
         })
+    }
+    
+    func saveToRealm(friends: [Friend]) {
+        let realm = try! Realm()
+        
+        try! realm.write({
+            realm.add(friends)
+        })
+    }
+    
+    func readRealm() {
+        let realm = try! Realm()
+        
+        let friends = realm.objects(Friend.self)
+        print(friends)
     }
 }
 

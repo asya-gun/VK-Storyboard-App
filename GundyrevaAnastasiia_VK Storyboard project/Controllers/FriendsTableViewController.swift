@@ -150,7 +150,7 @@ class FriendsTableViewController: UITableViewController {
 //        self.present(photosViewControllerVC, animated: true)
         navigationController?.pushViewController(photosViewControllerVC, animated: true)
         photosViewControllerVC.title = (selectedFriend?.lastName ?? "") + " " + (selectedFriend?.firstName ?? "")
-//        photosViewControllerVC.friend = selectedFriend
+        photosViewControllerVC.friend = selectedFriend
         
     }
     

@@ -11,6 +11,8 @@ class SecondViewController: UIViewController {
 
     let session = Session.shared
     let service = Service()
+    var photos = [Photo]()
+    var friends = [Friend]()
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -20,6 +22,18 @@ class SecondViewController: UIViewController {
 //        service.getFilteredGroups(token: session.token)
         let token = session.token
         print(token)
+        service.getPhotos(token: token, completion: {photos in
+            self.photos = photos
+            print("\(photos.count) photos")
+            print(photos.first)
+        })
+        print(photos.count)
+        service.getFriends(token: token, completion: { friends in 
+            self.friends = friends
+            print("\(friends.count) friends")
+            print(friends.first)
+        })
+        print(friends.count)
 
     }
     
