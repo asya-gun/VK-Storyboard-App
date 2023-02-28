@@ -6,10 +6,11 @@
 //
 
 import UIKit
+import SDWebImage
 
 class FriendsTableViewController: UITableViewController {
 
-    let friends: [User] = [
+    let friends1: [User] = [
         User(id: 01, image: UIImage(named: "krombopulos_michael"), name: "Krombopulos Michael", userPhoto: ["krombopulos_michael", "krom1", "krom2", "krom3", "krom4", "krom5"]),
         User(id: 02, image: UIImage(named: "revolio_clockberg_jr"), name: "Revolio Clockberg Jr.", userPhoto: ["revolio_clockberg_jr", "rev1", "rev2"]),
         User(id: 03, image: UIImage(named: "mr_frundles"), name: "Mr. Frundles", userPhoto: ["mr_frundles"]),
@@ -28,8 +29,15 @@ class FriendsTableViewController: UITableViewController {
         
     ]
     
-    var selectedFriend: User?
-    var sortedFriends = [Character: [User]]()
+    let session = Session.shared
+    let service = Service()
+    var users = [Friend]()
+    
+    var selectedFriend: Friend?
+    var sortedFriends = [Character: [Friend]]()
+    
+//    var selectedFriend: User?
+//    var sortedFriends = [Character: [User]]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,17 +45,27 @@ class FriendsTableViewController: UITableViewController {
 //        tableView.register(UINib(nibName: "FriendXIBCell", bundle: nil), forCellReuseIdentifier: "FriendXIBCell")
 //        navigationController?.delegate = self
         
+        service.getFriends(token: session.token, completion: {friends in
+            self.users = friends
+            
+            self.tableView.reloadData()
+            
+            self.sortedFriends = self.sort(friends: friends)
+            
+            self.tableView.reloadData()
+        })
+        
         tableView.register(UINib(nibName: "FriendsHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "FriendsHeader")
 
-        self.sortedFriends = sort(friends: friends)
+        
     }
     
-    private func sort(friends: [User]) -> [Character: [User]] {
-        var friendsDict = [Character: [User]]()
+    private func sort(friends: [Friend]) -> [Character: [Friend]] {
+        var friendsDict = [Character: [Friend]]()
         
-        friends.forEach() {friend in
+        users.forEach() {friend in
             
-            guard let firstChar = friend.name.first else {return}
+            guard let firstChar = friend.lastName.first else {return}
             
             if var thisCharFriends = friendsDict[firstChar] {
                 thisCharFriends.append(friend)
@@ -85,11 +103,14 @@ class FriendsTableViewController: UITableViewController {
         let firstChar = sortedFriends.keys.sorted()[indexPath.section]
         let friends = sortedFriends[firstChar]!
         
-        let friend: User = friends[indexPath.row]
+        let friend: Friend = friends[indexPath.row]
         
         selectedFriend = friend
-        cell.labelFriendCell.text = selectedFriend?.name
-        cell.imageFriendCell.image = selectedFriend?.image
+        cell.labelFriendCell.text = (selectedFriend?.lastName ?? "") + " " + (selectedFriend?.firstName ?? "")
+        if let image = selectedFriend?.photo {
+            cell.imageFriendCell.sd_setImage(with: URL(string: image))
+        }
+//        cell.imageFriendCell.image = selectedFriend?.image
  
         
         return cell
@@ -115,7 +136,7 @@ class FriendsTableViewController: UITableViewController {
         let firstChar = sortedFriends.keys.sorted()[indexPath.section]
         let friends = sortedFriends[firstChar]!
         
-        let friend: User = friends[indexPath.row]
+        let friend: Friend = friends[indexPath.row]
         
         selectedFriend = friend
 //        performSegue(withIdentifier: "FriendsSegue", sender: self)
@@ -128,8 +149,8 @@ class FriendsTableViewController: UITableViewController {
 //        
 //        self.present(photosViewControllerVC, animated: true)
         navigationController?.pushViewController(photosViewControllerVC, animated: true)
-        photosViewControllerVC.title = selectedFriend?.name
-        photosViewControllerVC.friend = selectedFriend
+        photosViewControllerVC.title = (selectedFriend?.lastName ?? "") + " " + (selectedFriend?.firstName ?? "")
+//        photosViewControllerVC.friend = selectedFriend
         
     }
     

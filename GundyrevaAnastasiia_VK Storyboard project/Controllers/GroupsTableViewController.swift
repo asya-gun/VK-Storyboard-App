@@ -6,16 +6,21 @@
 //
 
 import UIKit
+import SDWebImage
 
 class GroupsTableViewController: UITableViewController {
     
     private var searchBar = UISearchBar()
     
     @IBOutlet weak var AddButton: UIBarButtonItem!
-    var groups = [
-        Group(image: UIImage(named: "human_music"),name: "Human Music")
-    ]
+//    var groups = [
+//        Group(image: UIImage(named: "human_music"),name: "Human Music")
+//    ]
     
+    let session = Session.shared
+    let service = Service()
+    
+    var groups = [Group]()
     var selectedGroup: Group?
     var sortedGroups = [Character: [Group]]()
     var filteredGroups = [Group]()
@@ -26,11 +31,18 @@ class GroupsTableViewController: UITableViewController {
         searchBar.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50)
         self.searchBar.delegate = self
         tableView.tableHeaderView = searchBar
-        filterGroups()
+        
+        service.getGroups(token: session.token, completion: {groups in
+            self.groups = groups
+            
+            self.sortedGroups = self.sort(groups: groups)
+            self.filterGroups()
+            
+            self.tableView.reloadData()
+        })
         
         tableView.register(UINib(nibName: "GroupsHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "GroupsHeader")
-        self.sortedGroups = sort(groups: groups)
-
+    
     }
     
     private func sort(groups: [Group]) -> [Character: [Group]] {
@@ -93,7 +105,9 @@ class GroupsTableViewController: UITableViewController {
         selectedGroup = group
         
         cell.labelGroupCell.text = selectedGroup?.name
-        cell.imageGroupCell.image = selectedGroup?.image
+        if let image = selectedGroup?.photo {
+            cell.imageGroupCell.sd_setImage(with: URL(string: image))
+        }
 
         return cell
     }

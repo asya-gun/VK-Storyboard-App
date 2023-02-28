@@ -16,12 +16,15 @@ class WKViewController: UIViewController {
     
     let session = Session.shared
     var secondVC: SecondViewController?
+    var friendsTestTVC: FriendsTestViewController?
+    var loadingVC: LoadingViewController?
     
     @IBOutlet weak var webView: WKWebView!
     
 //    let key = ""
 //    let baseUrl = ""
 //    let path = ""
+    let appId = "51541045"
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,17 +37,17 @@ class WKViewController: UIViewController {
         urlComponent.path = "/authorize"
         
         urlComponent.queryItems = [
-        URLQueryItem(name: "client_id", value: "51541045"),
+        URLQueryItem(name: "client_id", value: appId),
         URLQueryItem(name: "redirect_uri", value: "https://oauth.vk.com/blank.html"),
         URLQueryItem(name: "display", value: "mobile"),
         URLQueryItem(name: "response_type", value: "token")
         ]
         let url = urlComponent.url
-//        if UIApplication.shared.canOpenURL(URL(string: "url")!) {
+        if UIApplication.shared.canOpenURL(url!) {
             
             let request = URLRequest(url: url!)
             webView.load(request)
-//        }
+        }
 
 //        let parameters = [
 //            "":""
@@ -80,8 +83,12 @@ extension WKViewController: WKNavigationDelegate {
         
         if let token = params["access_token"] {
             self.session.token = token
-            secondVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SecondVC") as? SecondViewController
-            self.view.insertSubview((secondVC?.view)!, at: 9)
+            
+//            friendsTestTVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "FriendsTestTVC") as? FriendsTestViewController
+//            secondVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SecondVC") as? SecondViewController
+            loadingVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LoadingScreen") as? LoadingViewController
+            
+            self.view.insertSubview((loadingVC?.view)!, at: 9)
         }
         decisionHandler(.cancel)
     }
