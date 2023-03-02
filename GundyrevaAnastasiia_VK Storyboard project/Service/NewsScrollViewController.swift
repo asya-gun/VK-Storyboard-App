@@ -68,11 +68,13 @@ extension NewsScrollViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1 //newsPieces.count
+        return newsPieces.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return posters.count + newsPieces.count*3 //4
+        return 4
+        //posters.count + newsPieces.count*3
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -82,7 +84,8 @@ extension NewsScrollViewController: UITableViewDelegate, UITableViewDataSource {
 //            return posterCell
 //        }
         
-        if indexPath.row%4 == 1 {
+//        if indexPath.row%4 == 1 {
+        if indexPath.row == 1 {
             print("postTextCell значение index path \(indexPath.row) результат операции \(indexPath.row%4)")
             print("news: \(newsPieces.count)")
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "postTextCell", for: indexPath) as? PostTextCell else {
@@ -91,38 +94,42 @@ extension NewsScrollViewController: UITableViewDelegate, UITableViewDataSource {
             }
             
             //1 = 0, 5 = 1, 9 = 2
+            cell.postText.text = newsPieces[indexPath.section].newsText
             
-            if indexPath.row == 1 {
-                cell.postText.text = newsPieces[0].newsText
-                
-            } else {
-            
-            cell.postText.text = newsPieces[indexPath.row/4].newsText
-                
-            }
+//            if indexPath.row == 1 {
+//                cell.postText.text = newsPieces[0].newsText
+//
+//            } else {
+//
+//            cell.postText.text = newsPieces[indexPath.row/4].newsText
+//
+//            }
             
             return cell
         }
         
-        if indexPath.row%4 == 2 {
+//        if indexPath.row%4 == 2 {
+        if indexPath.row == 2 {
             print("picturesCell значение index path \(indexPath.row) результат операции \(indexPath.row%4)")
             
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "picturesCell", for: indexPath) as? PostImageCell else {
                 return UITableViewCell()
             }
             
+            cell.postImage.image = newsPieces[indexPath.section].image
             // 2 = 0, 6 = 1, 10 = 2
-            if indexPath.row == 2 {
-                cell.postImage.image = newsPieces[0].image
-                
-            } else {
-                
-                cell.postImage.image = newsPieces[indexPath.row/4].image
-            }
+//            if indexPath.row == 2 {
+//                cell.postImage.image = newsPieces[0].image
+//
+//            } else {
+//
+//                cell.postImage.image = newsPieces[indexPath.row/4].image
+//            }
             return cell
         }
         
-        if indexPath.row%4 == 3 {
+//        if indexPath.row%4 == 3 {
+        if indexPath.row == 3 {
             print("buttonsCell значение index path \(indexPath.row) результат операции \(indexPath.row%4)")
             
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "buttonsCell", for: indexPath) as? PostButtonsCell else {
@@ -140,10 +147,11 @@ extension NewsScrollViewController: UITableViewDelegate, UITableViewDataSource {
         
         // 0 = 0, 4 = 1, 8 = 2
         
-        //cell.posterImage =
+        cell.posterImage.image = newsPieces[indexPath.section].poster.image
+        cell.posterName.text = newsPieces[indexPath.section].poster.name
         
-        cell.posterImage.image = newsPieces[indexPath.row/4].poster.image
-        cell.posterName.text = newsPieces[indexPath.row/4].poster.name
+//        cell.posterImage.image = newsPieces[indexPath.row/4].poster.image
+//        cell.posterName.text = newsPieces[indexPath.row/4].poster.name
         cell.posterLastSeenLabel.text = "Today"
         
         return cell
