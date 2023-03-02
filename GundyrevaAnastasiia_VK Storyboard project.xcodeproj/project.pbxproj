@@ -31,6 +31,10 @@
 		D738796C296F1C4C00A3C6DE /* CustomSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D738796B296F1C4C00A3C6DE /* CustomSegue.swift */; };
 		D738796E296F562E00A3C6DE /* SquareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D738796D296F562E00A3C6DE /* SquareViewController.swift */; };
 		D7389541294388D20011E4EF /* AllGroupsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7389540294388D20011E4EF /* AllGroupsCell.swift */; };
+		D73AC52229AF913400A07766 /* PosterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73AC52129AF913400A07766 /* PosterCell.swift */; };
+		D73AC52429AF91F700A07766 /* PostTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73AC52329AF91F700A07766 /* PostTextCell.swift */; };
+		D73AC52629AF923500A07766 /* PostImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73AC52529AF923500A07766 /* PostImageCell.swift */; };
+		D73AC52829AF927700A07766 /* PostButtonsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73AC52729AF927700A07766 /* PostButtonsCell.swift */; };
 		D73BC402296C254700BD0F05 /* CustomPushAnimators.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73BC401296C254700BD0F05 /* CustomPushAnimators.swift */; };
 		D73BC404296C3F3F00BD0F05 /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73BC403296C3F3F00BD0F05 /* CustomNavigationController.swift */; };
 		D73FE2B0295B609400598CF2 /* LikeButton2.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73FE2AF295B609400598CF2 /* LikeButton2.swift */; };
@@ -58,6 +62,7 @@
 		D75E68FB2993CDB100217784 /* WeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75E68FA2993CDB100217784 /* WeatherViewController.swift */; };
 		D76B5C532996D4A0003E23A5 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = D76B5C522996D4A0003E23A5 /* Realm */; };
 		D76B5C552996D4A0003E23A5 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D76B5C542996D4A0003E23A5 /* RealmSwift */; };
+		D7706D2D29AE84680086FBB5 /* NewsScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7706D2C29AE84680086FBB5 /* NewsScrollViewController.swift */; };
 		D7A50DF729882038002771AC /* SessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A50DF629882038002771AC /* SessionViewController.swift */; };
 		D7DD2B1A293F495500BC664E /* UIViewController + extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7DD2B19293F495500BC664E /* UIViewController + extension.swift */; };
 		D7DD2B1E293FC89700BC664E /* FriendsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7DD2B1D293FC89700BC664E /* FriendsTableViewController.swift */; };
@@ -94,6 +99,10 @@
 		D738796B296F1C4C00A3C6DE /* CustomSegue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegue.swift; sourceTree = "<group>"; };
 		D738796D296F562E00A3C6DE /* SquareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareViewController.swift; sourceTree = "<group>"; };
 		D7389540294388D20011E4EF /* AllGroupsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllGroupsCell.swift; sourceTree = "<group>"; };
+		D73AC52129AF913400A07766 /* PosterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterCell.swift; sourceTree = "<group>"; };
+		D73AC52329AF91F700A07766 /* PostTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTextCell.swift; sourceTree = "<group>"; };
+		D73AC52529AF923500A07766 /* PostImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostImageCell.swift; sourceTree = "<group>"; };
+		D73AC52729AF927700A07766 /* PostButtonsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostButtonsCell.swift; sourceTree = "<group>"; };
 		D73BC401296C254700BD0F05 /* CustomPushAnimators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPushAnimators.swift; sourceTree = "<group>"; };
 		D73BC403296C3F3F00BD0F05 /* CustomNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationController.swift; sourceTree = "<group>"; };
 		D73FE2AF295B609400598CF2 /* LikeButton2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeButton2.swift; sourceTree = "<group>"; };
@@ -118,6 +127,7 @@
 		D75220202941344000013287 /* AllGroupsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllGroupsController.swift; sourceTree = "<group>"; };
 		D75E68F82993CB9400217784 /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
 		D75E68FA2993CDB100217784 /* WeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewController.swift; sourceTree = "<group>"; };
+		D7706D2C29AE84680086FBB5 /* NewsScrollViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsScrollViewController.swift; sourceTree = "<group>"; };
 		D7A50DF629882038002771AC /* SessionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionViewController.swift; sourceTree = "<group>"; };
 		D7DD2B19293F495500BC664E /* UIViewController + extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController + extension.swift"; sourceTree = "<group>"; };
 		D7DD2B1D293FC89700BC664E /* FriendsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsTableViewController.swift; sourceTree = "<group>"; };
@@ -186,6 +196,7 @@
 				D72DEB83298C08E1001C0C70 /* Service.swift */,
 				D73FFD492991350900E311DE /* FriendsTestViewController.swift */,
 				D73FFD4B2991368B00E311DE /* FriendsTestTableViewCell.swift */,
+				D7706D2C29AE84680086FBB5 /* NewsScrollViewController.swift */,
 				D75E68FA2993CDB100217784 /* WeatherViewController.swift */,
 			);
 			path = Service;
@@ -221,6 +232,10 @@
 				D738954229439A460011E4EF /* View */,
 				D738954329439A770011E4EF /* Helpers */,
 				D7370D23293675F600818366 /* Main.storyboard */,
+				D73AC52129AF913400A07766 /* PosterCell.swift */,
+				D73AC52329AF91F700A07766 /* PostTextCell.swift */,
+				D73AC52529AF923500A07766 /* PostImageCell.swift */,
+				D73AC52729AF927700A07766 /* PostButtonsCell.swift */,
 				D7370D26293675F700818366 /* Assets.xcassets */,
 				D7370D28293675F700818366 /* LaunchScreen.storyboard */,
 				D7370D2B293675F700818366 /* Info.plist */,
@@ -428,6 +443,7 @@
 				D75E68F92993CB9400217784 /* Weather.swift in Sources */,
 				D7DD2B20293FCBA000BC664E /* FriendCell.swift in Sources */,
 				D73BC402296C254700BD0F05 /* CustomPushAnimators.swift in Sources */,
+				D7706D2D29AE84680086FBB5 /* NewsScrollViewController.swift in Sources */,
 				D72FEB6A2954B50400250C27 /* GradientView.swift in Sources */,
 				D73167B529709A570082CE5F /* LoadingViewController.swift in Sources */,
 				D72DEB80298BDAF6001C0C70 /* SecondViewController.swift in Sources */,
@@ -443,6 +459,7 @@
 				D72DEB7E298ADE3C001C0C70 /* WKViewController.swift in Sources */,
 				D72FEB6E2954FA1F00250C27 /* AvatarCircleView.swift in Sources */,
 				D73FE2B0295B609400598CF2 /* LikeButton2.swift in Sources */,
+				D73AC52629AF923500A07766 /* PostImageCell.swift in Sources */,
 				D738796E296F562E00A3C6DE /* SquareViewController.swift in Sources */,
 				D7DD2B1E293FC89700BC664E /* FriendsTableViewController.swift in Sources */,
 				D7370D1E293675F600818366 /* AppDelegate.swift in Sources */,
@@ -453,6 +470,7 @@
 				D72DEB84298C08E1001C0C70 /* Service.swift in Sources */,
 				D7467D7B295DA97A0061330C /* FriendXIBCell.swift in Sources */,
 				D752201929411CB400013287 /* PhotoCell.swift in Sources */,
+				D73AC52229AF913400A07766 /* PosterCell.swift in Sources */,
 				D752201B2941208C00013287 /* GroupsTableViewController.swift in Sources */,
 				D7467D86295E19B10061330C /* News.swift in Sources */,
 				D73FFD4A2991350900E311DE /* FriendsTestViewController.swift in Sources */,
@@ -460,7 +478,9 @@
 				D7DD2B1A293F495500BC664E /* UIViewController + extension.swift in Sources */,
 				D73167BD2970ADF30082CE5F /* GroupsHeader.swift in Sources */,
 				D7467D8A295E3B8D0061330C /* CommentButton.swift in Sources */,
+				D73AC52829AF927700A07766 /* PostButtonsCell.swift in Sources */,
 				D73FE2B4295B9B0900598CF2 /* NewsViewCell.swift in Sources */,
+				D73AC52429AF91F700A07766 /* PostTextCell.swift in Sources */,
 				D73FFD4C2991368B00E311DE /* FriendsTestTableViewCell.swift in Sources */,
 				D738796A296F1A4100A3C6DE /* SwipeDownAnimator.swift in Sources */,
 				D73FFD51299193E400E311DE /* Photo.swift in Sources */,

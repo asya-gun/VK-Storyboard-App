@@ -16,7 +16,9 @@ class NewsViewController: UITableViewController {
     ]
     
     let newsPieces: [News] = [
-    News(newsText: """
+    News(
+        poster: User(id: 30, image: UIImage(named: "morty_cop"), name: "Morty Cop"),
+        newsText: """
 Staying Fit Under Earth’s Gravitational Pull
 
 Ease of movement under Earth’s weak-ass gravitational field has many of us galactic tourists and transplants packing on the pounds. Follow these five fast fitness tips to keep your fleshy bile filled-bod in shleeng-shlaang-bleeng-blaaang-grin-graang-fraaaaaaaaalgf shape.
@@ -24,7 +26,9 @@ Ease of movement under Earth’s weak-ass gravitational field has many of us gal
 Shake it baby! Kick off your day with a tasty kale shake, and don’t forget to stir in some Dr. S’arpo’s Ultra-Dense Supermassive Black Hole Extract. Once that stuff hits your bloodstream you’ll be feelin’ HEAVY.
 """,
          image: UIImage(named: "diet")),
-    News(newsText: """
+    News(
+        poster:  User(id: 31, image: UIImage(named: "gear_cop"), name: "Greg Gearlickson"),
+        newsText: """
 Choosing an Earth Religion That’s Right for You!
 By Da’hou Ungherstahnk
 
@@ -32,7 +36,9 @@ If you are planning on visiting or moving to Earth, you may want to align yourse
 
 There are many wacky quirks on Earth, but none are wackier than the concept of “religion.” Instead of distilling a code of ethics through Standard Galactic Protocol or the SovereignQUBE, humans take a more whimsical approach. They instead choose to worship vague ideas or deities as a way of framing the world around them.
 """, image: UIImage(named: "religion")),
-    News(newsText: """
+    News(
+        poster: User(id: 32, image: UIImage(named: "gromflomite"), name: "G-1531283"),
+        newsText: """
 The #BasicHuman meme is TOO PERFECT!
 
 Everyone in the Federation is LOSING IT over the galaxy’s hottest new meme, the #BasicHuman!
