@@ -9,6 +9,9 @@ import UIKit
 
 class NewsViewController: UITableViewController {
     
+    let session = Session.shared
+    let service = NewsService()
+    
     let postedUsers: [User] = [
     User(id: 30, image: UIImage(named: "morty_cop"), name: "Morty Cop"),
     User(id: 31, image: UIImage(named: "gear_cop"), name: "Greg Gearlickson"),
@@ -48,12 +51,12 @@ No one knows who he is or where he’s from, but he’s helping us all understan
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        
+        print("View did load, here shall be news")
+        service.getNews(token: session.token)
+        print("end news")
+       
     }
 
     // MARK: - Table view data source

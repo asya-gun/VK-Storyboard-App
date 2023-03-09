@@ -8,6 +8,9 @@
 import UIKit
 
 class NewsScrollViewController: UIViewController {
+    
+    let session = Session.shared
+    let service = NewsService()
 
     @IBOutlet weak var tableView: UITableView!
     
@@ -53,6 +56,10 @@ No one knows who he is or where he’s from, but he’s helping us all understan
 
         tableView.delegate = self
         tableView.dataSource = self
+        
+        print("View did load, here shall be news")
+        service.getNews(token: session.token)
+        print("end news")
         
 //        tableView.register(PosterCell.self, forCellReuseIdentifier: "posterCell")
 //        tableView.register(PostTextCell.self, forCellReuseIdentifier: "postTextCell")
