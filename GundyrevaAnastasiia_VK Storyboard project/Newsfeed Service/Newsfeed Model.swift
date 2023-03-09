@@ -7,19 +7,19 @@
 
 import Foundation
 
-struct NewsfeedResponse {
+struct NewsfeedResponse: Decodable {
     var groups: [NewsGroups]
     var items: [NewsItems]
 }
 
-struct NewsGroups {
+struct NewsGroups: Decodable {
     var id: Int
     var name: String
     var photo: String
     
 }
 
-struct NewsItems {
+struct NewsItems: Decodable {
     var attachments: Attachment
     var comments: String
     var date: Int
@@ -30,17 +30,27 @@ struct NewsItems {
     
 }
 
-struct Attachment {
+struct Attachment: Decodable {
     var type: String?
     var object: String?
 }
 
-struct Likes {
+struct Likes: Decodable {
     var count: Int
     var userLikes: Bool
+    
+    enum CodingKeys: String, CodingKey {
+        case count
+        case userLikes = "user_likes"
+    }
 }
 
-struct Reposts {
+struct Reposts: Decodable {
     var count: Int
     var userReposted: Bool
+    
+    enum CodingKeys: String, CodingKey {
+        case count
+        case userReposted = "user_reposted"
+    }
 }
