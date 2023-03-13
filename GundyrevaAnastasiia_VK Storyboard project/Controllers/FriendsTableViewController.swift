@@ -58,7 +58,7 @@ class FriendsTableViewController: UITableViewController {
         service.getFriends(token: session.token, completion: {friends in
             let arrayFriends = Array(friends)
             self.usersVK = arrayFriends
-            
+            print("users vk updated to realm")
             self.updateFriendsInRealm()
 
 //            self.tableView.reloadData()

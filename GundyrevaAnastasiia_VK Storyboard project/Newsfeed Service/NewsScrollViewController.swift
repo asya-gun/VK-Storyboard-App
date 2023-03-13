@@ -51,6 +51,8 @@ No one knows who he is or where he’s from, but he’s helping us all understan
 """, image: UIImage(named: "basic_human"))
     ]
     
+    var news = [NewsItems]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -58,8 +60,14 @@ No one knows who he is or where he’s from, but he’s helping us all understan
         tableView.dataSource = self
         
         print("View did load, here shall be news")
-        service.getNews(token: session.token)
+        service.getNewsOld(token: session.token)
+        service.getNews(token: session.token, completion: {news in
+            self.news = news
+            print("the last news \(self.news.last?.text)")
+            self.tableView.reloadData()
+        })
         print("end news")
+        print("news count \(news.count)")
         
 //        tableView.register(PosterCell.self, forCellReuseIdentifier: "posterCell")
 //        tableView.register(PostTextCell.self, forCellReuseIdentifier: "postTextCell")
@@ -86,12 +94,6 @@ extension NewsScrollViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-//        if indexPath.row%4 == 0 {
-            
-//            return posterCell
-//        }
-        
-//        if indexPath.row%4 == 1 {
         if indexPath.row == 1 {
             print("postTextCell значение index path \(indexPath.row) результат операции \(indexPath.row%4)")
             print("news: \(newsPieces.count)")
@@ -99,18 +101,8 @@ extension NewsScrollViewController: UITableViewDelegate, UITableViewDataSource {
                 print("something went wrong")
                 return UITableViewCell()
             }
-            
-            //1 = 0, 5 = 1, 9 = 2
+
             cell.postText.text = newsPieces[indexPath.section].newsText
-            
-//            if indexPath.row == 1 {
-//                cell.postText.text = newsPieces[0].newsText
-//
-//            } else {
-//
-//            cell.postText.text = newsPieces[indexPath.row/4].newsText
-//
-//            }
             
             return cell
         }
@@ -124,25 +116,17 @@ extension NewsScrollViewController: UITableViewDelegate, UITableViewDataSource {
             }
             
             cell.postImage.image = newsPieces[indexPath.section].image
-            // 2 = 0, 6 = 1, 10 = 2
-//            if indexPath.row == 2 {
-//                cell.postImage.image = newsPieces[0].image
-//
-//            } else {
-//
-//                cell.postImage.image = newsPieces[indexPath.row/4].image
-//            }
+
             return cell
         }
         
-//        if indexPath.row%4 == 3 {
         if indexPath.row == 3 {
             print("buttonsCell значение index path \(indexPath.row) результат операции \(indexPath.row%4)")
             
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "buttonsCell", for: indexPath) as? PostButtonsCell else {
                 return UITableViewCell()
             }
-            //3, 7, 11
+
             
             return cell
         }
@@ -152,13 +136,9 @@ extension NewsScrollViewController: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
         
-        // 0 = 0, 4 = 1, 8 = 2
-        
         cell.posterImage.image = newsPieces[indexPath.section].poster.image
         cell.posterName.text = newsPieces[indexPath.section].poster.name
         
-//        cell.posterImage.image = newsPieces[indexPath.row/4].poster.image
-//        cell.posterName.text = newsPieces[indexPath.row/4].poster.name
         cell.posterLastSeenLabel.text = "Today"
         
         return cell

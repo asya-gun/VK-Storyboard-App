@@ -54,7 +54,7 @@ No one knows who he is or where he’s from, but he’s helping us all understan
         
         
         print("View did load, here shall be news")
-        service.getNews(token: session.token)
+//        service.getNews(token: session.token)
         print("end news")
        
     }
