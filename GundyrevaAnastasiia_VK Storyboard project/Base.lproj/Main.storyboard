@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="YFb-qo-8pH">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="oG0-Z3-zTg">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
@@ -504,16 +504,16 @@
             </objects>
             <point key="canvasLocation" x="2821" y="289"/>
         </scene>
-        <!--News Scroll View Controller-->
+        <!--News-->
         <scene sceneID="hEC-7o-FQA">
             <objects>
                 <viewController id="YFb-qo-8pH" customClass="NewsScrollViewController" customModule="GundyrevaAnastasiia_VK_Storyboard_project" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="lTd-lH-ZCY">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="783"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="vtD-WP-ZHz">
-                                <rect key="frame" x="0.0" y="59" width="393" height="759"/>
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="734"/>
                                 <color key="backgroundColor" systemColor="systemGray4Color"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="posterCell" rowHeight="74" id="uRU-rY-QuY" customClass="PosterCell" customModule="GundyrevaAnastasiia_VK_Storyboard_project" customModuleProvider="target">
@@ -609,17 +609,18 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0MU-OT-gLH">
-                                                    <rect key="frame" x="10" y="0.0" width="373" height="74"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="393" height="74"/>
+                                                    <color key="backgroundColor" systemColor="systemBrownColor"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="200" id="Ivv-Bt-FJH"/>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="200" id="48A-3n-pVY"/>
                                                     </constraints>
                                                 </imageView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="0MU-OT-gLH" secondAttribute="bottom" id="8e4-VQ-Iwc"/>
                                                 <constraint firstItem="0MU-OT-gLH" firstAttribute="top" secondItem="OtC-0j-z7l" secondAttribute="top" id="H0q-u4-Fcc"/>
-                                                <constraint firstItem="0MU-OT-gLH" firstAttribute="leading" secondItem="OtC-0j-z7l" secondAttribute="leading" constant="10" id="eEp-rz-GyU"/>
-                                                <constraint firstAttribute="trailing" secondItem="0MU-OT-gLH" secondAttribute="trailing" constant="10" id="wYO-9q-vXd"/>
+                                                <constraint firstItem="0MU-OT-gLH" firstAttribute="leading" secondItem="OtC-0j-z7l" secondAttribute="leading" id="eEp-rz-GyU"/>
+                                                <constraint firstAttribute="trailing" secondItem="0MU-OT-gLH" secondAttribute="trailing" id="wYO-9q-vXd"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" systemColor="systemGray6Color"/>
@@ -717,6 +718,11 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" systemColor="systemGray6Color"/>
+                                        <connections>
+                                            <outlet property="commentButton" destination="tEH-83-Iek" id="fNU-SM-hNt"/>
+                                            <outlet property="likeButton" destination="pBb-KK-hWP" id="xbz-qo-UV1"/>
+                                            <outlet property="shareButton" destination="M5Y-zx-Mtq" id="3KI-N8-1Uw"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -730,6 +736,7 @@
                             <constraint firstItem="vdg-5X-MiU" firstAttribute="trailing" secondItem="vtD-WP-ZHz" secondAttribute="trailing" id="aCu-82-6kM"/>
                         </constraints>
                     </view>
+                    <tabBarItem key="tabBarItem" title="News" selectedImage="list.bullet.rectangle" catalog="system" id="Z6w-eY-0c3"/>
                     <connections>
                         <outlet property="tableView" destination="vtD-WP-ZHz" id="hrI-PG-bkP"/>
                     </connections>
@@ -743,7 +750,7 @@
             <objects>
                 <tableViewController id="TyW-fs-Dln" customClass="NewsViewController" customModule="GundyrevaAnastasiia_VK_Storyboard_project" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="NS9-a3-DNB">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="783"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
@@ -1263,7 +1270,7 @@
                     <connections>
                         <segue destination="xkd-VU-uqK" kind="relationship" relationship="viewControllers" id="9F3-dL-04p"/>
                         <segue destination="uzF-Yj-lDd" kind="relationship" relationship="viewControllers" id="FhE-qv-Z3M"/>
-                        <segue destination="TyW-fs-Dln" kind="relationship" relationship="viewControllers" id="kuT-Sk-Khe"/>
+                        <segue destination="YFb-qo-8pH" kind="relationship" relationship="viewControllers" id="dxA-zI-qas"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9eg-lp-9tb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1274,6 +1281,7 @@
     <resources>
         <image name="arrowshape.turn.up.right.fill" catalog="system" width="128" height="104"/>
         <image name="heart" catalog="system" width="128" height="107"/>
+        <image name="list.bullet.rectangle" catalog="system" width="128" height="93"/>
         <image name="list.clipboard.fill" catalog="system" width="103" height="128"/>
         <image name="message" catalog="system" width="128" height="116"/>
         <image name="newspaper.fill" catalog="system" width="128" height="112"/>
@@ -1290,6 +1298,9 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBrownColor">
+            <color red="0.63529411764705879" green="0.51764705882352946" blue="0.36862745098039218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemCyanColor">
             <color red="0.19607843137254902" green="0.67843137254901964" blue="0.90196078431372551" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

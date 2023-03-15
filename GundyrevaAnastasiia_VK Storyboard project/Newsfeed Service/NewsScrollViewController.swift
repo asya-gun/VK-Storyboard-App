@@ -6,8 +6,12 @@
 //
 
 import UIKit
+import SDWebImage
 
 class NewsScrollViewController: UIViewController {
+    
+    let session = Session.shared
+    let service = NewsService()
 
     @IBOutlet weak var tableView: UITableView!
     
@@ -48,11 +52,25 @@ No one knows who he is or where he’s from, but he’s helping us all understan
 """, image: UIImage(named: "basic_human"))
     ]
     
+    var news = [NewsItems]()
+    var newsGroups = [NewsGroups]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         tableView.delegate = self
         tableView.dataSource = self
+        
+        print("View did load, here shall be news")
+        service.getNewsOld(token: session.token)
+        service.getNews(token: session.token, completion: {news, groups in
+            self.news = news
+            self.newsGroups = groups
+            print("the last news \(self.news.last?.text)")
+            self.tableView.reloadData()
+        })
+        print("end news")
+        print("news count \(news.count)")
         
 //        tableView.register(PosterCell.self, forCellReuseIdentifier: "posterCell")
 //        tableView.register(PostTextCell.self, forCellReuseIdentifier: "postTextCell")
@@ -68,91 +86,76 @@ extension NewsScrollViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return newsPieces.count
+        return news.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 4
-        //posters.count + newsPieces.count*3
-        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-//        if indexPath.row%4 == 0 {
-            
-//            return posterCell
-//        }
-        
-//        if indexPath.row%4 == 1 {
         if indexPath.row == 1 {
-            print("postTextCell значение index path \(indexPath.row) результат операции \(indexPath.row%4)")
-            print("news: \(newsPieces.count)")
+
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "postTextCell", for: indexPath) as? PostTextCell else {
                 print("something went wrong")
                 return UITableViewCell()
             }
-            
-            //1 = 0, 5 = 1, 9 = 2
-            cell.postText.text = newsPieces[indexPath.section].newsText
-            
-//            if indexPath.row == 1 {
-//                cell.postText.text = newsPieces[0].newsText
-//
-//            } else {
-//
-//            cell.postText.text = newsPieces[indexPath.row/4].newsText
-//
-//            }
+
+            cell.postText.text = news[indexPath.section].text
             
             return cell
         }
         
-//        if indexPath.row%4 == 2 {
         if indexPath.row == 2 {
-            print("picturesCell значение index path \(indexPath.row) результат операции \(indexPath.row%4)")
             
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "picturesCell", for: indexPath) as? PostImageCell else {
                 return UITableViewCell()
             }
             
-            cell.postImage.image = newsPieces[indexPath.section].image
-            // 2 = 0, 6 = 1, 10 = 2
-//            if indexPath.row == 2 {
-//                cell.postImage.image = newsPieces[0].image
-//
-//            } else {
-//
-//                cell.postImage.image = newsPieces[indexPath.row/4].image
-//            }
+            if let pic = news[indexPath.section].attachments?.first(where: {$0.type == "photo"})?.photo?.sizes.last?.url {
+                cell.postImage.sd_setImage(with: URL(string: pic))
+                
+            }
+            
+
             return cell
         }
         
-//        if indexPath.row%4 == 3 {
         if indexPath.row == 3 {
-            print("buttonsCell значение index path \(indexPath.row) результат операции \(indexPath.row%4)")
             
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "buttonsCell", for: indexPath) as? PostButtonsCell else {
                 return UITableViewCell()
             }
-            //3, 7, 11
             
+            // should be
+            // cell.likeButton.likeInitial = news[indexPath.section].likes.count
+            //and so on
+            
+            cell.likeButton.likeNumber = news[indexPath.section].likes.count
+            cell.shareButton.shareNumber = news[indexPath.section].reposts.count
+            cell.commentButton.commentNumber = news[indexPath.section].comments.count
+            
+
             return cell
         }
         
-        print("posterCell значение index path \(indexPath.row) результат операции \(indexPath.row%4)")
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "posterCell", for: indexPath) as? PosterCell else {
             return UITableViewCell()
         }
         
-        // 0 = 0, 4 = 1, 8 = 2
+        let pic = newsGroups[indexPath.section].photo
+        cell.posterImage.sd_setImage(with: URL(string: pic))
+        cell.posterName.text = newsGroups[indexPath.section].name
         
-        cell.posterImage.image = newsPieces[indexPath.section].poster.image
-        cell.posterName.text = newsPieces[indexPath.section].poster.name
+        let date = news[indexPath.section].date
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "ru_RU")
+        dateFormatter.dateStyle = .medium
+        dateFormatter.dateFormat = "HH:mm E, d MMM y"
         
-//        cell.posterImage.image = newsPieces[indexPath.row/4].poster.image
-//        cell.posterName.text = newsPieces[indexPath.row/4].poster.name
-        cell.posterLastSeenLabel.text = "Today"
+        
+        cell.posterLastSeenLabel.text = dateFormatter.string(from: date)
         
         return cell
     }

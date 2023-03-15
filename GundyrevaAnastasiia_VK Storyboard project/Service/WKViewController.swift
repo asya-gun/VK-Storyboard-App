@@ -40,6 +40,7 @@ class WKViewController: UIViewController {
         URLQueryItem(name: "client_id", value: appId),
         URLQueryItem(name: "redirect_uri", value: "https://oauth.vk.com/blank.html"),
         URLQueryItem(name: "display", value: "mobile"),
+        URLQueryItem(name: "scope", value: "friends, wall"),
         URLQueryItem(name: "response_type", value: "token")
         ]
         let url = urlComponent.url

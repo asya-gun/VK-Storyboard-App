@@ -8,7 +8,12 @@
 import UIKit
 
 class PostButtonsCell: UITableViewCell {
-
+    
+    
+    @IBOutlet weak var likeButton: LikeButton!
+    @IBOutlet weak var shareButton: ShareButton!
+    @IBOutlet weak var commentButton: CommentButton!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
