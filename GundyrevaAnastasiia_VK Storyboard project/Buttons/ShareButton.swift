@@ -17,7 +17,7 @@ class ShareButton: UIControl {
     }
 
     private var shareLabel: UILabel!
-    private var shareNumber: Int = 0
+    var shareNumber: Int = 0
     private var stackView: UIStackView!
 
     override init(frame: CGRect) {

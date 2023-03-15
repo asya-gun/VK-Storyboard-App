@@ -18,7 +18,7 @@ class LikeButton: UIControl {
     }
 
     private var likeLabel: UILabel!
-    private var likeNumber: Int = 0
+    var likeNumber: Int = 0
     private var stackView: UIStackView!
 
     override init(frame: CGRect) {

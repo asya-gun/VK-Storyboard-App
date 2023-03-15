@@ -26,7 +26,7 @@ class NewsService {
         })
     }
     
-    func getNews(token: String, completion: @escaping ([NewsItems]) -> ()) {
+    func getNews(token: String, completion: @escaping ([NewsItems], [NewsGroups]) -> ()) {
         let url = baseUrl + "/newsfeed.get"
         let parameters: Parameters = [
             "access_token" : token,
@@ -38,10 +38,10 @@ class NewsService {
         
         AF.request(url, method: .post, parameters: parameters).response { result in
             if let data = result.data {
-                if let news = try? JSONDecoder().decode(NewsfeedResponse.self, from: data).response.items {
-                    print("news first success")
-                    print(news.first?.text)
-                    completion(news)
+                if let news = try? JSONDecoder().decode(NewsfeedResponse.self, from: data).response.items, let groups = try? JSONDecoder().decode(NewsfeedResponse.self, from: data).response.groups {
+                    print("news first success \(news.first?.text)")
+                    print("groups first success \(groups.first?.name)")
+                    completion(news, groups)
                 }
             }
         }
