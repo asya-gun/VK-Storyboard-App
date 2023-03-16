@@ -153,7 +153,7 @@ extension NewsScrollViewController: UITableViewDelegate, UITableViewDataSource {
         dateFormatter.locale = Locale(identifier: "ru_RU")
         dateFormatter.dateStyle = .medium
         dateFormatter.dateFormat = "HH:mm E, d MMM y"
-        
+        //new data
         
         cell.posterLastSeenLabel.text = dateFormatter.string(from: date)
         
