@@ -60,27 +60,36 @@ class GroupsTableViewController: UITableViewController {
         getDataOp.completionBlock = {
             print("Here's op.data \(getDataOp.data)")
         }
-        let parseGroups = ParseGroupsOperation()
-        parseGroups.completionBlock = {
-            print("Here's outputData \(parseGroups.outputData)")
-        }
-        parseGroups.addDependency(getDataOp)
-        opq.addOperation(getDataOp)
-        opq.addOperation(parseGroups)
-        
-        service.getGroups(token: session.token, completion: {groups in
-            let arrayGroups = Array(groups)
-            self.groupsVK = arrayGroups
+        let parseGroupsOp = ParseGroupsOperation()
+        parseGroupsOp.completionBlock = {
+            print("Here's outputData \(parseGroupsOp.outputData)")
+            self.groupsVK = parseGroupsOp.outputData
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
             
-            self.updateGroupsInRealm()
-
-//            self.sortedGroups = self.sort(groups: self.groups)
-//            self.filterGroups()
-
-//            self.saveGroups()
-
-            self.tableView.reloadData()
-        })
+        }
+        let saveGroupsToRealmOp = SaveGroupsToRealmOperation(realm: realm, groups: groupsVK)
+        parseGroupsOp.addDependency(getDataOp)
+        saveGroupsToRealmOp.addDependency(parseGroupsOp)
+        opq.addOperation(getDataOp)
+        opq.addOperation(parseGroupsOp)
+        opq.addOperation(saveGroupsToRealmOp)
+//        OperationQueue.main.addOperation(parseGroups)
+        
+//        service.getGroups(token: session.token, completion: {groups in
+//            let arrayGroups = Array(groups)
+//            self.groupsVK = arrayGroups
+//
+//            self.updateGroupsInRealm()
+//
+////            self.sortedGroups = self.sort(groups: self.groups)
+////            self.filterGroups()
+//
+////            self.saveGroups()
+//
+//            self.tableView.reloadData()
+//        })
         
         tableView.register(UINib(nibName: "GroupsHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "GroupsHeader")
         
