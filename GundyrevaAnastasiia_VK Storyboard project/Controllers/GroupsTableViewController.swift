@@ -9,6 +9,7 @@
 import UIKit
 import SDWebImage
 import RealmSwift
+import Alamofire
 
 class GroupsTableViewController: UITableViewController {
     
@@ -34,6 +35,8 @@ class GroupsTableViewController: UITableViewController {
     var selectedGroup: Group?
     var sortedGroups = [Character: [Group]]()
     var filteredGroups = [Group]()
+    
+    let opq = OperationQueue()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,6 +44,23 @@ class GroupsTableViewController: UITableViewController {
         searchBar.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50)
         self.searchBar.delegate = self
         tableView.tableHeaderView = searchBar
+        
+        let url = "https://api.vk.com/method/groups.get"
+        let parameters: Parameters = [
+            "access_token" : session.token,
+            "v" : "5.131",
+            "count" : 40,
+            "filter" : "groups",
+            "extended" : 1,
+            "fields" : "description"
+        ]
+        
+        let request = AF.request(url, method: .get, parameters: parameters)
+        let op = GetGroupsOperation(request: request)
+        op.completionBlock = {
+            print("Here's op.data \(op.data)")
+        }
+        opq.addOperation(op)
         
         service.getGroups(token: session.token, completion: {groups in
             let arrayGroups = Array(groups)
@@ -235,9 +255,9 @@ class GroupsTableViewController: UITableViewController {
             oneGroup.photo = groupsVK[i].photo
             oneGroup.groupDescription = groupsVK[i].groupDescription
             groupItems.items.append(oneGroup)
-            print(oneGroup.name)
+//            print(oneGroup.name)
         }
-        print(groupItems.items)
+//        print(groupItems.items)
         
         if allGroups.isEmpty {
             try! realm.write {
@@ -268,11 +288,6 @@ class GroupsTableViewController: UITableViewController {
                 print(error.localizedDescription)
             }
         }
-        
-//        if let groupItems = allGroups.first?.items {
-//            self.groups = Array(groupItems)
-//            self.tableView.reloadData()
-//        }
     }
     
     func updateGroupsInRealm() {
@@ -288,7 +303,7 @@ class GroupsTableViewController: UITableViewController {
                     if newGroup.id == oldGroup.id {
                         if let index = groupsNew.firstIndex(where: { $0.id == newGroup.id }) {
                             groupsNew.remove(at: index)
-                            print("newGroup deleted from the array of new groups = \(newGroup.id)")
+//                            print("newGroup deleted from the array of new groups = \(newGroup.id)")
                         }
                     }
                 }
@@ -303,7 +318,7 @@ class GroupsTableViewController: UITableViewController {
                     if newGroup.id == oldGroup.id {
                         if let index = groupsToDelete.firstIndex(where: { $0.id == newGroup.id }) {
                             groupsToDelete.remove(at: index)
-                            print("group is true to reality = \(newGroup.id)")
+//                            print("group is true to reality = \(newGroup.id)")
                         }
                     }
                 }

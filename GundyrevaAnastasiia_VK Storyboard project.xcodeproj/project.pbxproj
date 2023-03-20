@@ -65,6 +65,7 @@
 		D76B5C532996D4A0003E23A5 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = D76B5C522996D4A0003E23A5 /* Realm */; };
 		D76B5C552996D4A0003E23A5 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D76B5C542996D4A0003E23A5 /* RealmSwift */; };
 		D7706D2D29AE84680086FBB5 /* NewsScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7706D2C29AE84680086FBB5 /* NewsScrollViewController.swift */; };
+		D77F8C8229C7885A004533BC /* Async Operations.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77F8C8129C7885A004533BC /* Async Operations.swift */; };
 		D7A50DF729882038002771AC /* SessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A50DF629882038002771AC /* SessionViewController.swift */; };
 		D7DD2B1A293F495500BC664E /* UIViewController + extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7DD2B19293F495500BC664E /* UIViewController + extension.swift */; };
 		D7DD2B1E293FC89700BC664E /* FriendsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7DD2B1D293FC89700BC664E /* FriendsTableViewController.swift */; };
@@ -132,6 +133,7 @@
 		D75E68F82993CB9400217784 /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
 		D75E68FA2993CDB100217784 /* WeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewController.swift; sourceTree = "<group>"; };
 		D7706D2C29AE84680086FBB5 /* NewsScrollViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsScrollViewController.swift; sourceTree = "<group>"; };
+		D77F8C8129C7885A004533BC /* Async Operations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Async Operations.swift"; sourceTree = "<group>"; };
 		D7A50DF629882038002771AC /* SessionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionViewController.swift; sourceTree = "<group>"; };
 		D7DD2B19293F495500BC664E /* UIViewController + extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController + extension.swift"; sourceTree = "<group>"; };
 		D7DD2B1D293FC89700BC664E /* FriendsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsTableViewController.swift; sourceTree = "<group>"; };
@@ -226,6 +228,7 @@
 		D7370D1C293675F600818366 /* GundyrevaAnastasiia_VK Storyboard project */ = {
 			isa = PBXGroup;
 			children = (
+				D77F8C8029C7877F004533BC /* Group Operations */,
 				D72DEB82298C0889001C0C70 /* Service */,
 				D728DAAF295594470013A183 /* Buttons */,
 				D7370D1D293675F600818366 /* AppDelegate.swift */,
@@ -318,6 +321,14 @@
 				D75E68F82993CB9400217784 /* Weather.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		D77F8C8029C7877F004533BC /* Group Operations */ = {
+			isa = PBXGroup;
+			children = (
+				D77F8C8129C7885A004533BC /* Async Operations.swift */,
+			);
+			path = "Group Operations";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -465,6 +476,7 @@
 				D73BC404296C3F3F00BD0F05 /* CustomNavigationController.swift in Sources */,
 				D73FE2B2295B992700598CF2 /* NewsViewController.swift in Sources */,
 				D7467D88295E35840061330C /* ShareButton.swift in Sources */,
+				D77F8C8229C7885A004533BC /* Async Operations.swift in Sources */,
 				D7370D22293675F600818366 /* LoginViewController.swift in Sources */,
 				D752201D294120DE00013287 /* Group.swift in Sources */,
 				D75E68FB2993CDB100217784 /* WeatherViewController.swift in Sources */,
