@@ -11,6 +11,7 @@
 
 import Foundation
 import Alamofire
+import RealmSwift
 
 class AsyncOperation: Operation {
     
@@ -95,4 +96,43 @@ class ParseGroupsOperation: Operation {
             print("Data not decoded")
         }
     }
+}
+
+class SaveGroupsToRealmOperation: Operation {
+    let realm: Realm
+    let groups: [Group]
+    
+    init(realm: Realm, groups: [Group]) {
+        self.realm = realm
+        self.groups = groups
+    }
+    
+    override func main() {
+        DispatchQueue.main.async {
+            let allGroups = self.realm.objects(GroupItems.self)
+            var groupItems = GroupItems()
+            
+            for i in self.groups.indices {
+                let oneGroup = Group()
+                oneGroup.id = self.groups[i].id
+                oneGroup.name = self.groups[i].name
+                oneGroup.photo = self.groups[i].photo
+                oneGroup.groupDescription = self.groups[i].groupDescription
+                groupItems.items.append(oneGroup)
+    //            print(oneGroup.name)
+            }
+            print(groupItems.items)
+            
+            if allGroups.isEmpty {
+    //            try! realm.write {
+    //                realm.add(groupItems)
+    //            }
+                print("Groups are empty, but the operation is working")
+            } else {
+                print("Groups aren't empty, but the operation is working")
+            }
+        }
+      
+    }
+    
 }
