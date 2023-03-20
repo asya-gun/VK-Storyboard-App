@@ -87,10 +87,10 @@ class ParseGroupsOperation: Operation {
     override func main() {
         guard let getGroupsOperation = dependencies.first(where: { $0 is GetGroupsOperation}) as? GetGroupsOperation,
               let data = getGroupsOperation.data else { return }
-//        let json = data as?
         do {
-            let groups: [Group] = try decoder.decode([Group].self, from: data)
-            outputData = groups
+            let response = try decoder.decode(GroupResponse.self, from: data)
+//            let groups: [Group] = try response.decode([Group].self, from: data)
+            outputData = Array(response.response.items)
         } catch {
             print("Data not decoded")
         }

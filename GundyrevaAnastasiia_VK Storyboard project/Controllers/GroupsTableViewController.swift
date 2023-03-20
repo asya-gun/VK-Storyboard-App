@@ -56,11 +56,17 @@ class GroupsTableViewController: UITableViewController {
         ]
         
         let request = AF.request(url, method: .get, parameters: parameters)
-        let op = GetGroupsOperation(request: request)
-        op.completionBlock = {
-            print("Here's op.data \(op.data)")
+        let getDataOp = GetGroupsOperation(request: request)
+        getDataOp.completionBlock = {
+            print("Here's op.data \(getDataOp.data)")
         }
-        opq.addOperation(op)
+        let parseGroups = ParseGroupsOperation()
+        parseGroups.completionBlock = {
+            print("Here's outputData \(parseGroups.outputData)")
+        }
+        parseGroups.addDependency(getDataOp)
+        opq.addOperation(getDataOp)
+        opq.addOperation(parseGroups)
         
         service.getGroups(token: session.token, completion: {groups in
             let arrayGroups = Array(groups)
