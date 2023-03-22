@@ -17,7 +17,7 @@ class CommentButton: UIControl {
     }
 
     private var commentLabel: UILabel!
-    private var commentNumber: Int = 0
+    var commentNumber: Int = 0
     private var stackView: UIStackView!
 
     override init(frame: CGRect) {

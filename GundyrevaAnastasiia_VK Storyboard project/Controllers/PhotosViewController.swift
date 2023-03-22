@@ -3,22 +3,60 @@
 //  GundyrevaAnastasiia_VK Storyboard project
 //
 //  Created by Asya Checkanar on 07.12.2022.
-//
+// добавить: подсчет лайков, комменты
+// исправить: отображение лайков
 
 import UIKit
+import RealmSwift
 
 private let reuseIdentifier = "Cell"
 
 class PhotosViewController: UICollectionViewController {
     
-    var friend: User?
+    let session = Session.shared
+    let service = Service()
+    let realm = try! Realm()
+    var token: NotificationToken?
+    
+    var friend: Friend?
     var selectedIndex: Int = 0
+    var photos: Results<Photo>?
+    var photosArray = [Photo]()
+    
+    
+    var photosVK = [Photo]()
+    var photosNew = [Photo]()
+    var photosToDelete = [Photo]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        
+//        print("enter view")
+//        print(friend?.id)
+        
+        service.getPhotosOf(token: session.token, ownerId: friend?.id ?? 0, completion: { photos in
+            let arrayPhotos = Array(photos)
+//            self.photos = arrayPhotos
+            self.photosVK = arrayPhotos
 
+//            print("\(photos.count) photos")
+//            self.savePhotosToRealm()
+            self.updatePhotosInRealm()
+            self.collectionView.reloadData()
+            
+        })
+        
+        getPhotosFromRealm()
+        photosArray = photos?.toArray() ?? [Photo]()
+        self.collectionView.reloadData()
+        
+        
+        
+//        self.collectionView.reloadData()
+   
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -34,7 +72,7 @@ class PhotosViewController: UICollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return friend?.userPhoto?.count ?? 0
+        return photosArray.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -42,8 +80,12 @@ class PhotosViewController: UICollectionViewController {
             preconditionFailure("Error")
         }
         
-        let photo = friend?.userPhoto?[indexPath.row]
-        cell.imagePhotoCell.image = UIImage(named: photo!)
+        let photo = photosArray[indexPath.row].sizes.last?.url
+//        photos[indexPath.row].sizes.last?.url
+        cell.imagePhotoCell.sd_setImage(with: URL(string: photo ?? ""))
+        
+//        print("photo loaded")
+        
         
         return cell
     }
@@ -52,10 +94,10 @@ class PhotosViewController: UICollectionViewController {
         if segue.identifier == "showPhotos",
             let destinationVC = segue.destination as? PhotosUpcloseViewController {
             destinationVC.friend = friend
-            destinationVC.photos = friend?.userPhoto ?? ["water1"]
+            destinationVC.photos = photosArray
             destinationVC.selectedIndex = selectedIndex
-//            let photo = friend?.userPhoto?[destinationVC.selectedIndex]
-//            destinationVC.photo.image = UIImage(named: photo!)
+//            let photo = photos[destinationVC.selectedIndex].url
+//            destinationVC.photo?.sd_setImage(with: URL(string: photo ?? ""))
         }
     }
 
@@ -94,7 +136,170 @@ class PhotosViewController: UICollectionViewController {
     }
     */
 
+    func savePhotosToRealm() {
+        let allPhotos = realm.objects(PhotoItems.self)
+        var photoItems = PhotoItems()
+        
+        for i in photosVK.indices {
+            let onePhoto = Photo()
+            onePhoto.id = photosVK[i].id
+            onePhoto.ownerId = photosVK[i].ownerId
+            onePhoto.sizes = photosVK[i].sizes
+            photoItems.items.append(onePhoto)
+//            print(onePhoto.id)
+//            print(onePhoto.sizes.last?.url)
+        }
+        
+        print(photoItems.items.first?.sizes.last?.url)
+        if allPhotos.isEmpty {
+            print("allPhotos is empty. \(photoItems.items.count) photoItems.items added")
+            try! realm.write {
+                
+                realm.add(photoItems)
+            }
+        } else {
+            // проверить что все массивы каждого юзера в наличии по ownerId
+            // проверить что все фото в наличии по id
+            // сравниваем photosVK и photoItems.items
+            
+            guard let oldPhotos = allPhotos.first?.items else {
+                print("all Photos is empty")
+                return
+            }
+            
+            for newPhoto in photosVK {
+                for oldPhoto in oldPhotos {
+                    if newPhoto.id == oldPhoto.id {
+                        if let index = photoItems.items.firstIndex(where: { $0.id == newPhoto.id }) {
+                            photoItems.items.remove(at: index)
+                            print("oldPhoto = \(newPhoto.id)")
+                            print("photoItems = \(photoItems.items.count)")
+                        }
+                    }
+                }
+            }
+            print("photoItems = \(photoItems.items.count)")
+            
+//            if let oldPhotoIs = oldPhotos.first(where: {$0.id == photoId}) {
+//                print("checkup didn't work for \(oldPhotoIs.id)")
+//            } else {
+//                print("Nope, this photo is truly new. Why didn't it upload?")
+//            }
+            
+            
+//            let newFriendsPhotos = photosVK.filter { (photo) -> Bool in
+//               return !oldPhotos.contains(photo) //возвращается пустым!!
+            //
+            //            }
+            
+//            print(" \(oldPhotos.count) old photos in oldPhotos")
+//            print(" \(newFriendsPhotos.count) new photos in NewFriendsPhotos")
+//            print(newFriendsPhotos.first?.id)
+//            print(oldPhotos.first?.id)
+            
+            
+//            let resultPhotos = Array(Set(photosVK).subtracting(Set(oldPhotos)))
+//            print("\(resultPhotos.first) фото из сетов")
+//            print("\(resultPhotos.count) фото из сетов")
+            
+            try! realm.write {
+                allPhotos.first?.items.append(objectsIn: photoItems.items)
+            }
+            }
+        }
+    func getPhotosFromRealm() {
+        photos = realm.objects(Photo.self).where { $0.ownerId == self.friend?.id ?? 0 }
+//        photosArray = photos?.toArray() ?? [Photo]()
+        
+        token = photos!.observe { [weak self] (changes: RealmCollectionChange) in
+
+            switch changes {
+            case .initial:
+
+                self?.collectionView.reloadData()
+            case .update(_, let deletions, let insertions, let modifications):
+
+                self?.collectionView.performBatchUpdates({
+                   
+                    self?.collectionView.deleteItems(at: deletions.map({ IndexPath(row: $0, section: 0)}))
+                    self?.collectionView.insertItems(at: insertions.map({ IndexPath(row: $0, section: 0) }))
+                    self?.collectionView.reloadItems(at: modifications.map({ IndexPath(row: $0, section: 0) }))
+                }, completion: { finished in
+                    // ...
+                })
+            case .error(let error):
+                print(error.localizedDescription)
+            }
+        }
+        
+//        if let photoItems = allPhotos.first?.items {
+//            let photosOfFriend = photoItems.filter({ $0.ownerId == self.friend?.id })
+//            self.photos = Array(photosOfFriend)
+//            self.collectionView.reloadData()
+//        }
+    }
+    
+    func updatePhotosInRealm() {
+        
+        // проверить фото по id
+        // если есть id которых нету в рилме то добавить, если есть в рилме те, которых нет в вк, то удалить
+        
+        let allPhotos = realm.objects(PhotoItems.self)
+        
+        if let photoItems = allPhotos.first?.items {
+            
+            //массив фото, которые есть в вк, но нет в рилме
+            photosNew = Array(photosVK)
+            print("photosNew initial count  = \(photosNew.count)")
+            
+            for newPhoto in photosVK {
+                for oldPhoto in photoItems {
+                    if newPhoto.id == oldPhoto.id {
+                        if let index = photosNew.firstIndex(where: { $0.id == newPhoto.id }) {
+                            photosNew.remove(at: index)
+//                            print("oldPhoto deleted from the array of new photos = \(newPhoto.id)")
+                        }
+                    }
+                }
+            }
+            print("photosNew final  = \(photosNew.count)")
+            
+            //массив фото,которые есть в рилме, но нет в вк
+            
+            var photosToDeleteFunc = photoItems.filter({ $0.ownerId == self.friend?.id })
+            photosToDelete = Array(photosToDeleteFunc)
+            print("photosToDelete initial count  = \(photosToDelete.count)")
+            
+            // в цикле для photoItems необходим ownerId
+            for oldPhoto in photosToDelete {
+                for newPhoto in photosVK {
+                    if newPhoto.id == oldPhoto.id {
+                        if let index = photosToDelete.firstIndex(where: { $0.id == newPhoto.id }) {
+                            photosToDelete.remove(at: index)
+//                            print("oldPhoto true to reality = \(newPhoto.id)")
+                        }
+                    }
+                }
+            }
+            
+            print("photosToDelete final  = \(photosToDelete.count)")
+             
+            if !photosNew.isEmpty || !photosToDelete.isEmpty {
+                print("Here we shall write in realm")
+//                try! realm.write {
+//                    allPhotos.first?.items.append(objectsIn: photosNew)
+//                }
+                
+            }
+                
+                
+        }
+    }
 }
+
+
+
+
 extension PhotosViewController: UIViewControllerTransitioningDelegate {
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return TransitionAnimator()

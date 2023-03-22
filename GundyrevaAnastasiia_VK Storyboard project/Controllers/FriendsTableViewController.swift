@@ -3,13 +3,15 @@
 //  GundyrevaAnastasiia_VK Storyboard project
 //
 //  Created by Asya Checkanar on 06.12.2022.
-//
+// добавить: поиск по друзьям
 
 import UIKit
+import SDWebImage
+import RealmSwift
 
 class FriendsTableViewController: UITableViewController {
 
-    let friends: [User] = [
+    let friends1: [User] = [
         User(id: 01, image: UIImage(named: "krombopulos_michael"), name: "Krombopulos Michael", userPhoto: ["krombopulos_michael", "krom1", "krom2", "krom3", "krom4", "krom5"]),
         User(id: 02, image: UIImage(named: "revolio_clockberg_jr"), name: "Revolio Clockberg Jr.", userPhoto: ["revolio_clockberg_jr", "rev1", "rev2"]),
         User(id: 03, image: UIImage(named: "mr_frundles"), name: "Mr. Frundles", userPhoto: ["mr_frundles"]),
@@ -24,12 +26,28 @@ class FriendsTableViewController: UITableViewController {
         User(id: 12, image: UIImage(named: "eyehole_man"), name: "Eyehole Man", userPhoto: ["eyehole_man"]),
         User(id: 13, image: UIImage(named: "talking_cat"), name: "Talking Cat", userPhoto: ["talking_cat"]),
         User(id: 14, image: UIImage(named: "elon_tusk"), name: "Elon Tusk", userPhoto: ["elon_tusk"]),
-        User(id: 15, image: UIImage(named: "squanchy"), name: "Squanchy", userPhoto: ["squanchy"]),
+        User(id: 15, image: UIImage(named: "squanchy"), name: "Squanchy", userPhoto: ["squanchy"])
         
     ]
     
-    var selectedFriend: User?
-    var sortedFriends = [Character: [User]]()
+    let session = Session.shared
+    let service = Service()
+    var users: Results<Friend>?
+    var users1: Results<Friend>?
+    
+    let realm = try! Realm()
+    var token: NotificationToken?
+    
+    
+    var usersVK = [Friend]()
+    var friendsNew = [Friend]()
+    var friendsToDelete = [Friend]()
+    
+    var selectedFriend: Friend?
+    var sortedFriends = [Character: [Friend]]()
+    
+//    var selectedFriend: User?
+//    var sortedFriends = [Character: [User]]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,17 +55,39 @@ class FriendsTableViewController: UITableViewController {
 //        tableView.register(UINib(nibName: "FriendXIBCell", bundle: nil), forCellReuseIdentifier: "FriendXIBCell")
 //        navigationController?.delegate = self
         
-        tableView.register(UINib(nibName: "FriendsHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "FriendsHeader")
+        service.getFriends(token: session.token, completion: {friends in
+            let arrayFriends = Array(friends)
+            self.usersVK = arrayFriends
+            print("users vk updated to realm")
+            self.updateFriendsInRealm()
 
-        self.sortedFriends = sort(friends: friends)
+//            self.tableView.reloadData()
+//
+//            self.sortedFriends = self.sort(friends: self.users)
+//
+//            self.tableView.reloadData()
+//
+//            self.saveFriends()
+        })
+        
+        tableView.register(UINib(nibName: "FriendsHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "FriendsHeader")
+        
+        getFriendsFromRealm()
+        let arrayFriends = users?.toArray()
+        sortedFriends = sort(friends: arrayFriends ?? [Friend]())
+        self.tableView.reloadData()
+
+        print(realm.configuration.fileURL)
     }
     
-    private func sort(friends: [User]) -> [Character: [User]] {
-        var friendsDict = [Character: [User]]()
+    private func sort(friends: [Friend]) -> [Character: [Friend]] {
+        var friendsDict = [Character: [Friend]]()
         
-        friends.forEach() {friend in
+        let arrayFriends = users?.toArray()
+        
+        arrayFriends!.forEach() {friend in
             
-            guard let firstChar = friend.name.first else {return}
+            guard let firstChar = friend.lastName.first else {return}
             
             if var thisCharFriends = friendsDict[firstChar] {
                 thisCharFriends.append(friend)
@@ -85,11 +125,14 @@ class FriendsTableViewController: UITableViewController {
         let firstChar = sortedFriends.keys.sorted()[indexPath.section]
         let friends = sortedFriends[firstChar]!
         
-        let friend: User = friends[indexPath.row]
+        let friend: Friend = friends[indexPath.row]
         
         selectedFriend = friend
-        cell.labelFriendCell.text = selectedFriend?.name
-        cell.imageFriendCell.image = selectedFriend?.image
+        cell.labelFriendCell.text = (selectedFriend?.lastName ?? "") + " " + (selectedFriend?.firstName ?? "")
+        if let image = selectedFriend?.photo {
+            cell.imageFriendCell.sd_setImage(with: URL(string: image))
+        }
+//        cell.imageFriendCell.image = selectedFriend?.image
  
         
         return cell
@@ -105,17 +148,13 @@ class FriendsTableViewController: UITableViewController {
         return header
     }
     
-    
-    
-    
-    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
         tableView.deselectRow(at: indexPath, animated: true)
         let firstChar = sortedFriends.keys.sorted()[indexPath.section]
         let friends = sortedFriends[firstChar]!
         
-        let friend: User = friends[indexPath.row]
+        let friend: Friend = friends[indexPath.row]
         
         selectedFriend = friend
 //        performSegue(withIdentifier: "FriendsSegue", sender: self)
@@ -128,7 +167,7 @@ class FriendsTableViewController: UITableViewController {
 //        
 //        self.present(photosViewControllerVC, animated: true)
         navigationController?.pushViewController(photosViewControllerVC, animated: true)
-        photosViewControllerVC.title = selectedFriend?.name
+        photosViewControllerVC.title = (selectedFriend?.lastName ?? "") + " " + (selectedFriend?.firstName ?? "")
         photosViewControllerVC.friend = selectedFriend
         
     }
@@ -151,6 +190,111 @@ class FriendsTableViewController: UITableViewController {
         
         
     }
+    
+    func saveFriends() {
+        let allFriends = realm.objects(Friends.self)
+        var friends = Friends()
+        
+        
+        for i in usersVK.indices {
+            let oneFriend = Friend()
+            oneFriend.id = usersVK[i].id
+            oneFriend.firstName = usersVK[i].firstName
+            oneFriend.lastName = usersVK[i].lastName
+            oneFriend.photo = usersVK[i].photo
+            friends.items.append(oneFriend)
+            print("\(oneFriend.firstName) \(oneFriend.lastName)")
+        }
+//        print(friends.items)
+        if allFriends.isEmpty {
+            
+            try! realm.write {
+                realm.add(friends)
+            }
+        }
+    }
+    
+    func getFriendsFromRealm() {
+        users = realm.objects(Friend.self)
+        token = users!.observe { (changes: RealmCollectionChange) in
+            switch changes {
+                
+            case .initial(_):
+                print("initialized successfully")
+                self.tableView.reloadData()
+            case .update(_, deletions: let deletions, insertions: let insertions, modifications: let modifications):
+                
+                self.tableView.beginUpdates()
+                
+                self.tableView.deleteRows(at: deletions.map({ IndexPath(row: $0, section: 0)}), with: .automatic)
+                self.tableView.insertRows(at: insertions.map({ IndexPath(row: $0, section: 0) }), with: .automatic)
+                self.tableView.reloadRows(at: modifications.map({ IndexPath(row: $0, section: 0) }), with: .automatic)
+                
+                self.tableView.endUpdates()
+                
+            case .error(let error):
+                print(error.localizedDescription)
+            }
+        }
+        
+//        if let friends = allFriends.first?.items {
+//             self.users = Array(friends)
+//             self.tableView.reloadData()
+//        }
+    }
+    
+    func updateFriendsInRealm() {
+        let allFriends = realm.objects(Friends.self)
+        
+        if let friendsItems = allFriends.first?.items {
+            
+            friendsNew = Array(usersVK)
+            print("friendsNew initial count  = \(friendsNew.count)")
+            
+            for newFriend in usersVK {
+                for oldFriend in friendsItems {
+                    if newFriend.id == oldFriend.id {
+                        if let index = friendsNew.firstIndex(where: { $0.id == newFriend.id }) {
+                            friendsNew.remove(at: index)
+//                            print("newFriend deleted from the array of new friends = \(newFriend.id)")
+                        }
+                    }
+                }
+            }
+            print("friendsNew final  = \(friendsNew.count)")
+            
+            friendsToDelete = Array(friendsItems)
+            print("friendsToDelete initial count  = \(friendsToDelete.count)")
+            
+            for oldFriend in friendsToDelete {
+                for newFriend in usersVK {
+                    if newFriend.id == oldFriend.id {
+                        if let index = friendsToDelete.firstIndex(where: { $0.id == newFriend.id }) {
+                            friendsToDelete.remove(at: index)
+//                            print("friend is true to reality = \(newFriend.id)")
+                        }
+                    }
+                }
+            }
+            print("friendsToDelete final  = \(friendsToDelete.count)")
+            
+            if !friendsNew.isEmpty || !friendsToDelete.isEmpty {
+                print("Here we shall write in realm")
+                
+//                try! realm.write {
+//                    allFriends.first?.items.append(objectsIn: friendsNew)
+//                }
+            }
+        }
+    }
 
 }
 
+
+extension Results {
+    func toArray() -> [Element] {
+      return compactMap {
+        $0
+      }
+    }
+ }

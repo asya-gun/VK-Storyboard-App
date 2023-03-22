@@ -8,6 +8,7 @@
 import UIKit
 
 struct News {
+    let poster: User
     let newsText: String
     let image: UIImage?
 }

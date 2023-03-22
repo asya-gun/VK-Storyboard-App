@@ -3,7 +3,7 @@
 //  GundyrevaAnastasiia_VK Storyboard project
 //
 //  Created by Asya Checkanar on 07.12.2022.
-//
+//  добавить все группы по поиску
 
 import UIKit
 
@@ -11,17 +11,19 @@ class AllGroupsController: UITableViewController {
     
     private var groupSearchBar = UISearchBar()
     
-    let groups = [
-        Group(image: UIImage(named: "citadel_morning_news"),name: "Citadel Morning News"),
-        Group(image: UIImage(named: "ball_fondlers"),name: "Ball-Fondlers Fans"),
-        Group(image: UIImage(named: "vindicators"),name: "Vindicators Trivia"),
-        Group(image: UIImage(named: "meseeks_overhear"),name: "Meseeks Overhear"),
-        Group(image: UIImage(named: "good_morty"), name: "The Good Morty"),
-        Group(image: UIImage(named: "beta_seven"), name: "Beta-Seven"),
-        Group(image: UIImage(named: "anatomy_park"), name: "Anatomy Park Exclusive"),
-        Group(image: UIImage(named: "show_me_what_you_got"), name: "Show Me What You Got"),
-        Group(image: UIImage(named: "heist_con"), name: "Heist-Con"),
-    ]
+//    let groups = [
+//        Group(image: UIImage(named: "citadel_morning_news"),name: "Citadel Morning News"),
+//        Group(image: UIImage(named: "ball_fondlers"),name: "Ball-Fondlers Fans"),
+//        Group(image: UIImage(named: "vindicators"),name: "Vindicators Trivia"),
+//        Group(image: UIImage(named: "meseeks_overhear"),name: "Meseeks Overhear"),
+//        Group(image: UIImage(named: "good_morty"), name: "The Good Morty"),
+//        Group(image: UIImage(named: "beta_seven"), name: "Beta-Seven"),
+//        Group(image: UIImage(named: "anatomy_park"), name: "Anatomy Park Exclusive"),
+//        Group(image: UIImage(named: "show_me_what_you_got"), name: "Show Me What You Got"),
+//        Group(image: UIImage(named: "heist_con"), name: "Heist-Con"),
+//    ]
+    
+    var groups = [Group]()
     
     var filteredGroups = [Group]()
     var selectedGroup: Group?
@@ -54,7 +56,7 @@ class AllGroupsController: UITableViewController {
         }
         let group = filteredGroups[indexPath.row]
         cell.labelAllGroupsCell.text = group.name
-        cell.imageAllGroupsCell.image = group.image
+//        cell.imageAllGroupsCell.image = group.image
 
         return cell
     }
