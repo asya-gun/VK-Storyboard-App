@@ -42,7 +42,7 @@ class Group: Object, Decodable {
         case groupDescription = "description"
     }
     
-//    enum MainKeys: String, CodingKey {
+//    enum MainKeys: change String, CodingKey {
 //        case sampleMain
 //    }
 //    convenience required init(from decoder: Decoder) throws {
