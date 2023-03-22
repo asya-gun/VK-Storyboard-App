@@ -8,6 +8,7 @@
 import Foundation
 import Alamofire
 import RealmSwift
+import PromiseKit
 
 class Service {
     //https://api.vk.com/method/<METHOD>?<PARAMS> HTTP/1.1
@@ -144,5 +145,47 @@ class Service {
         let friends = realm.objects(Friend.self)
         print(friends)
     }
+    
+    
+    func getFriendsData(token: String) -> Promise<Data> {
+        let url = baseUrl + "/friends.get"
+        let parameters: Parameters = [
+            "access_token" : token,
+            "v" : "5.131",
+            "fields" : "last_seen, photo_100"
+        ]
+        return Promise { resolver in
+        AF.request(url, method: .post, parameters: parameters).response { result in
+            guard let data = result.data else {
+                resolver.reject(AppError.badRequest as! Error)
+                return
+            }
+            
+            resolver.fulfill(data)
+        }
+        }
+    }
+    
+    func getFriendsDataParsed(_ data: Data) -> Promise<List<Friend>> {
+        
+        return Promise { resolver in
+            do {
+                let response = try JSONDecoder().decode(Response.self, from: data).response.items
+                resolver.fulfill(response)
+            } catch let error {
+                    resolver.reject(error)
+                }
+        }
+    }
+    
+    func getFriends(friends: List<Friend>) -> Promise<[Friend]> {
+        return Promise { resolver in
+            let arrayFriends = Array(friends)
+            resolver.fulfill(arrayFriends)
+        }
+    }
+    
 }
+
+
 

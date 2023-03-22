@@ -60,6 +60,8 @@
 		D752201D294120DE00013287 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = D752201C294120DE00013287 /* Group.swift */; };
 		D752201F294126A600013287 /* GroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D752201E294126A600013287 /* GroupCell.swift */; };
 		D75220212941344000013287 /* AllGroupsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75220202941344000013287 /* AllGroupsController.swift */; };
+		D75245F429CB61E200BA3A4B /* PromiseKit in Frameworks */ = {isa = PBXBuildFile; productRef = D75245F329CB61E200BA3A4B /* PromiseKit */; };
+		D75245F629CB910A00BA3A4B /* Friends Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75245F529CB910A00BA3A4B /* Friends Promise.swift */; };
 		D75E68F92993CB9400217784 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75E68F82993CB9400217784 /* Weather.swift */; };
 		D75E68FB2993CDB100217784 /* WeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75E68FA2993CDB100217784 /* WeatherViewController.swift */; };
 		D76B5C532996D4A0003E23A5 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = D76B5C522996D4A0003E23A5 /* Realm */; };
@@ -130,6 +132,7 @@
 		D752201C294120DE00013287 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		D752201E294126A600013287 /* GroupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupCell.swift; sourceTree = "<group>"; };
 		D75220202941344000013287 /* AllGroupsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllGroupsController.swift; sourceTree = "<group>"; };
+		D75245F529CB910A00BA3A4B /* Friends Promise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Friends Promise.swift"; sourceTree = "<group>"; };
 		D75E68F82993CB9400217784 /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
 		D75E68FA2993CDB100217784 /* WeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewController.swift; sourceTree = "<group>"; };
 		D7706D2C29AE84680086FBB5 /* NewsScrollViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsScrollViewController.swift; sourceTree = "<group>"; };
@@ -146,6 +149,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D75245F429CB61E200BA3A4B /* PromiseKit in Frameworks */,
 				D76B5C552996D4A0003E23A5 /* RealmSwift in Frameworks */,
 				D76B5C532996D4A0003E23A5 /* Realm in Frameworks */,
 				D73FFD4F29915C0F00E311DE /* SDWebImage in Frameworks */,
@@ -228,7 +232,7 @@
 		D7370D1C293675F600818366 /* GundyrevaAnastasiia_VK Storyboard project */ = {
 			isa = PBXGroup;
 			children = (
-				D77F8C8029C7877F004533BC /* Group Operations */,
+				D77F8C8029C7877F004533BC /* Operations and Promise */,
 				D72DEB82298C0889001C0C70 /* Service */,
 				D728DAAF295594470013A183 /* Buttons */,
 				D7370D1D293675F600818366 /* AppDelegate.swift */,
@@ -323,12 +327,13 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		D77F8C8029C7877F004533BC /* Group Operations */ = {
+		D77F8C8029C7877F004533BC /* Operations and Promise */ = {
 			isa = PBXGroup;
 			children = (
 				D77F8C8129C7885A004533BC /* Async Operations.swift */,
+				D75245F529CB910A00BA3A4B /* Friends Promise.swift */,
 			);
-			path = "Group Operations";
+			path = "Operations and Promise";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -353,6 +358,7 @@
 				D73FFD4E29915C0F00E311DE /* SDWebImage */,
 				D76B5C522996D4A0003E23A5 /* Realm */,
 				D76B5C542996D4A0003E23A5 /* RealmSwift */,
+				D75245F329CB61E200BA3A4B /* PromiseKit */,
 			);
 			productName = "GundyrevaAnastasiia_VK Storyboard project";
 			productReference = D7370D1A293675F600818366 /* GundyrevaAnastasiia_VK Storyboard project.app */;
@@ -388,6 +394,7 @@
 			packageReferences = (
 				D73FFD4D29915C0E00E311DE /* XCRemoteSwiftPackageReference "SDWebImage" */,
 				D76B5C512996D4A0003E23A5 /* XCRemoteSwiftPackageReference "realm-swift" */,
+				D75245F229CB61E200BA3A4B /* XCRemoteSwiftPackageReference "PromiseKit" */,
 			);
 			productRefGroup = D7370D1B293675F600818366 /* Products */;
 			projectDirPath = "";
@@ -467,6 +474,7 @@
 				D733DFD0296B652A00333434 /* TransitionAnimator.swift in Sources */,
 				D75220172941187E00013287 /* PhotosViewController.swift in Sources */,
 				D75E68F92993CB9400217784 /* Weather.swift in Sources */,
+				D75245F629CB910A00BA3A4B /* Friends Promise.swift in Sources */,
 				D7DD2B20293FCBA000BC664E /* FriendCell.swift in Sources */,
 				D73BC402296C254700BD0F05 /* CustomPushAnimators.swift in Sources */,
 				D7706D2D29AE84680086FBB5 /* NewsScrollViewController.swift in Sources */,
@@ -744,6 +752,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		D75245F229CB61E200BA3A4B /* XCRemoteSwiftPackageReference "PromiseKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mxcl/PromiseKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.0;
+			};
+		};
 		D76B5C512996D4A0003E23A5 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/realm-swift";
@@ -759,6 +775,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D73FFD4D29915C0E00E311DE /* XCRemoteSwiftPackageReference "SDWebImage" */;
 			productName = SDWebImage;
+		};
+		D75245F329CB61E200BA3A4B /* PromiseKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D75245F229CB61E200BA3A4B /* XCRemoteSwiftPackageReference "PromiseKit" */;
+			productName = PromiseKit;
 		};
 		D76B5C522996D4A0003E23A5 /* Realm */ = {
 			isa = XCSwiftPackageProductDependency;

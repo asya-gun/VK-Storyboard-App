@@ -8,6 +8,7 @@
 import UIKit
 import SDWebImage
 import RealmSwift
+import PromiseKit
 
 class FriendsTableViewController: UITableViewController {
 
@@ -62,20 +63,28 @@ class FriendsTableViewController: UITableViewController {
             self.updateFriendsInRealm()
 
 //            self.tableView.reloadData()
-//
 //            self.sortedFriends = self.sort(friends: self.users)
-//
 //            self.tableView.reloadData()
-//
 //            self.saveFriends()
         })
+        service.getFriendsData(token: session.token)
+            .then(on: .global(), service.getFriendsDataParsed(_ :))
+            .then(service.getFriends(friends: ))
+            .done(on: .main) {fr in
+                self.usersVK = fr
+//                print("lastName \(fr.last?.lastName)")
+                self.sortedFriends = self.sort(friends: self.usersVK)
+                self.tableView.reloadData()
+            } .catch { error in
+                print(error)
+            }
         
         tableView.register(UINib(nibName: "FriendsHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "FriendsHeader")
         
         getFriendsFromRealm()
-        let arrayFriends = users?.toArray()
-        sortedFriends = sort(friends: arrayFriends ?? [Friend]())
-        self.tableView.reloadData()
+//        let arrayFriends = users?.toArray()
+//        sortedFriends = sort(friends: usersVK ?? [Friend]())
+//        self.tableView.reloadData()
 
         print(realm.configuration.fileURL)
     }
@@ -83,9 +92,9 @@ class FriendsTableViewController: UITableViewController {
     private func sort(friends: [Friend]) -> [Character: [Friend]] {
         var friendsDict = [Character: [Friend]]()
         
-        let arrayFriends = users?.toArray()
+//        let arrayFriends = users?.toArray()
         
-        arrayFriends!.forEach() {friend in
+        usersVK.forEach() {friend in
             
             guard let firstChar = friend.lastName.first else {return}
             
@@ -287,7 +296,8 @@ class FriendsTableViewController: UITableViewController {
             }
         }
     }
-
+ 
+    
 }
 
 
