@@ -4,6 +4,7 @@
 //
 //  Created by Asya Checkanar on 06.12.2022.
 // добавить: поиск по друзьям
+//добавить: кеширование фото
 
 import UIKit
 import SDWebImage
@@ -33,6 +34,8 @@ class FriendsTableViewController: UITableViewController {
     
     let session = Session.shared
     let service = Service()
+    private var photoService: PhotoService?
+    
     var users: Results<Friend>?
     var users1: Results<Friend>?
     
@@ -55,6 +58,7 @@ class FriendsTableViewController: UITableViewController {
         
 //        tableView.register(UINib(nibName: "FriendXIBCell", bundle: nil), forCellReuseIdentifier: "FriendXIBCell")
 //        navigationController?.delegate = self
+        photoService = PhotoService(container: tableView)
         
         service.getFriends(token: session.token, completion: {friends in
             let arrayFriends = Array(friends)
@@ -138,8 +142,10 @@ class FriendsTableViewController: UITableViewController {
         
         selectedFriend = friend
         cell.labelFriendCell.text = (selectedFriend?.lastName ?? "") + " " + (selectedFriend?.firstName ?? "")
-        if let image = selectedFriend?.photo {
-            cell.imageFriendCell.sd_setImage(with: URL(string: image))
+        if let imageUrl = selectedFriend?.photo {
+            cell.imageFriendCell.sd_setImage(with: URL(string: imageUrl))
+            let image = photoService?.photo(atIndexPath: indexPath, byUrl: imageUrl)
+            cell.imageFriendCell.image = image
         }
 //        cell.imageFriendCell.image = selectedFriend?.image
  
