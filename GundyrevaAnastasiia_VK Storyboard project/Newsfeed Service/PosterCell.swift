@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class PosterCell: UITableViewCell {
     
@@ -23,6 +24,16 @@ class PosterCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    func configure(imageUrl: String) {
+        posterImage.sd_setImage(with: URL(string: imageUrl))
+    }
+    func configure(name: String) {
+        posterName.text = name
+    }
+    func configure(lastSeenText: String) {
+        posterLastSeenLabel.text = lastSeenText
     }
 
 }
