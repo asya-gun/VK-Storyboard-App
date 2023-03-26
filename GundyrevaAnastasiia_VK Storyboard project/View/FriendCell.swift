@@ -13,5 +13,10 @@ class FriendCell: UITableViewCell {
     
     @IBOutlet weak var labelFriendCell: UILabel!
     
-
+    func configure(imageUrl: String) {
+        imageFriendCell.sd_setImage(with: URL(string: imageUrl))
+    }
+    func configure(text: String) {
+        labelFriendCell.text = text
+    }
 }

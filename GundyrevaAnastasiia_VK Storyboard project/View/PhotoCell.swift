@@ -11,4 +11,7 @@ class PhotoCell: UICollectionViewCell {
     
     @IBOutlet weak var imagePhotoCell: UIImageView!
     
+    func configure(imageUrl: String) {
+        imagePhotoCell.sd_setImage(with: URL(string: imageUrl))
+    }
 }

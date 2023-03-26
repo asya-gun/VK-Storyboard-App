@@ -29,6 +29,9 @@ class PosterCell: UITableViewCell {
     func configure(imageUrl: String) {
         posterImage.sd_setImage(with: URL(string: imageUrl))
     }
+    func configure(image: UIImage) {
+        posterImage.image = image
+    }
     func configure(name: String) {
         posterName.text = name
     }

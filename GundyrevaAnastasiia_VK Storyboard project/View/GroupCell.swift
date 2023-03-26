@@ -63,4 +63,14 @@ class GroupCell: UITableViewCell {
         imageGroupCell.transform = CGAffineTransform(scaleX: 1, y: 1)
     }
     
+    func configure(image: UIImage) {
+        imageGroupCell.image = image
+    }
+    func configure(imageUrl: String) {
+        imageGroupCell.sd_setImage(with: URL(string: imageUrl))
+    }
+    func configure(text: String) {
+        labelGroupCell.text = text
+    }
+    
 }

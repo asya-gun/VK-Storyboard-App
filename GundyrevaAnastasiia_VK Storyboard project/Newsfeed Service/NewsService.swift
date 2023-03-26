@@ -32,7 +32,7 @@ class NewsService {
             "access_token" : token,
             "filters" : "post, note",
             "source_ids" : "groups",
-            "count" : 3,
+            "count" : 10,
             "v" : "5.131"
         ]
         

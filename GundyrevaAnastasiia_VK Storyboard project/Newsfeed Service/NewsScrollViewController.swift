@@ -26,12 +26,15 @@ class NewsScrollViewController: UIViewController {
    
     var news = [NewsItems]()
     var newsGroups = [NewsGroups]()
+    private var photoService: PhotoService?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         tableView.delegate = self
         tableView.dataSource = self
+        
+        photoService = PhotoService(container: tableView)
         
         service.getNewsOld(token: session.token)
         service.getNews(token: session.token, completion: {news, groups in
@@ -85,6 +88,8 @@ extension NewsScrollViewController: UITableViewDelegate, UITableViewDataSource {
             
             if let picUrl = news[indexPath.section].attachments?.first(where: {$0.type == "photo"})?.photo?.sizes.last?.url {
                 cell.configure(url: picUrl)
+            } else {
+                return UITableViewCell()
             }
             return cell
         }
@@ -107,17 +112,16 @@ extension NewsScrollViewController: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
         
-        let pic = newsGroups[indexPath.section].photo
-        cell.configure(imageUrl: pic)
+        let picUrl = newsGroups[indexPath.section].photo
+        let pic = photoService?.photo(atIndexPath: indexPath, byUrl: picUrl)
+//        cell.configure(imageUrl: picUrl)
+        cell.configure(image: pic ?? UIImage())
+        
         cell.configure(name: newsGroups[indexPath.section].name)
         let date = news[indexPath.section].date
         cell.configure(lastSeenText: dateFormatter.string(from: date))
         
         return cell
-    }
-    
-    func configure(imageUrl: String) {
-        
     }
     
 }
