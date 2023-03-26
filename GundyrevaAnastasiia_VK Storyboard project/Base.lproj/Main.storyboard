@@ -742,7 +742,7 @@
                             <constraint firstItem="vdg-5X-MiU" firstAttribute="trailing" secondItem="vtD-WP-ZHz" secondAttribute="trailing" id="aCu-82-6kM"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="News" selectedImage="list.bullet.rectangle" catalog="system" id="Z6w-eY-0c3"/>
+                    <tabBarItem key="tabBarItem" title="News" image="list.bullet.rectangle.fill" catalog="system" id="Z6w-eY-0c3"/>
                     <connections>
                         <outlet property="tableView" destination="vtD-WP-ZHz" id="hrI-PG-bkP"/>
                     </connections>
@@ -1287,7 +1287,7 @@
     <resources>
         <image name="arrowshape.turn.up.right.fill" catalog="system" width="128" height="104"/>
         <image name="heart" catalog="system" width="128" height="107"/>
-        <image name="list.bullet.rectangle" catalog="system" width="128" height="93"/>
+        <image name="list.bullet.rectangle.fill" catalog="system" width="128" height="93"/>
         <image name="list.clipboard.fill" catalog="system" width="103" height="128"/>
         <image name="message" catalog="system" width="128" height="116"/>
         <image name="newspaper.fill" catalog="system" width="128" height="112"/>
