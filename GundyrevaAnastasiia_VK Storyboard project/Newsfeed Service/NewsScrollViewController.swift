@@ -100,8 +100,10 @@ extension NewsScrollViewController: UITableViewDelegate, UITableViewDataSource {
                 return UITableViewCell()
             }
             
-            cell.likeButton.likeNumber = news[indexPath.section].likes.count
-            cell.shareButton.shareNumber = news[indexPath.section].reposts.count
+//            cell.likeButton.likeNumber = news[indexPath.section].likes.count
+            cell.likeButton.setLikeNumber(number: news[indexPath.section].likes.count)
+            cell.shareButton.setShareNumber(number: news[indexPath.section].reposts.count)
+            cell.commentButton.setCommentNumber(number: news[indexPath.section].comments.count)
             cell.commentButton.commentNumber = news[indexPath.section].comments.count
             
 
@@ -112,7 +114,10 @@ extension NewsScrollViewController: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
         
-        let picUrl = newsGroups[indexPath.section].photo
+       let picUrl = newsGroups[indexPath.section].photo
+        print(indexPath.section)
+        print(newsGroups.count)
+        print(news.count)
         let pic = photoService?.photo(atIndexPath: indexPath, byUrl: picUrl)
 //        cell.configure(imageUrl: picUrl)
         cell.configure(image: pic ?? UIImage())

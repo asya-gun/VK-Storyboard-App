@@ -79,4 +79,8 @@ class CommentButton: UIControl {
         }
         updateCommentNumber()
     }
+    
+    func setCommentNumber(number: Int) {
+        commentNumber = number
+    }
 }
