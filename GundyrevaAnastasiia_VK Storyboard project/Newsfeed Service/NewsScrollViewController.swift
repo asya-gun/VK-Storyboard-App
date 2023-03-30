@@ -4,6 +4,10 @@
 //
 //  Created by Asya Checkanar on 28.02.2023.
 //
+//refreshControl
+//infiniteScrolling
+//доработать poster: сделать по id
+//
 
 import UIKit
 import SDWebImage
@@ -28,18 +32,26 @@ class NewsScrollViewController: UIViewController {
     var newsGroups = [NewsGroups]()
     private var photoService: PhotoService?
     
+    var lastDate: Date?
+    var nextFrom = ""
+    var isLoading = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.prefetchDataSource = self
         
         photoService = PhotoService(container: tableView)
+        setupRefreshControl()
         
-        service.getNewsOld(token: session.token)
-        service.getNews(token: session.token, completion: {news, groups in
+//        service.getNewsOld(token: session.token)
+        service.getNews(token: session.token, completion: {news, groups, str in
             self.news = news
             self.newsGroups = groups
+            self.lastDate = news.first?.date
+            self.nextFrom = str
             print("the last news \(self.news.last?.text)")
             self.tableView.reloadData()
         })
@@ -114,19 +126,96 @@ extension NewsScrollViewController: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
         
-       let picUrl = newsGroups[indexPath.section].photo
-        print(indexPath.section)
-        print(newsGroups.count)
-        print(news.count)
+        guard let posterGroup = newsGroups.first(where: {$0.id == abs(news[indexPath.section].ownerId) }) else { return UITableViewCell() }
+//        print(posterGroup.name)
+        
+        let picUrl = posterGroup.photo
         let pic = photoService?.photo(atIndexPath: indexPath, byUrl: picUrl)
 //        cell.configure(imageUrl: picUrl)
         cell.configure(image: pic ?? UIImage())
         
-        cell.configure(name: newsGroups[indexPath.section].name)
+        cell.configure(name: posterGroup.name)
         let date = news[indexPath.section].date
         cell.configure(lastSeenText: dateFormatter.string(from: date))
         
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch indexPath.row {
+        case 0:
+            return UITableView.automaticDimension
+        case 1:
+            if ((news[indexPath.section].text?.isEmpty) == nil) {
+                return 0
+            }
+            return UITableView.automaticDimension
+        case 2:
+            guard let photo = news[indexPath.section].attachments?.first(where: {$0.type == "photo"})?.photo,
+                    let url = photo.sizes.last?.url, !url.isEmpty else { return 0 }
+            let width = view.frame.width
+            let post = news[indexPath.section]
+            let cellHeight = width * (photo.sizes.last?.aspectRatio ?? 0)
+            return cellHeight
+        case 3:
+            return UITableView.automaticDimension
+        default:
+            return 0
+        }
+    }
+    
+    fileprivate func setupRefreshControl() {
+        tableView.refreshControl = UIRefreshControl()
+        tableView.refreshControl?.attributedTitle = NSAttributedString(string: "Refreshing...")
+        tableView.refreshControl?.tintColor = .systemMint
+        tableView.refreshControl?.addTarget(self, action: #selector(refreshNews), for: .valueChanged)
+    }
+    
+    @objc func refreshNews() {
+        tableView.refreshControl?.beginRefreshing()
+        guard let date = lastDate else {
+            tableView.refreshControl?.endRefreshing()
+            return
+        }
+        service.getNews(token: session.token, startTime: date, completion: { [weak self] news, groups in
+            guard let self = self else { return }
+            guard news.count > 0 else
+            { print("no newnews")
+                self.tableView.refreshControl?.endRefreshing()
+                return
+            }
+            print("newnews count \(news.count)")
+            print(groups.first?.name)
+            print(self.lastDate)
+            self.news.insert(contentsOf:news, at: 0)
+            self.newsGroups += groups
+            self.lastDate = news.first?.date
+//
+            self.tableView.reloadData()
+            self.tableView.refreshControl?.endRefreshing()
+        })
+        
+    }
+}
+
+extension NewsScrollViewController: UITableViewDataSourcePrefetching {
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        guard let maxSection = indexPaths.map({ $0.section }).max() else { return }
+        if maxSection > news.count - 3,
+           !isLoading {
+            isLoading = true
+            service.getNews(token: session.token, nextFrom: nextFrom, completion: {[weak self] news, groups, str in
+                guard let self = self else { return }
+                let indexSet = IndexSet(integersIn: self.news.count..<self.news.count + news.count)
+                self.news.append(contentsOf: news)
+                self.tableView.insertSections(indexSet, with: .fade)
+                self.newsGroups += groups
+                self.nextFrom = str
+                self.tableView.reloadData()
+                self.isLoading = false
+            })
+        }
+    }
+    
     
 }
