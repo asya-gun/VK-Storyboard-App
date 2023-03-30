@@ -577,30 +577,35 @@
                                             <outlet property="posterName" destination="hzS-Bm-Lyp" id="LzP-ru-Hjw"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="postTextCell" rowHeight="74" id="P0t-fy-DBK" customClass="PostTextCell" customModule="GundyrevaAnastasiia_VK_Storyboard_project" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="124" width="393" height="74"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="postTextCell" rowHeight="91" id="P0t-fy-DBK" customClass="PostTextCell" customModule="GundyrevaAnastasiia_VK_Storyboard_project" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="124" width="393" height="91"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="P0t-fy-DBK" id="dpo-nt-LIA">
-                                            <rect key="frame" x="0.0" y="0.0" width="393" height="74"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="91"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PuU-yM-06V">
-                                                    <rect key="frame" x="10" y="10" width="373" height="54"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PuU-yM-06V">
+                                                    <rect key="frame" x="10" y="10" width="373" height="50"/>
                                                     <color key="backgroundColor" systemColor="systemGray6Color"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8jI-Ve-8Vp" customClass="ShowMoreButton" customModule="GundyrevaAnastasiia_VK_Storyboard_project" customModuleProvider="target">
-                                                    <rect key="frame" x="321" y="36" width="62" height="27"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8jI-Ve-8Vp" customClass="ShowMoreButton" customModule="GundyrevaAnastasiia_VK_Storyboard_project" customModuleProvider="target">
+                                                    <rect key="frame" x="10" y="64" width="373" height="27"/>
+                                                    <color key="backgroundColor" systemColor="systemGray5Color"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="27" id="kld-cT-ciF"/>
+                                                    </constraints>
                                                 </view>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="PuU-yM-06V" secondAttribute="bottom" constant="10" id="GpI-4Z-KMc"/>
+                                                <constraint firstItem="8jI-Ve-8Vp" firstAttribute="top" secondItem="PuU-yM-06V" secondAttribute="bottom" constant="4" id="2iU-ph-j7c"/>
+                                                <constraint firstAttribute="bottom" secondItem="8jI-Ve-8Vp" secondAttribute="bottom" id="Rnw-8P-Fyc"/>
                                                 <constraint firstItem="PuU-yM-06V" firstAttribute="top" secondItem="dpo-nt-LIA" secondAttribute="top" constant="10" id="T4Z-LU-BTb"/>
+                                                <constraint firstItem="8jI-Ve-8Vp" firstAttribute="leading" secondItem="dpo-nt-LIA" secondAttribute="leading" constant="10" id="b25-Zn-tZi"/>
                                                 <constraint firstItem="PuU-yM-06V" firstAttribute="leading" secondItem="dpo-nt-LIA" secondAttribute="leading" constant="10" id="bvO-Qa-aPB"/>
+                                                <constraint firstAttribute="trailing" secondItem="8jI-Ve-8Vp" secondAttribute="trailing" constant="10" id="exC-OC-s4h"/>
                                                 <constraint firstAttribute="trailing" secondItem="PuU-yM-06V" secondAttribute="trailing" constant="10" id="qEB-kh-H3R"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -610,7 +615,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="picturesCell" rowHeight="74" id="Neo-Bp-dW2" customClass="PostImageCell" customModule="GundyrevaAnastasiia_VK_Storyboard_project" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="198" width="393" height="74"/>
+                                        <rect key="frame" x="0.0" y="215" width="393" height="74"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Neo-Bp-dW2" id="OtC-0j-z7l">
                                             <rect key="frame" x="0.0" y="0.0" width="393" height="74"/>
@@ -637,7 +642,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="buttonsCell" rowHeight="40" id="aaU-W0-vBD" customClass="PostButtonsCell" customModule="GundyrevaAnastasiia_VK_Storyboard_project" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="272" width="393" height="40"/>
+                                        <rect key="frame" x="0.0" y="289" width="393" height="40"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="aaU-W0-vBD" id="q5a-T4-fVF">
                                             <rect key="frame" x="0.0" y="0.0" width="393" height="40"/>

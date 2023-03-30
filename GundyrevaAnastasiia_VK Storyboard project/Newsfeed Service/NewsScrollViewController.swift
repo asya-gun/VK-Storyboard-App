@@ -146,8 +146,12 @@ extension NewsScrollViewController: UITableViewDelegate, UITableViewDataSource {
         case 0:
             return UITableView.automaticDimension
         case 1:
-            if ((news[indexPath.section].text?.isEmpty) == nil) {
+            guard let text = news[indexPath.section].text,
+                  text.count > 0 else {
                 return 0
+            }
+            if text.count > 152 {
+                return 150
             }
             return UITableView.automaticDimension
         case 2:
@@ -163,6 +167,8 @@ extension NewsScrollViewController: UITableViewDelegate, UITableViewDataSource {
             return 0
         }
     }
+    
+    
     
     fileprivate func setupRefreshControl() {
         tableView.refreshControl = UIRefreshControl()

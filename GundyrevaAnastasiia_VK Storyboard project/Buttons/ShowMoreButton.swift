@@ -14,6 +14,8 @@ class ShowMoreButton: UIControl {
         label.textColor = .blue
         label.font = .systemFont(ofSize: 17, weight: .bold)
         label.textAlignment = .left
+        label.textColor = .systemMint
+        label.text = "Show more"
         return label
     }()
 //    private let underlineAttribute = [NSAttributedString.Key.underlineStyle]
@@ -40,7 +42,7 @@ class ShowMoreButton: UIControl {
         let tap = UITapGestureRecognizer(target: self, action: #selector(updateTextState(_ :)))
         tap.numberOfTapsRequired = 1
         self.addGestureRecognizer(tap)
-        
+        updateText()
     }
    @objc private func updateTextState(_ tap: UITapGestureRecognizer) {
         isSelected.toggle()
@@ -51,6 +53,13 @@ class ShowMoreButton: UIControl {
         } else {
             showLabel.text = "Show more"
             showLabel.textColor = .systemMint
+        }
+       updateText()
+    }
+    private func updateText() {
+        if !isSelected {
+            showLabel.textColor = .systemMint
+            showLabel.text = "Show more"
         }
     }
 }
