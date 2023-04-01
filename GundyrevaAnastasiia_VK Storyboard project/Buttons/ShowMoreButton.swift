@@ -18,6 +18,7 @@ class ShowMoreButton: UIControl {
         label.text = "Show more"
         return label
     }()
+    var section: Int = 0
 //    private let underlineAttribute = [NSAttributedString.Key.underlineStyle]
     
     override init(frame: CGRect) {

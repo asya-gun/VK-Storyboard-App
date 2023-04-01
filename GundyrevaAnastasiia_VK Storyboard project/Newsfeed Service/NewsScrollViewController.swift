@@ -57,17 +57,24 @@ class NewsScrollViewController: UIViewController {
         })
         print("news count \(news.count)")
         
+   
+        
 //        tableView.register(PosterCell.self, forCellReuseIdentifier: "posterCell")
 //        tableView.register(PostTextCell.self, forCellReuseIdentifier: "postTextCell")
 //        tableView.register(PostImageCell.self, forCellReuseIdentifier: "picturesCell")
 //        tableView.register(PostButtonsCell.self, forCellReuseIdentifier: "buttonsCell")
     }
-    
+
 
 
 }
 
 extension NewsScrollViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    @objc func buttonAction(_ sender: UIControl!) {
+        let row = sender.tag
+        print("buttonRow \(row)")
+    }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
@@ -89,15 +96,26 @@ extension NewsScrollViewController: UITableViewDelegate, UITableViewDataSource {
 
             guard let text = news[indexPath.section].text else { return UITableViewCell() }
             cell.postText.text = text
-            let textSize = cell.postText.font.pointSize * (CGFloat(text.count)/38)
-            print(textSize)
-            if cell.showButton.isSelected {
-                print("button selected")
-//                cell.postText.lineBreakMode = .byWordWrapping
-//                cell.postText.numberOfLines = 0
-//                tableView.reloadData()
-            } else if !cell.showButton.isSelected {
-                print("button not selected")
+//            let textSize = cell.postText.font.pointSize * (CGFloat(text.count)/38)
+//            print(textSize)
+//            cell.showButton.addTarget(self, action: #selector(NewsScrollViewController.buttonAction(_:)), for: .touchUpInside)
+//            cell.showButton.tag = indexPath.section
+//            print("indexPath section button: \(indexPath.section)")
+//            print("cell.showButton.tag button: \(cell.showButton.tag)")
+            cell.delegate = self
+            
+            cell.tapShow = { [weak self] cell in
+                guard let self = self,
+                      let indexPath = tableView.indexPath(for: cell) else { return }
+                if cell.showButton.isSelected {
+                    print("button selected")
+    //                cell.postText.lineBreakMode = .byWordWrapping
+    //                cell.postText.numberOfLines = 0
+    //                tableView.reloadData()
+                } else if !cell.showButton.isSelected {
+                    print("button not selected")
+                }
+                
             }
             
             return cell
@@ -242,6 +260,14 @@ extension NewsScrollViewController: UITableViewDataSourcePrefetching {
                 self.isLoading = false
             })
         }
+    }
+    
+    
+}
+
+extension NewsScrollViewController: PostTextCellDelegate {
+    func didTapButton(atSection section: Int) {
+        print(section)
     }
     
     

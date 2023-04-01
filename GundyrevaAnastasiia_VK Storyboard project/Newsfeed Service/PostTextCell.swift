@@ -7,10 +7,18 @@
 
 import UIKit
 
+protocol PostTextCellDelegate: AnyObject {
+    func didTapButton(atSection section: Int)
+}
+
 class PostTextCell: UITableViewCell {
+    
+    weak var delegate: PostTextCellDelegate?
+    private var section: Int = 0
 
     @IBOutlet weak var postText: UILabel!
 //    private var showButton: ShowMoreButton!
+    var tapShow: ((PostTextCell) -> ())?
     
     @IBOutlet weak var showButton: ShowMoreButton!
     
@@ -37,15 +45,24 @@ class PostTextCell: UITableViewCell {
 //    }
     
     @IBAction func tapShowButton(_ sender: Any) {
-        isSelected.toggle()
-        if isSelected {
-            self.postText.lineBreakMode = .byWordWrapping
-            self.postText.numberOfLines = 0
-            print("button tapped, full text should be shown")
-        } else {
-            self.postText.lineBreakMode = .byTruncatingTail
-            self.postText.numberOfLines = 4
-        }
+        delegate?.didTapButton(atSection: section)
+        
+//        tapShow?(self)
+//        isSelected.toggle()
+//        if isSelected {
+//            self.postText.lineBreakMode = .byWordWrapping
+//            self.postText.numberOfLines = 0
+//            print("button tapped, full text should be shown")
+//        } else {
+//            self.postText.lineBreakMode = .byTruncatingTail
+//            self.postText.numberOfLines = 4
+//            print("button not tapped, full text concealed")
+//        }
+    }
+    
+    func setCellSection(sectionNumber: Int) {
+        self.section = sectionNumber
+        showButton.section = section
     }
     override func awakeFromNib() {
         super.awakeFromNib()
