@@ -584,7 +584,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="393" height="91"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PuU-yM-06V">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PuU-yM-06V">
                                                     <rect key="frame" x="10" y="10" width="373" height="50"/>
                                                     <color key="backgroundColor" systemColor="systemGray6Color"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -597,6 +597,9 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="27" id="kld-cT-ciF"/>
                                                     </constraints>
+                                                    <connections>
+                                                        <action selector="tapShowButton:" destination="P0t-fy-DBK" eventType="valueChanged" id="UPV-ft-pwg"/>
+                                                    </connections>
                                                 </view>
                                             </subviews>
                                             <constraints>
@@ -612,6 +615,7 @@
                                         <color key="backgroundColor" systemColor="systemGray6Color"/>
                                         <connections>
                                             <outlet property="postText" destination="PuU-yM-06V" id="qFV-fC-CUd"/>
+                                            <outlet property="showButton" destination="8jI-Ve-8Vp" id="TFY-2L-c8Q"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="picturesCell" rowHeight="74" id="Neo-Bp-dW2" customClass="PostImageCell" customModule="GundyrevaAnastasiia_VK_Storyboard_project" customModuleProvider="target">

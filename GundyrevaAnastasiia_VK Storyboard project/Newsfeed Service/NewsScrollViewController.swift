@@ -87,7 +87,18 @@ extension NewsScrollViewController: UITableViewDelegate, UITableViewDataSource {
                 return UITableViewCell()
             }
 
-            cell.postText.text = news[indexPath.section].text
+            guard let text = news[indexPath.section].text else { return UITableViewCell() }
+            cell.postText.text = text
+            let textSize = cell.postText.font.pointSize * (CGFloat(text.count)/38)
+            print(textSize)
+            if cell.showButton.isSelected {
+                print("button selected")
+//                cell.postText.lineBreakMode = .byWordWrapping
+//                cell.postText.numberOfLines = 0
+//                tableView.reloadData()
+            } else if !cell.showButton.isSelected {
+                print("button not selected")
+            }
             
             return cell
         }
@@ -150,9 +161,9 @@ extension NewsScrollViewController: UITableViewDelegate, UITableViewDataSource {
                   text.count > 0 else {
                 return 0
             }
-            if text.count > 152 {
-                return 150
-            }
+//            if text.count > 152 {
+//                return 150
+//            }
             return UITableView.automaticDimension
         case 2:
             guard let photo = news[indexPath.section].attachments?.first(where: {$0.type == "photo"})?.photo,
@@ -168,6 +179,16 @@ extension NewsScrollViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        if indexPath.row == 1 {
+//            if cell.showButton.isSelected {
+//                print("button selected")
+//                                cell.postText.lineBreakMode = .byWordWrapping
+//                                cell.postText.numberOfLines = 0
+//                                tableView.reloadData()
+//            }
+//        }
+//    }
     
     
     fileprivate func setupRefreshControl() {

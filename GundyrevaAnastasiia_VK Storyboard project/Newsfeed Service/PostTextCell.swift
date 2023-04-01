@@ -12,6 +12,8 @@ class PostTextCell: UITableViewCell {
     @IBOutlet weak var postText: UILabel!
 //    private var showButton: ShowMoreButton!
     
+    @IBOutlet weak var showButton: ShowMoreButton!
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 //        postText.addSubview(showButton)
@@ -34,6 +36,17 @@ class PostTextCell: UITableViewCell {
 //
 //    }
     
+    @IBAction func tapShowButton(_ sender: Any) {
+        isSelected.toggle()
+        if isSelected {
+            self.postText.lineBreakMode = .byWordWrapping
+            self.postText.numberOfLines = 0
+            print("button tapped, full text should be shown")
+        } else {
+            self.postText.lineBreakMode = .byTruncatingTail
+            self.postText.numberOfLines = 4
+        }
+    }
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
