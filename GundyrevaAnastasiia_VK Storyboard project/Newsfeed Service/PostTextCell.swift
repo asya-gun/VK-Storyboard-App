@@ -8,19 +8,20 @@
 import UIKit
 
 protocol PostTextCellDelegate: AnyObject {
-    func didTapButton(atSection section: Int)
+    func didTapButton(section: Int)
 }
 
 class PostTextCell: UITableViewCell {
     
     weak var delegate: PostTextCellDelegate?
+    private var title: String = ""
     private var section: Int = 0
 
     @IBOutlet weak var postText: UILabel!
 //    private var showButton: ShowMoreButton!
     var tapShow: ((PostTextCell) -> ())?
     
-    @IBOutlet weak var showButton: ShowMoreButton!
+    @IBOutlet weak var showButton: UIButton!
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -44,25 +45,35 @@ class PostTextCell: UITableViewCell {
 //
 //    }
     
-    @IBAction func tapShowButton(_ sender: Any) {
-        delegate?.didTapButton(atSection: section)
-        
-//        tapShow?(self)
-//        isSelected.toggle()
-//        if isSelected {
-//            self.postText.lineBreakMode = .byWordWrapping
-//            self.postText.numberOfLines = 0
-//            print("button tapped, full text should be shown")
-//        } else {
-//            self.postText.lineBreakMode = .byTruncatingTail
-//            self.postText.numberOfLines = 4
-//            print("button not tapped, full text concealed")
-//        }
+
+
+    @IBAction func didTapButton() {
+        delegate?.didTapButton(section: section)
+        //        tapShow?(self)
+                isSelected.toggle()
+                if isSelected {
+                    self.postText.lineBreakMode = .byWordWrapping
+                    self.postText.numberOfLines = 0
+                    print("button tapped, full text should be shown")
+                } else {
+                    self.postText.lineBreakMode = .byTruncatingTail
+                    self.postText.numberOfLines = 4
+                    print("button not tapped, full text concealed")
+                }
+    }
+    
+    func configureButton(title: String) {
+        self.title = title
+        showButton.setTitle(title, for: .normal)
+    }
+    func configureButton(section: Int) {
+        self.section = section
+        showButton.tag = section
     }
     
     func setCellSection(sectionNumber: Int) {
-        self.section = sectionNumber
-        showButton.section = section
+//        self.section = sectionNumber
+//        showButton.tag = section
     }
     override func awakeFromNib() {
         super.awakeFromNib()

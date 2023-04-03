@@ -71,7 +71,11 @@ class NewsScrollViewController: UIViewController {
 
 extension NewsScrollViewController: UITableViewDelegate, UITableViewDataSource {
     
-    @objc func buttonAction(_ sender: UIControl!) {
+    func reloadRow(atIndexPath indexPath: IndexPath) {
+        tableView.reloadRows(at: [indexPath], with: .none)
+    }
+    
+    @objc func buttonAction(_ sender: UIButton!) {
         let row = sender.tag
         print("buttonRow \(row)")
     }
@@ -103,20 +107,22 @@ extension NewsScrollViewController: UITableViewDelegate, UITableViewDataSource {
 //            print("indexPath section button: \(indexPath.section)")
 //            print("cell.showButton.tag button: \(cell.showButton.tag)")
             cell.delegate = self
+            cell.configureButton(title: String(indexPath.section))
+            cell.configureButton(section: indexPath.section)
             
-            cell.tapShow = { [weak self] cell in
-                guard let self = self,
-                      let indexPath = tableView.indexPath(for: cell) else { return }
-                if cell.showButton.isSelected {
-                    print("button selected")
-    //                cell.postText.lineBreakMode = .byWordWrapping
-    //                cell.postText.numberOfLines = 0
-    //                tableView.reloadData()
-                } else if !cell.showButton.isSelected {
-                    print("button not selected")
-                }
-                
-            }
+//            cell.tapShow = { [weak self] cell in
+//                guard let self = self,
+//                      let indexPath = tableView.indexPath(for: cell) else { return }
+//                if cell.showButton.isSelected {
+//                    print("button selected")
+//                    cell.postText.lineBreakMode = .byWordWrapping
+//                    cell.postText.numberOfLines = 0
+//                    tableView.reloadData()
+//                } else if !cell.showButton.isSelected {
+//                    print("button not selected")
+//                }
+//                
+//            }
             
             return cell
         }
@@ -179,9 +185,7 @@ extension NewsScrollViewController: UITableViewDelegate, UITableViewDataSource {
                   text.count > 0 else {
                 return 0
             }
-//            if text.count > 152 {
-//                return 150
-//            }
+
             return UITableView.automaticDimension
         case 2:
             guard let photo = news[indexPath.section].attachments?.first(where: {$0.type == "photo"})?.photo,
@@ -266,9 +270,12 @@ extension NewsScrollViewController: UITableViewDataSourcePrefetching {
 }
 
 extension NewsScrollViewController: PostTextCellDelegate {
-    func didTapButton(atSection section: Int) {
+    func didTapButton(section: Int) {
         print(section)
+        reloadRow(atIndexPath: IndexPath(row: 1, section: section))
     }
+    
+ 
     
     
 }

@@ -591,31 +591,32 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8jI-Ve-8Vp" customClass="ShowMoreButton" customModule="GundyrevaAnastasiia_VK_Storyboard_project" customModuleProvider="target">
-                                                    <rect key="frame" x="10" y="64" width="373" height="27"/>
-                                                    <color key="backgroundColor" systemColor="systemGray5Color"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6F4-rR-IOH">
+                                                    <rect key="frame" x="10" y="64" width="283" height="27"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="27" id="kld-cT-ciF"/>
+                                                        <constraint firstAttribute="height" constant="27" id="pYd-ic-aQl"/>
                                                     </constraints>
+                                                    <state key="normal" title="Button"/>
+                                                    <buttonConfiguration key="configuration" style="plain" title="Button"/>
                                                     <connections>
-                                                        <action selector="tapShowButton:" destination="P0t-fy-DBK" eventType="valueChanged" id="UPV-ft-pwg"/>
+                                                        <action selector="didTapButton" destination="P0t-fy-DBK" eventType="touchUpInside" id="LRa-Y3-f4d"/>
                                                     </connections>
-                                                </view>
+                                                </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="8jI-Ve-8Vp" firstAttribute="top" secondItem="PuU-yM-06V" secondAttribute="bottom" constant="4" id="2iU-ph-j7c"/>
-                                                <constraint firstAttribute="bottom" secondItem="8jI-Ve-8Vp" secondAttribute="bottom" id="Rnw-8P-Fyc"/>
+                                                <constraint firstItem="6F4-rR-IOH" firstAttribute="top" secondItem="PuU-yM-06V" secondAttribute="bottom" constant="4" id="1of-7v-tx1"/>
+                                                <constraint firstAttribute="trailing" secondItem="6F4-rR-IOH" secondAttribute="trailing" constant="100" id="Ic1-o7-GKt"/>
+                                                <constraint firstItem="6F4-rR-IOH" firstAttribute="leading" secondItem="dpo-nt-LIA" secondAttribute="leading" constant="10" id="K3o-uT-e8Q"/>
+                                                <constraint firstAttribute="bottom" secondItem="6F4-rR-IOH" secondAttribute="bottom" id="RN9-2J-IEc"/>
                                                 <constraint firstItem="PuU-yM-06V" firstAttribute="top" secondItem="dpo-nt-LIA" secondAttribute="top" constant="10" id="T4Z-LU-BTb"/>
-                                                <constraint firstItem="8jI-Ve-8Vp" firstAttribute="leading" secondItem="dpo-nt-LIA" secondAttribute="leading" constant="10" id="b25-Zn-tZi"/>
                                                 <constraint firstItem="PuU-yM-06V" firstAttribute="leading" secondItem="dpo-nt-LIA" secondAttribute="leading" constant="10" id="bvO-Qa-aPB"/>
-                                                <constraint firstAttribute="trailing" secondItem="8jI-Ve-8Vp" secondAttribute="trailing" constant="10" id="exC-OC-s4h"/>
                                                 <constraint firstAttribute="trailing" secondItem="PuU-yM-06V" secondAttribute="trailing" constant="10" id="qEB-kh-H3R"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" systemColor="systemGray6Color"/>
                                         <connections>
                                             <outlet property="postText" destination="PuU-yM-06V" id="qFV-fC-CUd"/>
-                                            <outlet property="showButton" destination="8jI-Ve-8Vp" id="TFY-2L-c8Q"/>
+                                            <outlet property="showButton" destination="6F4-rR-IOH" id="ODu-5c-2Dz"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="picturesCell" rowHeight="74" id="Neo-Bp-dW2" customClass="PostImageCell" customModule="GundyrevaAnastasiia_VK_Storyboard_project" customModuleProvider="target">
