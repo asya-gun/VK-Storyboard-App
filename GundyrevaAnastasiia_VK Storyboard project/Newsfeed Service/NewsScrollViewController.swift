@@ -35,6 +35,7 @@ class NewsScrollViewController: UIViewController {
     var lastDate: Date?
     var nextFrom = ""
     var isLoading = false
+    var btnSelected = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -100,6 +101,7 @@ extension NewsScrollViewController: UITableViewDelegate, UITableViewDataSource {
 
             guard let text = news[indexPath.section].text else { return UITableViewCell() }
             cell.postText.text = text
+            
 //            let textSize = cell.postText.font.pointSize * (CGFloat(text.count)/38)
 //            print(textSize)
 //            cell.showButton.addTarget(self, action: #selector(NewsScrollViewController.buttonAction(_:)), for: .touchUpInside)
@@ -107,8 +109,16 @@ extension NewsScrollViewController: UITableViewDelegate, UITableViewDataSource {
 //            print("indexPath section button: \(indexPath.section)")
 //            print("cell.showButton.tag button: \(cell.showButton.tag)")
             cell.delegate = self
-            cell.configureButton(title: String(indexPath.section))
-            cell.configureButton(section: indexPath.section)
+//            cell.configureButton(title: String(indexPath.section))
+            print(text.count)
+            if text.count < 150 {
+                cell.showButton.isHidden = true
+                
+            } else {
+                cell.showButton.isHidden = false
+                cell.configureButton(section: indexPath.section)
+            }
+            
             
 //            cell.tapShow = { [weak self] cell in
 //                guard let self = self,
@@ -272,7 +282,11 @@ extension NewsScrollViewController: UITableViewDataSourcePrefetching {
 extension NewsScrollViewController: PostTextCellDelegate {
     func didTapButton(section: Int) {
         print(section)
-        reloadRow(atIndexPath: IndexPath(row: 1, section: section))
+//        if btnSelected {
+//
+//        }
+        let indexPath = IndexPath(row: 1, section: section)
+        reloadRow(atIndexPath: indexPath)
     }
     
  

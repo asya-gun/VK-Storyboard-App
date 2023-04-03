@@ -592,12 +592,15 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6F4-rR-IOH">
-                                                    <rect key="frame" x="10" y="64" width="283" height="27"/>
+                                                    <rect key="frame" x="10" y="64" width="150" height="27"/>
                                                     <constraints>
+                                                        <constraint firstAttribute="width" constant="150" id="DdI-LE-3tD"/>
                                                         <constraint firstAttribute="height" constant="27" id="pYd-ic-aQl"/>
                                                     </constraints>
                                                     <state key="normal" title="Button"/>
-                                                    <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                                    <buttonConfiguration key="configuration" style="plain" title="Button">
+                                                        <fontDescription key="titleFontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                                                    </buttonConfiguration>
                                                     <connections>
                                                         <action selector="didTapButton" destination="P0t-fy-DBK" eventType="touchUpInside" id="LRa-Y3-f4d"/>
                                                     </connections>
@@ -605,7 +608,6 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="6F4-rR-IOH" firstAttribute="top" secondItem="PuU-yM-06V" secondAttribute="bottom" constant="4" id="1of-7v-tx1"/>
-                                                <constraint firstAttribute="trailing" secondItem="6F4-rR-IOH" secondAttribute="trailing" constant="100" id="Ic1-o7-GKt"/>
                                                 <constraint firstItem="6F4-rR-IOH" firstAttribute="leading" secondItem="dpo-nt-LIA" secondAttribute="leading" constant="10" id="K3o-uT-e8Q"/>
                                                 <constraint firstAttribute="bottom" secondItem="6F4-rR-IOH" secondAttribute="bottom" id="RN9-2J-IEc"/>
                                                 <constraint firstItem="PuU-yM-06V" firstAttribute="top" secondItem="dpo-nt-LIA" secondAttribute="top" constant="10" id="T4Z-LU-BTb"/>
