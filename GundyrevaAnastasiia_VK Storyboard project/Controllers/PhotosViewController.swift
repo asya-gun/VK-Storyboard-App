@@ -81,12 +81,8 @@ class PhotosViewController: UICollectionViewController {
         }
         
         let photo = photosArray[indexPath.row].sizes.last?.url
-//        photos[indexPath.row].sizes.last?.url
-        cell.imagePhotoCell.sd_setImage(with: URL(string: photo ?? ""))
-        
-//        print("photo loaded")
-        
-        
+        cell.configure(imageUrl: photo ?? "")
+
         return cell
     }
     

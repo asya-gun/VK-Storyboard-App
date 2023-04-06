@@ -37,6 +37,8 @@ class GroupsTableViewController: UITableViewController {
     var filteredGroups = [Group]()
     
     let opq = OperationQueue()
+    
+    var photoService: PhotoService?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,6 +46,8 @@ class GroupsTableViewController: UITableViewController {
         searchBar.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50)
         self.searchBar.delegate = self
         tableView.tableHeaderView = searchBar
+        
+        photoService = PhotoService(container: tableView)
         
         let url = "https://api.vk.com/method/groups.get"
         let parameters: Parameters = [
@@ -162,8 +166,9 @@ class GroupsTableViewController: UITableViewController {
         selectedGroup = group
         
         cell.labelGroupCell.text = selectedGroup?.name
-        if let image = selectedGroup?.photo {
-            cell.imageGroupCell.sd_setImage(with: URL(string: image))
+        if let imageUrl = selectedGroup?.photo {
+            let image = photoService?.photo(atIndexPath: indexPath, byUrl: imageUrl)
+            cell.configure(image: image ?? UIImage())
         }
 
         return cell

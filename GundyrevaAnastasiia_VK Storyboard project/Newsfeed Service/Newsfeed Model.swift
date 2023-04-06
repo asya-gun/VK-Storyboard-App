@@ -14,6 +14,17 @@ struct NewsfeedResponse: Decodable {
 struct Newsfeed: Decodable {
     var groups: [NewsGroups]
     var items: [NewsItems]
+    var nextFrom: String
+    enum CodingKeys: String, CodingKey {
+        case groups, items
+        case nextFrom = "next_from"
+    }
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.groups = try container.decode([NewsGroups].self, forKey: .groups)
+        self.items = try container.decode([NewsItems].self, forKey: .items)
+        self.nextFrom = try container.decode(String.self, forKey: .nextFrom)
+    }
 }
 
 struct NewsGroups: Decodable {
@@ -29,6 +40,7 @@ struct NewsGroups: Decodable {
 }
 
 struct NewsItems: Decodable {
+    var ownerId: Int
     var attachments: [Attachment]?
     var comments: Comments
     var date: Date
@@ -36,7 +48,8 @@ struct NewsItems: Decodable {
     var reposts: Reposts
     var text: String?
     
-    enum CodingKeys: CodingKey {
+    enum CodingKeys: String, CodingKey {
+        case ownerId = "owner_id"
         case attachments
         case comments
         case date
@@ -47,6 +60,7 @@ struct NewsItems: Decodable {
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.ownerId = try container.decode(Int.self, forKey: .ownerId)
         self.attachments = try container.decodeIfPresent([Attachment].self, forKey: .attachments)
         self.comments = try container.decode(Comments.self, forKey: .comments)
         
@@ -59,6 +73,10 @@ struct NewsItems: Decodable {
         self.reposts = try container.decode(Reposts.self, forKey: .reposts)
         self.text = try container.decodeIfPresent(String.self, forKey: .text)
     }
+//    func getStringDate() -> String {
+//        let formatter = DateFormatter()
+//        return formatter.convertDate
+//    }
     
 }
 
@@ -104,5 +122,9 @@ struct NewsPhoto: Decodable {
 }
 
 struct NewsPhotoSizes: Decodable {
+    var width: Int
+    var height: Int
     var url: String
+    
+    var aspectRatio: CGFloat { return CGFloat(height)/CGFloat(width) }
 }

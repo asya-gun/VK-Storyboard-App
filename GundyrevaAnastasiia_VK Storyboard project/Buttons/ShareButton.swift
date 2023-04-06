@@ -80,5 +80,9 @@ class ShareButton: UIControl {
         updateShareNumber()
     }
     
+    func setShareNumber(number: Int) {
+        shareNumber += number
+    }
+    
 
 }

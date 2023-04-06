@@ -21,5 +21,9 @@ class PostImageCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
+    func configure(url: String) {
+        postImage.sd_setImage(with: URL(string: url))
+    }
 
 }
