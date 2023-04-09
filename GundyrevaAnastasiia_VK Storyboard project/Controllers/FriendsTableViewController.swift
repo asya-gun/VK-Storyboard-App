@@ -65,8 +65,6 @@ class FriendsTableViewController: UITableViewController {
             self.usersVK = arrayFriends
             print("users vk updated to realm")
             self.updateFriendsInRealm()
-
-//            self.tableView.reloadData()
 //            self.sortedFriends = self.sort(friends: self.users)
 //            self.tableView.reloadData()
 //            self.saveFriends()
@@ -138,12 +136,10 @@ class FriendsTableViewController: UITableViewController {
         let firstChar = sortedFriends.keys.sorted()[indexPath.section]
         let friends = sortedFriends[firstChar]!
         
-        let friend: Friend = friends[indexPath.row]
-        
-        selectedFriend = friend
+        selectedFriend = friends[indexPath.row]
         cell.labelFriendCell.text = (selectedFriend?.lastName ?? "") + " " + (selectedFriend?.firstName ?? "")
         if let imageUrl = selectedFriend?.photo {
-            cell.imageFriendCell.sd_setImage(with: URL(string: imageUrl))
+//            cell.imageFriendCell.sd_setImage(with: URL(string: imageUrl))
             let image = photoService?.photo(atIndexPath: indexPath, byUrl: imageUrl)
             cell.imageFriendCell.image = image
         }
@@ -158,7 +154,7 @@ class FriendsTableViewController: UITableViewController {
         guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "FriendsHeader") as? FriendsHeader else {
             preconditionFailure()
         }
-        header.friendsHeaderLabel.text = String(sortedFriends.keys.sorted()[section])
+        header.friendsHeaderLabel.text = String(sortedFriends.keys.sorted()[section]).capitalized
 
         return header
     }
@@ -169,9 +165,7 @@ class FriendsTableViewController: UITableViewController {
         let firstChar = sortedFriends.keys.sorted()[indexPath.section]
         let friends = sortedFriends[firstChar]!
         
-        let friend: Friend = friends[indexPath.row]
-        
-        selectedFriend = friend
+        selectedFriend = friends[indexPath.row]
 //        performSegue(withIdentifier: "FriendsSegue", sender: self)
 //        let photosViewControllerVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PhotosViewController") as! PhotosViewController
         let photosViewControllerVC = storyboard?.instantiateViewController(withIdentifier: "PhotosViewController") as! PhotosViewController
@@ -200,11 +194,6 @@ class FriendsTableViewController: UITableViewController {
 //
 //    }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        
-    }
     
     func saveFriends() {
         let allFriends = realm.objects(Friends.self)

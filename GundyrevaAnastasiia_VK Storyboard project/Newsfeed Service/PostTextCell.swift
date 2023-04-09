@@ -21,5 +21,8 @@ class PostTextCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    func configure(text: String) {
+        postText.text = text
+    }
 
 }

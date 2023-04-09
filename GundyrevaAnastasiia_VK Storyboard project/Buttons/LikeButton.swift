@@ -120,6 +120,10 @@ class LikeButton: UIControl {
         })
     }
     
+    func setLikeNumber(number: Int) {
+        likeNumber = number
+    }
+    
 //    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
 //        isSelected = !isSelected
 //        updateLikeState()
